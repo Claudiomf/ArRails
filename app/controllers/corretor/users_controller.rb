@@ -40,13 +40,13 @@ class Corretor::UsersController < Corretor::CorretorController
   # POST /users
   # POST /users.json
   def create
-    @user.attributes = params[:user]
-    @user.role_ids = params[:user][:role_ids] if params[:user]
+    #@user.attributes = params[:user]
+    #@user.role_ids = params[:user][:role_ids] if params[:user]
     @user = User.new(params[:user])
     respond_to do |format|
       if @user.save
         flash[:notice] = flash[:notice].to_a.concat @user.errors.full_messages
-        format.html { redirect_to admin_users_path, :notice => 'User was successfully created.' }
+        format.html { redirect_to corretor_users_path, :notice => 'User was successfully created.' }
         format.json { render :json => @user, :status => :created, :location => @user }
       else
         flash[:notice] = flash[:notice].to_a.concat @user.errors.full_messages
@@ -67,7 +67,7 @@ class Corretor::UsersController < Corretor::CorretorController
  
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to admin_users_path, :notice => 'User was successfully updated.' }
+        format.html { redirect_to corretor_users_path, :notice => 'User was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render :action => "edit" }
@@ -83,7 +83,7 @@ class Corretor::UsersController < Corretor::CorretorController
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to admin_users_url }
+      format.html { redirect_to corretor_users_url }
       format.json { head :ok }
     end
   end
