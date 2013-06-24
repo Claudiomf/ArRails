@@ -1,7 +1,7 @@
 ArRails::Application.routes.draw do
    root :to => "home#index"
   
-  devise_for :users, :path_names => {:sign_in => "login", :sign_out => "logout"}, :path => "usr"
+  devise_for :users, :path_names => {:sign_in => "login", :sign_out => "logout"}, :path => "usr", :skip => [:registrations] 
   
   namespace :corretor do
     match '/' => 'users#index'
