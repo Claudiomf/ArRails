@@ -1,0 +1,41 @@
+<%= form_for(@imovel) do |f| %>
+  <% if @imovel.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@imovel.errors.count, "error") %> prohibited this imovel from being saved:</h2>
+
+      <ul>
+      <% @imovel.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :cod_ref %><br />
+    <%= f.text_field :cod_ref %>
+  </div>
+  <div class="field">
+    <%= f.label :nome %><br />
+    <%= f.text_field :nome %>
+  </div>
+  <div class="field">
+    <%= f.label :localizacao %><br />
+    <%= f.text_field :localizacao %>
+  </div>
+  <div class="field">
+    <%= f.label :descricao %><br />
+    <%= f.text_area :descricao %>
+  </div>
+  <div class="field">
+    <%= f.label :imovel_dados_gerais_id %><br />
+    <%= f.number_field :imovel_dados_gerais_id %>
+  </div>
+  <div class="field">
+    <%= f.label :imovel_adm_id %><br />
+    <%= f.number_field :imovel_adm_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

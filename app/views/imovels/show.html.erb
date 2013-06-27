@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Cod ref:</b>
+  <%= @imovel.cod_ref %>
+</p>
+
+<p>
+  <b>Nome:</b>
+  <%= @imovel.nome %>
+</p>
+
+<p>
+  <b>Localizacao:</b>
+  <%= @imovel.localizacao %>
+</p>
+
+<p>
+  <b>Descricao:</b>
+  <%= @imovel.descricao %>
+</p>
+
+<p>
+  <b>Imovel dados gerais:</b>
+  <%= @imovel.imovel_dados_gerais_id %>
+</p>
+
+<p>
+  <b>Imovel adm:</b>
+  <%= @imovel.imovel_adm_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_imovel_path(@imovel) %> |
+<%= link_to 'Back', imovels_path %>
