@@ -30,6 +30,7 @@ gem 'less-rails'
 gem "devise"
 gem "cancan"
 gem 'ransack'
+gem 'brazilian-rails'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

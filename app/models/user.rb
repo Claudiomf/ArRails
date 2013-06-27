@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  usar_como_cpf :cpf
   has_and_belongs_to_many :roles
   
   # Include default devise modules. Others available are:
