@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   usar_como_cpf :cpf
   has_and_belongs_to_many :roles
+  has_many :imovels
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
