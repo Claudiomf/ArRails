@@ -1,4 +1,5 @@
 class ImovelsController < ApplicationController
+  load_and_authorize_resource
   # GET /imovels
   # GET /imovels.json
   def index
@@ -42,8 +43,10 @@ class ImovelsController < ApplicationController
   # POST /imovels.json
   def create
     @imovel = Imovel.new(params[:imovel])
-    if @imovel.save
-      @imovel.update_attributes(:cadastrado_por_id => current_user.id)
+    
+    @imovel.attributes = {:cadastrado_por_id => current_user.id}    
+    if has_role?(current_user, 'corretor')
+      @imovel.attributes = {:ativo => false}
     end
     
     respond_to do |format|

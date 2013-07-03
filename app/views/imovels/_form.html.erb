@@ -49,7 +49,10 @@
     <%= select("imovel", "vendedor_id", User.all.collect {|p| [ p.username, p.id ] } , {include_blank: '----'}) %> <br/>
     
     Vendido <%= check_box("imovel", "vendido")%><br />
-    Ativo <%= check_box("imovel", "ativo")%>
+
+    <% if can? :destroy, @imovel %>
+        Ativo <%= check_box("imovel", "ativo")%>
+	<% end %>
 	
   <div class="actions">
     <%= f.submit %>
