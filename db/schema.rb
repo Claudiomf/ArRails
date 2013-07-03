@@ -11,17 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130628161053) do
-
-  create_table "detalhes_imovels", :id => false, :force => true do |t|
-    t.integer "imovel_detalhe_id"
-    t.integer "imovel_id"
-  end
+ActiveRecord::Schema.define(:version => 20130702213939) do
 
   create_table "imovel_detalhes", :force => true do |t|
     t.string   "nome"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "imovel_detalhes_imovels", :id => false, :force => true do |t|
+    t.integer "imovel_detalhe_id"
+    t.integer "imovel_id"
   end
 
   create_table "imovel_tansacaos", :force => true do |t|
@@ -50,13 +50,13 @@ ActiveRecord::Schema.define(:version => 20130628161053) do
     t.integer  "vagas"
     t.integer  "imovel_transacao_id"
     t.integer  "imovel_tipo_id"
-    t.integer  "responsavel_id"
-    t.integer  "vendedor_id"
-    t.integer  "cadastrado_por_id"
     t.boolean  "vendido"
     t.boolean  "ativo"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.integer  "responsavel_id"
+    t.integer  "vendedor_id"
+    t.integer  "cadastrado_por_id"
   end
 
   create_table "roles", :force => true do |t|

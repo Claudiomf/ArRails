@@ -12,29 +12,45 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :cod_ref %><br />
+    <%= f.label "Código de Referência" %>
     <%= f.text_field :cod_ref %>
   </div>
   <div class="field">
-    <%= f.label :nome %><br />
+    <%= f.label :nome %>
     <%= f.text_field :nome %>
   </div>
   <div class="field">
-    <%= f.label :localizacao %><br />
+    <%= f.label :localizacao %>
     <%= f.text_field :localizacao %>
   </div>
   <div class="field">
-    <%= f.label :descricao %><br />
+    <%= f.label :descricao %>
     <%= f.text_area :descricao %>
   </div>
-  <div class="field">
-    <%= f.label :imovel_dados_gerais_id %><br />
-    <%= f.number_field :imovel_dados_gerais_id %>
-  </div>
-  <div class="field">
-    <%= f.label :imovel_adm_id %><br />
-    <%= f.number_field :imovel_adm_id %>
-  </div>
+  
+  <h2> Detalhes </h2> 
+    <% ImovelDetalhe.find(:all).each do |c| %>
+        <%= check_box_tag'imovel[imovel_detalhe_ids][]', c.id, @imovel.imovel_detalhes.include?(c) %><%= c.nome %><br/>
+  	<% end %>
+    
+
+	<h2> Dados Gerais </h2> 
+	Transação:
+    <%= select("imovel", "imovel_transacao_id", ImovelTansacao.all.collect {|p| [ p.nome, p.id ] }) %>    
+	Tipo do Imóvel:
+	<%= select("imovel", "imovel_tipo_id", ImovelTipo.all.collect {|p| [ p.nome, p.id ] }) %>
+	
+	
+    <h2> Adimistração </h2> 
+	Responsável:
+    <%= select("imovel", "responsavel_id", User.all.collect {|p| [ p.username, p.id ] } , {include_blank: '----'}) %> <br/>   
+	
+	Vendedor:
+    <%= select("imovel", "vendedor_id", User.all.collect {|p| [ p.username, p.id ] } , {include_blank: '----'}) %> <br/>
+    
+    Vendido <%= check_box("imovel", "vendido")%><br />
+    Ativo <%= check_box("imovel", "ativo")%>
+	
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -1,8 +1,9 @@
-class imovelsController < ApplicationController
+class ImovelsController < ApplicationController
   # GET /imovels
   # GET /imovels.json
   def index
     @imovels = Imovel.all
+   
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,7 +42,10 @@ class imovelsController < ApplicationController
   # POST /imovels.json
   def create
     @imovel = Imovel.new(params[:imovel])
-
+    if @imovel.save
+      @imovel.update_attributes(:cadastrado_por_id => current_user.id)
+    end
+    
     respond_to do |format|
       if @imovel.save
         format.html { redirect_to @imovel, notice: 'Imovel was successfully created.' }

@@ -1,5 +1,5 @@
 ArRails::Application.routes.draw do
-  resources :imovels
+  resources :imovels, :path => "imoveis"
 
    root :to => "home#index"
   

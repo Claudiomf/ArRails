@@ -6,8 +6,6 @@
     <th>Nome</th>
     <th>Localizacao</th>
     <th>Descricao</th>
-    <th>Imovel dados gerais</th>
-    <th>Imovel adm</th>
     <th></th>
     <th></th>
     <th></th>
@@ -19,8 +17,6 @@
     <td><%= imovel.nome %></td>
     <td><%= imovel.localizacao %></td>
     <td><%= imovel.descricao %></td>
-    <td><%= imovel.imovel_dados_gerais_id %></td>
-    <td><%= imovel.imovel_adm_id %></td>
     <td><%= link_to 'Show', imovel %></td>
     <td><%= link_to 'Edit', edit_imovel_path(imovel) %></td>
     <td><%= link_to 'Destroy', imovel, confirm: 'Are you sure?', method: :delete %></td>
