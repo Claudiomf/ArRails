@@ -1,7 +1,8 @@
 ArRails::Application.routes.draw do
   resources :imovels, :path => "imoveis"
-
-   root :to => "home#index"
+  resources :images
+  
+  root :to => "home#index"
   
   devise_for :users, :path_names => {:sign_in => "login", :sign_out => "logout"}, :path => "usr", :skip => [:registrations] 
   

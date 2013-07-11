@@ -1,5 +1,13 @@
 <p id="notice"><%= notice %></p>
 
+<div id="paintings">
+  <% @imovel.images.each do |image| %>
+    <div class="painting">
+		<%= image_tag image.image_url(:thumb) if image.image? %>
+    </div>
+  <% end %>
+</div>
+
 <p>
   <b>Cod ref:</b>
   <%= @imovel.cod_ref %>

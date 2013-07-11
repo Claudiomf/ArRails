@@ -1,0 +1,14 @@
+<%= form_for @image, :html => {:multipart => true} do |f| %>
+  <%= f.hidden_field :imovel_id %>
+  
+  <p>
+    <%= f.file_field :image %>
+  </p>
+  
+  <p>
+    <%= f.label :remote_image_url, "or image URL" %><br />
+    <%= f.text_field :remote_image_url %>
+  </p>
+  
+  <p><%= f.submit %></p>
+<% end %>

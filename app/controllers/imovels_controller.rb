@@ -65,6 +65,7 @@ class ImovelsController < ApplicationController
   def update
     @imovel = Imovel.find(params[:id])
 
+ 
     respond_to do |format|
       if @imovel.update_attributes(params[:imovel])
         format.html { redirect_to @imovel, notice: 'Imovel was successfully updated.' }
