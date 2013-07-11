@@ -1,5 +1,5 @@
 class Corretor::CorretorController < ApplicationController
-  layout "corretor"
+  #layout "corretor"
    
   def current_ability
     @current_ability ||= CorretorAbility.new(current_user)

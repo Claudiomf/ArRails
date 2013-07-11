@@ -1,3 +1,6 @@
-<%= form_for [:corretor, @user], :url => corretor_users_path, :html => { :class => :form } do |f| -%>
-  <%= render :partial => "form", :locals => {:f => f} %>
-<% end -%>
+<h1>Cadastrar Corretor</h1>
+<fieldset>
+	<%= form_for [:corretor, @user], :url => corretor_users_path, :html => { :class => :form } do |f| -%>
+	  <%= render :partial => "form", :locals => {:f => f} %>
+	<% end -%>
+</fieldset>

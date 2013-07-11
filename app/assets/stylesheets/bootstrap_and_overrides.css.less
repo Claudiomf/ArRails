@@ -1,5 +1,12 @@
 @import "twitter/bootstrap/bootstrap";
+
+body {
+  padding: 40px;
+}
+
 @import "twitter/bootstrap/responsive";
+
+
 
 // Set the correct sprite paths
 @iconSpritePath: asset-path("twitter/bootstrap/glyphicons-halflings.png");
@@ -12,9 +19,128 @@
 @fontAwesomeEotPath_iefix: asset-path("fontawesome-webfont.eot?#iefix&v=3.0.2");
 @fontAwesomeWoffPath: asset-path("fontawesome-webfont.woff?v=3.0.2");
 @fontAwesomeTtfPath: asset-path("fontawesome-webfont.ttf?v=3.0.2");
+@fontAwesomeSvgPath: asset-url("fontawesome-webfont.svg#fontawesomeregular");
+
 
 // Font Awesome
-@import "fontawesome";
+@import "fontawesome/font-awesome";
+
+//@navBarBgStart: #3D368B;
+//@navBarBgEnd: #232051;
+
+//@navbarBackground:  #3D368B;
+//@navbarBackgroundHighlight: #232051;
+
+//.dropdown-menu {
+  //   background-color: #2F2A6C; // defaults to #333
+//}
+//li a {
+//      color: #999;
+//      text-shadow: 0 1px 0 rgba(0,0,0,.5);
+//      &:hover {
+//        #gradient > .vertical(@navBarBgEnd, #1B183E);
+//        color: @white;
+//      }
+//    }
+
+
+//Listagens
+th.rotulo {
+  background-color: #d9edf7;
+}
+
+.table-visualizacao {
+  //background-color: #f2f6f8; cinzinha claro
+  background-color: #ecf4f8;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  width: 100%;
+  border-spacing: 0;
+  
+  padding: 60px;
+  font-size: 14px;
+  line-height: 30px;
+  color: inherit;
+
+}
+
+.table-hero {
+  background-color: #f9f9f9;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  padding: 60px;
+  margin-bottom: 30px;
+  font-size: 14px;
+  font-weight: 200;
+  line-height: 30px;
+  color: inherit;
+}
+
+.table-hero th {
+  text-align: left;
+  width: 20%;
+}
+
+.table-visualizacao caption {
+  padding: 10px;
+  padding-left: 20px;
+  background-color: #ecf4f8;
+  font-size: 22px;
+  font-weight: bold;
+  color: #3a87ad;
+  //color: #b3b2b2; cinza
+  text-align: left;
+}
+
+.table-visualizacao tr {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.table-visualizacao th {
+  padding-right: 0;
+  text-align: right;
+  width: 10%;
+  border: 0;
+}
+
+.table-visualizacao td {
+  padding-left: 2px;
+  text-align: left;
+  color: #707070;
+  border: 0;
+}
+
+.form-actions-white {
+  padding: 19px 20px 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  border-top: 1px solid #e5e5e5;
+  *zoom: 1;
+}
+
+.form-actions-white:before,
+.form-actions-white:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+.form-actions-white:after {
+  clear: both;
+}
+
+.h2-pages{
+  border-bottom: 1px solid #e5e5e5;
+  padding: 10px 20px 14px;
+  margin-bottom: 10px;
+}
+//Fim listagens
 
 // Glyphicons
 //@import "twitter/bootstrap/sprites.less";
