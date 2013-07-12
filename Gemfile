@@ -26,6 +26,7 @@ gem 'jquery-rails'
 
 gem "therubyracer", :require => 'v8'
 gem 'less-rails'
+gem 'jasny_bootstrap_extension_rails'
 
 gem "devise"
 gem "cancan"

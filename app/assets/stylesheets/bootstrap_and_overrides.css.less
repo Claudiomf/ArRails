@@ -15,12 +15,13 @@ body {
 // Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
 // Note: If you use asset_path() here, your compiled bootstrap_and_overrides.css will not
 //       have the proper paths. So for now we use the absolute path.
-@fontAwesomeEotPath: asset-path("fontawesome-webfont.eot?v=3.0.2");
-@fontAwesomeEotPath_iefix: asset-path("fontawesome-webfont.eot?#iefix&v=3.0.2");
-@fontAwesomeWoffPath: asset-path("fontawesome-webfont.woff?v=3.0.2");
-@fontAwesomeTtfPath: asset-path("fontawesome-webfont.ttf?v=3.0.2");
-@fontAwesomeSvgPath: asset-url("fontawesome-webfont.svg#fontawesomeregular");
 
+//Substitui: asset-path aqui por image-url e resolvi o problema dos icones. Eles não eram exibidos.
+@fontAwesomeEotPath: image-url("fontawesome-webfont.eot?v=3.0.2");
+@fontAwesomeEotPath_iefix: image-url("fontawesome-webfont.eot?#iefix&v=3.0.2");
+@fontAwesomeWoffPath: image-url("fontawesome-webfont.woff?v=3.0.2");
+@fontAwesomeTtfPath: image-url("fontawesome-webfont.ttf?v=3.0.2");
+@fontAwesomeSvgPath: image-url("fontawesome-webfont.svg#fontawesomeregular");
 
 // Font Awesome
 @import "fontawesome/font-awesome";
@@ -43,6 +44,20 @@ body {
 //      }
 //    }
 
+//Correcao CSS
+
+//O modal aparece opaco quando eu uso navbar-fixed. Isso ocorre porque o z-index do navbar-fixed é 1030 enquanto que do modal-backdrop é 1040.
+//Resolvi diminuindo o z-index
+.modal-backdrop {
+    z-index: 1020;
+}
+
+//Fim Correcao
+
+//Modal
+.modal-login-right { 
+  width: 300px;
+}
 
 //Listagens
 th.rotulo {
@@ -141,6 +156,14 @@ th.rotulo {
   margin-bottom: 10px;
 }
 //Fim listagens
+
+//Link
+.link-icon:focus, .link-icon:hover {
+  text-decoration: none;
+}
+
+
+//Fim Links
 
 // Glyphicons
 //@import "twitter/bootstrap/sprites.less";

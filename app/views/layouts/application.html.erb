@@ -67,7 +67,7 @@
 									</ul>
 								</li>
 								<li>
-									<a href="#">Mensagens</a>
+									<a href="#"><i class="icon-envelope icon-white"></i> Mensagens</a>
 								</li>
 							</ul>
 							<ul class="nav pull-right">
@@ -76,48 +76,51 @@
 								<% if user_signed_in? %>
   								<li class="dropdown">
   										<%= link_to(corretor_users_path, :data => {:toggle=>"dropdown"}, :class => "dropdown-toggle") do %>
-  									 	 <%= current_user.email %><strong class="caret"></strong>
+  									 	 <i class="icon-user icon-white"></i> <%= current_user.email %><strong class="caret"></strong>
   								 		<% end %>
   								 		<ul class="dropdown-menu">
                       <li>
-                        <a href="#"><i class="icon-music"></i> Painel de Controle</a>
+                        <a href="#"><i class="icon-wrench"></i> Painel de Controle</a>
                       </li>
                       <li>
-                        <a href="#"><i class="icon-envelope"></i>Mensagens</a>
+                        <a href="#"><i class="icon-envelope"></i> Mensagens</a>
                       </li>
                       <li class="divider">
                       </li>
                       <li>
-                        <a href="#">Sair</a>
+                          <%= link_to(destroy_user_session_path, :method=>'delete') do %>
+                            <i class="icon-off"></i> Sair
+                          <% end %>
                       </li>
                     </ul>
   								</li>
 								<% else%>
                     <li>
-                      <button id="modal-412163" href="#modal-container-412163" role="button" class="btn btn-primary" type="button" data-toggle="modal">Login</button>
-                      <div id="modal-container-412163" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h3 id="myModalLabel">
-                          Login
-                        </h3>
-                      </div>
-                      <div class="modal-body">
-                        <p>
-                          
-                          
-                        </p>
-                        
-                        <p>
-                          
-                        </p>                      
-  
-                      </div>
-                      <div class="modal-footer">
-                         <button class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button> <button class="btn btn-primary">Logar</button>
-                      </div>
-                    </div> 
+                      <!-- Button to trigger modal -->
+                      <a href="#myModal" role="button" class="link" data-toggle="modal"><i class="iconic-key-stroke"></i> Login</a>
                       
+                      <!-- Modal -->
+                      <div id="myModal" class="modal hide fade modal-login-right" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :class => "form-horizontal" ) do |f| -%>
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 id="myModalLabel">Login</h3>
+                          </div>
+                          <div class="modal-body">
+                              
+                                <%= render :partial => "devise/sessions/new", :locals => {:f => f} %>
+                                
+                              
+                          </div>
+                          <div class="modal-footer">
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                            <%= f.submit "Entrar", :class => "btn btn-primary" %>
+                          </div>
+                        <% end -%>
+                      </div>
+                      
+                    </li>
+                    <li>
                     </li>
                 <%end%>
 							</ul>
@@ -139,11 +142,15 @@
 		<% if user_signed_in? %>
 			Você está logado.
 			<br>
-			<li><%= link_to(current_user.email, corretor_users_path) %></li>
-			<li> <%= link_to('Sair', destroy_user_session_path, :method=>'delete', :confirm => 'Deseja sair do sistema?') %> 2 </li>
+			Olá<strong> </strong>!
+			<br>
+			<br>
+			<li> <%= link_to('Sair', destroy_user_session_path, :method=>'delete', :confirm => 'Deseja sair do sistema?') %></li>
 		<% else%>
 			<li> <%= link_to('Login', new_user_session_path) %> </li>
 		<%end%>
+		<br>
+		<br>
 		Menu direita
 	</div>
 	<div class="span9">
@@ -166,7 +173,9 @@
    <div class="navbar navbar-inverse navbar-fixed-bottom navbar-fluid">
      <div class="navbar-inner">
        <div class="container-fluid">
-         <a href="#" class="brand">2013 VADER Tecnologia</a>
+         <p class="muted">
+           2013 VADER Tecnologia
+         </p>
        </div>
      </div>
    </div>
@@ -174,6 +183,8 @@
  </div> 
  
 </div>
+
 </div>
+
 </body>
 </html>

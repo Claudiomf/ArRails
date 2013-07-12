@@ -1,5 +1,5 @@
+<h2>Editar corretor</h2>
 <%= form_for [:corretor, @user], :url => corretor_user_path(@user), :html => { :class => :form, :id => "edit_user" } do |f| -%>
   <input name="_method" type="hidden" value="put" />
-  <input name="_action" type="hidden" value="editar" />
   <%= render :partial => "form", :locals => {:f => f} %>
 <% end -%>
