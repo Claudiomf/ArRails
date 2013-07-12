@@ -16,7 +16,8 @@ class ImovelsController < ApplicationController
   # GET /imovels/1.json
   def show
     @imovel = Imovel.find(params[:id])
-
+    @images = @imovel.images 
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @imovel }
@@ -27,6 +28,7 @@ class ImovelsController < ApplicationController
   # GET /imovels/new.json
   def new
     @imovel = Imovel.new
+    @imovel.images.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -37,6 +39,7 @@ class ImovelsController < ApplicationController
   # GET /imovels/1/edit
   def edit
     @imovel = Imovel.find(params[:id])
+    @imovel.images.build
   end
 
   # POST /imovels
@@ -88,4 +91,5 @@ class ImovelsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
 end

@@ -42,11 +42,10 @@ gem 'brazilian-rails'
 
 # Gem para salvar aquivos e imagens
 gem 'carrierwave'
-
-
-#gem 'cloudinary'
-# gem install rmagick --platform=ruby -- --with-opt-lib=c:/RailsInstaller/Ruby1.9.3/ImageMagick/lib --with-opt-include=c:/RailsInstaller/Ruby1.9.3/ImageMagick/include
 gem 'rmagick'
+
+# para modelos aninhados
+gem 'nested_form'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

@@ -99,6 +99,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.23)
     multi_json (1.7.7)
+    nested_form (0.3.2)
     orm_adapter (0.4.0)
     pg (0.15.1-x86-mingw32)
     polyamorous (0.5.0)
@@ -173,6 +174,7 @@ DEPENDENCIES
   devise
   jquery-rails
   less-rails
+  nested_form
   pg
   rails (= 3.2.1)
   ransack

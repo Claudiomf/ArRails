@@ -1,21 +1,5 @@
 <h1>Editing imovel</h1>
 
-<div id="paintings">
-  
-  <% @imovel.images.each do |image| %>
-    <div class="painting">
-		<%= image_tag image.image_url(:thumb) if image.image? %>
-      	<div class="actions">
-        	<%= link_to "edit", edit_image_path(image) %> |
-        	<%= link_to "remove", image, :confirm => 'Are you sure?', :method => :delete %>
-      	</div>
-    </div>
-  <% end %>
-  
-  <%= link_to "Add a Image", new_image_path(:imovel_id => @imovel) %>
-  <div class="clear"></div>
-</div>
-
 
 <%= render 'form' %>
 

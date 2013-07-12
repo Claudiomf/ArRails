@@ -1,62 +1,75 @@
-<%= form_for(@imovel) do |f| %>
-  <% if @imovel.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@imovel.errors.count, "error") %> prohibited this imovel from being saved:</h2>
+<%= nested_form_for(@imovel, :html => {:multipart => true}) do |f| %>
+<% if @imovel.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(@imovel.errors.count, "error") %> prohibited this imovel from being saved:</h2>
 
-      <ul>
-      <% @imovel.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+	<ul>
+		<% @imovel.errors.full_messages.each do |msg| %>
+		<li>
+			<%= msg %>
+		</li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
 
 
-  <div class="field">
-    <%= f.label "Código de Referência" %>
-    <%= f.text_field :cod_ref %>
+<div class="field">
+    <%= f.fields_for :images do |image_form|  %>
+    <%= image_tag(image_form.object.image.thumb.url) if image_form.object.image? %>
+    <%= image_form.file_field :image %>
+    <%= image_form.link_to_remove t('.remove_image') %>
+    <% end %>
+    <%= f.link_to_add t('.add_image'), :images %>
   </div>
-  
-  <div class="field">
-    <%= f.label :nome %>
-    <%= f.text_field :nome %>
-  </div>
-  <div class="field">
-    <%= f.label :localizacao %>
-    <%= f.text_field :localizacao %>
-  </div>
-  <div class="field">
-    <%= f.label :descricao %>
-    <%= f.text_area :descricao %>
-  </div>
-  
-  <h2> Detalhes </h2> 
-    <% ImovelDetalhe.find(:all).each do |c| %>
-        <%= check_box_tag'imovel[imovel_detalhe_ids][]', c.id, @imovel.imovel_detalhes.include?(c) %><%= c.nome %><br/>
-  	<% end %>
-    
 
-	<h2> Dados Gerais </h2> 
-	Transação:
-    <%= select("imovel", "imovel_transacao_id", ImovelTansacao.all.collect {|p| [ p.nome, p.id ] }) %>    
-	Tipo do Imóvel:
-	<%= select("imovel", "imovel_tipo_id", ImovelTipo.all.collect {|p| [ p.nome, p.id ] }) %>
-	
-	
-    <h2> Adimistração </h2> 
-	Responsável:
-    <%= select("imovel", "responsavel_id", User.all.collect {|p| [ p.username, p.id ] } , {include_blank: '----'}) %> <br/>   
-	
-	Vendedor:
-    <%= select("imovel", "vendedor_id", User.all.collect {|p| [ p.username, p.id ] } , {include_blank: '----'}) %> <br/>
-    
-    Vendido <%= check_box("imovel", "vendido")%><br />
+<div class="field">
+	<%= f.label "Código de Referência" %>
+	<%= f.text_field :cod_ref %>
+</div>
 
-    <% if can? :destroy, @imovel %>
-        Ativo <%= check_box("imovel", "ativo")%>
-	<% end %>
-  
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<div class="field">
+	<%= f.label :nome %>
+	<%= f.text_field :nome %>
+</div>
+<div class="field">
+	<%= f.label :localizacao %>
+	<%= f.text_field :localizacao %>
+</div>
+<div class="field">
+	<%= f.label :descricao %>
+	<%= f.text_area :descricao %>
+</div>
+
+<h2> Detalhes </h2>
+<% ImovelDetalhe.find(:all).each do |c| %>
+<%= check_box_tag'imovel[imovel_detalhe_ids][]', c.id, @imovel.imovel_detalhes.include?(c) %><%= c.nome %>
+<br/>
+<% end %>
+
+<h2> Dados Gerais </h2>
+Transação:
+<%= select("imovel", "imovel_transacao_id", ImovelTansacao.all.collect {|p| [ p.nome, p.id ] }) %>
+Tipo do Imóvel:
+<%= select("imovel", "imovel_tipo_id", ImovelTipo.all.collect {|p| [ p.nome, p.id ] }) %>
+
+<h2> Adimistração </h2>
+Responsável:
+<%= select("imovel", "responsavel_id", User.all.collect {|p| [ p.username, p.id ] } , {include_blank: '----'}) %>
+<br/>
+
+Vendedor:
+<%= select("imovel", "vendedor_id", User.all.collect {|p| [ p.username, p.id ] } , {include_blank: '----'}) %>
+<br/>
+
+Vendido <%= check_box("imovel", "vendido")%>
+<br />
+
+<% if can? :destroy, @imovel %>
+Ativo <%= check_box("imovel", "ativo")%>
+<% end %>
+
+<div class="actions">
+	<%= f.submit %>
+</div>
 <% end %>
