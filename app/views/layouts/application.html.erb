@@ -10,75 +10,75 @@
 <!-- Cabecalho -->
 
 <div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span12">
-			<div class="navbar navbar-inverse navbar-fixed-top">
-				<div class="navbar-inner">
-					<div class="container-fluid">
-						<a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar">
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</a>
-						<a href="#" class="brand">
-						  <% #= image_tag("logo_ar_imoveis.png") %>
-						  AR Imóveis
-						</a>
-						<div class="nav-collapse collapse navbar-responsive-collapse">
-							<ul class="nav">
-								<li class="active">
-									<a href="#">Home</a>
-								</li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-									 Corretor
-									<b class="caret"></b>
-									</a>
-									<ul class="dropdown-menu">
-										<li>
-											<%= link_to 'Cadastrar', new_corretor_user_path %>
-										</li>
-										<li>
-											<%= link_to('Listar', corretor_users_path) %>
-										</li>
-									</ul>
-								</li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-									Imóveis
-									<b class="caret"></b>
-									</a>
-									<ul class="dropdown-menu">
-										<li>
-											<a href="#">Cadastrar</a>
-										</li>
-										<li>
-											<a href="#">Listar</a>
-										</li>
-									</ul>
-								</li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-									Relatórios
-									<b class="caret"></b>
-									</a>
-									<ul class="dropdown-menu">
-									...
-									</ul>
-								</li>
-								<li>
-									<a href="#"><i class="icon-envelope icon-white"></i> Mensagens</a>
-								</li>
-							</ul>
-							<ul class="nav pull-right">
-								<li class="divider-vertical">
-								</li>
-								<% if user_signed_in? %>
-  								<li class="dropdown">
-  										<%= link_to(corretor_users_path, :data => {:toggle=>"dropdown"}, :class => "dropdown-toggle") do %>
-  									 	 <i class="icon-user icon-white"></i> <%= current_user.email %><strong class="caret"></strong>
-  								 		<% end %>
-  								 		<ul class="dropdown-menu">
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container-fluid">
+            <a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+            <a href="#" class="brand">
+              <% #= image_tag("logo_ar_imoveis.png") %>
+              AR Imóveis
+            </a>
+            <div class="nav-collapse collapse navbar-responsive-collapse">
+              <ul class="nav">
+                <li class="active">
+                  <a href="#">Home</a>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                   Corretor
+                  <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <%= link_to 'Cadastrar', new_corretor_user_path %>
+                    </li>
+                    <li>
+                      <%= link_to('Listar', corretor_users_path) %>
+                    </li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Imóveis
+                  <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a href="#">Cadastrar</a>
+                    </li>
+                    <li>
+                      <a href="#">Listar</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Relatórios
+                  <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                  ...
+                  </ul>
+                </li>
+                <li>
+                  <a href="#"><i class="icon-envelope icon-white"></i> Mensagens</a>
+                </li>
+              </ul>
+              <ul class="nav pull-right">
+                <li class="divider-vertical">
+                </li>
+                <% if user_signed_in? %>
+                  <li class="dropdown">
+                      <%= link_to(corretor_users_path, :data => {:toggle=>"dropdown"}, :class => "dropdown-toggle") do %>
+                       <i class="icon-user icon-white"></i> <%= current_user.email %><strong class="caret"></strong>
+                      <% end %>
+                      <ul class="dropdown-menu">
                       <li>
                         <a href="#"><i class="icon-wrench"></i> Painel de Controle</a>
                       </li>
@@ -93,89 +93,101 @@
                           <% end %>
                       </li>
                     </ul>
-  								</li>
-								<% else%>
+                  </li>
+                <% else%>
+                    <!-- Login Modal -->
+                    <!--
                     <li>
-                      <!-- Button to trigger modal -->
-                      <a href="#myModal" role="button" class="link" data-toggle="modal"><i class="iconic-key-stroke"></i> Login</a>
+                      #<a href="#myModal" role="button" class="link" data-toggle="modal"><i class="iconic-key-stroke"></i> Login</a>
                       
-                      <!-- Modal -->
-                      <div id="myModal" class="modal hide fade modal-login-right" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :class => "form-horizontal" ) do |f| -%>
+                      <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h3 id="myModalLabel">Login</h3>
+                            <h2 id="myModalLabel">Login</h2>
                           </div>
+                          <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :class => "form-horizontal" ) do |f| -%>
                           <div class="modal-body">
-                              
-                                <%= render :partial => "devise/sessions/new", :locals => {:f => f} %>
-                                
-                              
+                            
+                              <%= render :partial => "devise/sessions/new", :locals => {:f => f} %>
                           </div>
                           <div class="modal-footer">
-                            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                            <%= f.submit "Entrar", :class => "btn btn-primary" %>
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>    
+                              <%= f.submit "Entrar", :class => "btn btn-primary" %>
+                            
                           </div>
+                          <% end -%>
+                          
+                      </div>
+                    -->
+                    </li>
+                    <li class="dropdown" id="menuLogin">
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin"><i class="iconic-key-stroke"></i> Login<strong class="caret"></strong></a>
+                      <div class="dropdown-menu" style="padding:17px;">
+                        <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :class => "form-horizontal" ) do |f| -%>
+                          <%= render :partial => "devise/sessions/form_login", :locals => {:f => f} %>
+                          <%= f.submit "Entrar", :class => "btn btn-primary input-level-block" %>
                         <% end -%>
                       </div>
-                      
-                    </li>
-                    <li>
                     </li>
                 <%end%>
-							</ul>
-						</div>
-						
-					</div>
-				</div>
-				
-			</div>
-		</div>
-	</div>
+              </ul>
+            </div>
+            
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
 
 <!-- Conteudo -->
 <div class="row-fluid">
-	<div class="span2">
-		
-		
-		
-		<% if user_signed_in? %>
-			Você está logado.
-			<br>
-			Olá<strong> </strong>!
-			<br>
-			<br>
-			<li> <%= link_to('Sair', destroy_user_session_path, :method=>'delete', :confirm => 'Deseja sair do sistema?') %></li>
-		<% else%>
-			<li> <%= link_to('Login', new_user_session_path) %> </li>
-		<%end%>
-		<br>
-		<br>
-		Menu direita
-	</div>
-	<div class="span9">
-		<% flash.each do |name, msg| %>
-		<div class="alert alert-success">
-		  <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
-	  </div>
-		<% end %>
-		
-		<%= yield %>
-	</div>
-	<div class="span1">
-		Menu esquerda
-	</div>
+  <div class="span2">
+    
+    
+    
+    <% if user_signed_in? %>
+      Você está logado.
+      <br>
+      Olá<strong> </strong>!
+      <br>
+      <br>
+      <li> <%= link_to('Sair', destroy_user_session_path, :method=>'delete') %></li>
+    <% else%>
+      <li> <%= link_to('Login', new_user_session_path) %> </li>
+    <%end%>
+    <br>
+    <br>
+    Menu direita
+  </div>
+  <div class="span9">
+    <% flash.each do |name, msg| %>
+    <div class="alert alert-success">
+      <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+    </div>
+    <% end %>
+    
+    <%= yield %>
+  </div>
+  <div class="span1">
+    Menu esquerda
+  </div>
 </div>
 
 <!-- Rodape -->
 <div class="row-fluid">
- <div class="span3 footer">
+ <div class="span12 footer">
    <div class="navbar navbar-inverse navbar-fixed-bottom navbar-fluid">
      <div class="navbar-inner">
        <div class="container-fluid">
-         <p class="muted">
+         <div class="span12">
+           
+           <p class="muted text-center">
            2013 VADER Tecnologia
          </p>
+         </div>
+         
        </div>
      </div>
    </div>

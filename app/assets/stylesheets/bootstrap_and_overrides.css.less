@@ -55,8 +55,23 @@ body {
 //Fim Correcao
 
 //Modal
-.modal-login-right { 
-  width: 300px;
+#myModal .modal-body {
+  max-height: 800px;
+}
+
+#myModal {
+  width: 300px; /* SET THE WIDTH OF THE MODAL */
+  margin: -250px 0 0 350px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+}
+
+//Input required
+form .required {
+    font-weight: bold;
+}
+form .required label:after {
+    color: #e32;
+    content: '*';
+    display:inline;
 }
 
 //Listagens

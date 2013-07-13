@@ -57,7 +57,8 @@ class Corretor::UsersController < Corretor::CorretorController
         format.html { redirect_to corretor_users_path, :notice => 'O corretor foi cadastrado com sucesso.' }
         format.json { render :json => @user, :status => :created, :location => @user }
       else
-        flash[:notice] = flash[:notice].to_a.concat @user.errors.full_messages
+        # Tirado pois as mensagens estão sendo exibidas usando o padrao vistO NAS PAGINAS HTML.ERB
+        # flash[:notice] = flash[:notice].to_a.concat @user.errors.full_messages
         format.html { render :action => "new"}
         format.json { render :json => @user.errors, :status => :unprocessable_entity }
       end

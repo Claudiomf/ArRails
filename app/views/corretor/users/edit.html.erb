@@ -1,5 +1,25 @@
 <h2>Editar corretor</h2>
-<%= form_for [:corretor, @user], :url => corretor_user_path(@user), :html => { :class => :form, :id => "edit_user" } do |f| -%>
-  <input name="_method" type="hidden" value="put" />
-  <%= render :partial => "form", :locals => {:f => f} %>
-<% end -%>
+<fieldset>
+  <% if @user.errors.any? %>
+    <div class="alert alert-error">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+    <h4>
+      Erro! (<strong><%= pluralize(@user.errors.count, "error") %></strong>)
+    </h4>
+    <br/>O usuário não pode ser cadastrado.
+    <br/>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+              </ul>
+  </div>
+  
+  <% end %>
+
+  <%= form_for [:corretor, @user], :url => corretor_user_path(@user), :html => { :class => :form, :id => "edit_user" } do |f| -%>
+    <input name="_method" type="hidden" value="put" />
+    <%= render :partial => "form", :locals => {:f => f} %>
+<% end -%>  
+</fieldset>
+

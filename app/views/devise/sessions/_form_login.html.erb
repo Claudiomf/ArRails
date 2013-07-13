@@ -1,0 +1,24 @@
+  <div class="control-group">
+      <div class="controls">
+      <%= f.email_field :email, :autofocus => true, :placeholder => "E-mail" %>   
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <%= f.password_field :password, :placeholder => "Senha"  %>
+    </div>
+  </div>
+
+<div class="control-group">
+  <div class="controls">
+    <% if devise_mapping.rememberable? -%>
+       <%= f.label :remember_me, :class => "checkbox" do %>
+          <%= f.check_box :remember_me %>Lembrar-me
+      <% end %>
+    <% end -%>
+  
+    
+  </div>
+</div>
+
+
