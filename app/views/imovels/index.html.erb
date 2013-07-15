@@ -1,0 +1,54 @@
+<h1>Imóveis cadastrados</h1>
+<dl>
+  <dd>
+    Nesta página, o administrador pode alterar, remover e visualizar imóveis cadastrados.
+  </dd>
+</dl>
+<br>
+
+  <div class="input-append">
+    <input type="text" class="input-medium search-query" placeholder="Digite o código de referência" style="width: 200px;"/>
+    <input type="submit" name="Buscar" class="btn btn-info"/>
+  </div>
+
+<div class="well well-small" style="text-align: center;">
+  <i class="icon-search"></i> Visualizar | <i class="icon-pencil"></i> Alterar | <i class="icon-trash"></i> Remover
+</div>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th class="rotulo" width="15%">Cod. Referência</th>
+      <th class="rotulo">Nome</th>
+      <th class="rotulo">Localização</th>
+      <th class="rotulo"></th>
+    </tr>    
+  </thead>
+  <tbody>
+    <% @imovels.each do |imovel| %>
+      <tr>
+        <td rowspan="2"><%= imovel.cod_ref %></td>
+        <td><%= imovel.nome %></td>
+        <td><%= imovel.localizacao %></td>
+        
+        
+        <td style="text-align: center;" width="15%" valign="middle;" rowspan="2">
+          <%= link_to(imovel, :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
+           <i class="icon-search icon-white"></i>
+          <% end %> |
+          <%= link_to(edit_imovel_path(imovel), :class => "link-icon", :title => "Alterar") do %>
+           <i class="icon-pencil icon-white"></i>
+          <% end %> |
+          <%= link_to(imovel, :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este imóvel?")}", :class => "link-icon", :title => "Remover" ) do %>
+           <i class="icon-trash icon-white"></i>
+          <% end %>
+      </tr>
+      <tr><td colspan="2"><b>Descrição:</b> <%= imovel.descricao %></td></tr>
+    <% end %>
+  </tbody>
+
+</table>
+
+<br />
+
+<%= link_to 'Cadastrar Novo Imóvel', new_imovel_path, :class => "btn btn-primary" %>

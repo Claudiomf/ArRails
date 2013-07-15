@@ -1,0 +1,9 @@
+<h1>Cadastrar Imóvel</h1>
+
+<fieldset>
+<%= render 'form' %>
+</fieldset>
+
+Cadastrado por:
+ <b><%= User.find(current_user.id).username%></b> <br/>
+

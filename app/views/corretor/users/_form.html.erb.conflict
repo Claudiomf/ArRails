@@ -1,0 +1,78 @@
+	<legend>Informações Pessoais</legend>
+	
+	<%= f.label :name, t("activerecord.attributes.user.name", :default => "Nome Completo"), :class => 'control-label' %>
+  <%= f.text_field :name, :class => 'text_field input-xlarge' %>
+  
+  <%= f.label :rg, t("activerecord.attributes.user.rg", :default => "RG"), :class => 'control-label' %>
+  <%= f.text_field :rg, :class => 'text_field input-medium'%> <span class="help-inline"><i>(opcional)</i></span>
+  
+  <label>CRECI</label>
+  <input type="text"/>
+  
+  <%= f.label :cpf, t("activerecord.attributes.user.cpf", :default => "CPF"), :class => 'control-label' %>
+  <%= f.text_field :cpf, :class => 'text_field input-medium', :data => { :mask => "999.999.999-99" } %>
+  
+  <%= f.label :tel, t("activerecord.attributes.user.tel", :default => "Telefone"), :class => 'control-label' %>
+  <%= f.text_field :tel, :class => 'text_field ', :data => { :mask => "(99) 9999-9999" } %> <span class="help-inline"><i>(opcional)</i></span>
+  
+  <%= f.label :cel, t("activerecord.attributes.user.cel", :default => "Celular"), :class => 'control-label' %>
+  <%= f.text_field :cel, :class => 'text_field', :data => { :mask => "(99) 9999-9999" } %>
+  
+  <%= f.label :ende, t("activerecord.attributes.user.ende", :default => "Endereço"), :class => 'control-label' %>
+  <%= f.text_field :ende, :class => 'text_field input-xxlarge'%> <span class="help-inline"><i>(opcional)</i></span>
+  
+  <legend>Informações Cadastrais</legend>
+
+  <%= f.label :username, t("activerecord.attributes.user.username", :default => "Username"), :class => 'control-label' %>
+  <%= f.text_field :username, :class => 'text_field' %>
+	
+	<%= f.label :email, t("activerecord.attributes.user.email", :default => "Email"), :class => 'control-label' %>
+	<%= f.text_field :email, :class => 'text_field' %>
+	
+	
+  <% if @user.id == nil %>
+    <%= f.label :password, t("activerecord.attributes.user.password", :default => "Senha"), :class => 'control-label' %>
+    <%= f.password_field :password, :class => 'password_field' %>
+  	<span class="help-block">Escolha uma senha de no mínimo 6 caracteres</span>
+
+    <%= f.label :Password, t("activerecord.attributes.user.password_confirmation", :default => "Confirmar senha"), :class => 'control-label' %>
+    <%= f.password_field :password_confirmation, :class => 'password_field' %>
+  <% end %>  
+  
+<br>
+<br>
+<div class="control-group">
+	<label>Permissões</label>
+	<div class="controls">
+		<% for role in Role.find(:all) %> 
+		
+			<%= f.label role.name, :class => "checkbox inline" %>
+			<%= check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role)  %> 
+		
+		<% end %>
+	</div>
+</div>
+<br>
+<div class="form-actions-white">
+  <% if @user.id == nil %>
+    <button class="btn btn-primary" type="submit">Cadastrar</button>
+  <% else %>
+    <button class="btn btn-info" type="submit">Alterar</button> 
+  <% end %>
+  ou
+	<%= link_to "Cancelar", corretor_users_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
+
+<% for role in Role.find(:all) %> 
+  <div class ="control-group">
+   <%= f.label role.name , :class => 'control-label' %>
+      <div class="controls">
+        <%= radio_button_tag "user[role_ids][]", role.id, @user.roles.include?(role) %> 
+      </div> 
+  </div>
+<% end %>
+
+
+<div class="form-actions">
+  <button class="btn primary" type="submit">Save</button> or
+	<%= link_to "Cancel", corretor_users_path %>
+</div>
