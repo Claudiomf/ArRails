@@ -172,3 +172,93 @@
  * http://cameronspear.com/blog/twitter-bootstrap-dropdown-on-hover-plugin/
  */
 (function(e,t,n){var r=e();e.fn.dropdownHover=function(n){r=r.add(this.parent());return this.each(function(){var s=e(this),o=s.parent(),u={delay:500,instantlyCloseOthers:!0},a={delay:e(this).data("delay"),instantlyCloseOthers:e(this).data("close-others")},f=e.extend(!0,{},u,n,a),l;o.hover(function(e){if(!o.hasClass("open")&&!s.is(e.target))return!0;if(i){f.instantlyCloseOthers===!0&&r.removeClass("open");t.clearTimeout(l);o.addClass("open")}},function(){i&&(l=t.setTimeout(function(){o.removeClass("open")},f.delay))});s.hover(function(){if(i){f.instantlyCloseOthers===!0&&r.removeClass("open");t.clearTimeout(l);o.addClass("open")}});o.find(".dropdown-submenu").each(function(){var n=e(this),r;n.hover(function(){if(i){t.clearTimeout(r);n.children(".dropdown-menu").show();n.siblings().children(".dropdown-menu").hide()}},function(){var e=n.children(".dropdown-menu");i?r=t.setTimeout(function(){e.hide()},f.delay):e.hide()})})})};var i=!1,s={hits:0,x:null,y:null};e(document).ready(function(){e('[data-hover="dropdown"]').dropdownHover();e(document).mousemove(function(t){s.hits++;if(s.hits>20||Math.abs(t.pageX-s.x)+Math.abs(t.pageY-s.y)<4){e(this).unbind(t);i=!0}else{s.x=t.pageX;s.y=t.pageY}})});var o=".dropdown-submenu:hover>.dropdown-menu{display:none}",u=document.createElement("style");u.type="text/css";u.styleSheet?u.styleSheet.cssText=o:u.appendChild(document.createTextNode(o));e("head")[0].appendChild(u)})(jQuery,this);
+
+/*
+* Algumas máscaras e funções proprias
+* Author: Renata Brasil
+*/
+//Fun??o que recebe um valor(float) e retornar? o valor formatado.
+function formatarValor(valor) {
+  var valorFormatado ="";
+  vr = valor.value.toString();
+
+  if(vr.indexOf(",") != -1){
+    centavos = vr.substring(vr.indexOf(",")+1,vr.length);
+    if(centavos.length == 1){
+      vr = vr.concat("0");
+    }
+  }
+  else{
+    //vr = vr.concat(".0");
+  }
+
+  //vr = vr.replace( "/", "" );
+
+  vr = vr.replace( "/", "" );
+  vr = vr.replace( ",", "" );
+  vr = vr.replace( ".", "" );
+  vr = vr.replace( ".", "" );
+  vr = vr.replace( ".", "" );
+  vr = vr.replace( ".", "" );
+  tam = vr.length;
+
+  if ( tam < 2 ){
+    valorFormatado = vr ; }
+  if ( (tam >= 2) && (tam <= 5) ){
+    valorFormatado = vr.substr( 0, tam - 2 ) + ',' + vr.substr( tam - 2, tam ) ; }
+  if ( (tam >= 6) && (tam <= 8) ){
+    valorFormatado = vr.substr( 0, tam - 5 ) + '.' + vr.substr( tam - 5, 3 ) + ',' + vr.substr( tam - 2, tam ) ; }
+  if ( (tam >= 9) && (tam <= 11) ){
+    valorFormatado = vr.substr( 0, tam - 8 ) + '.' + vr.substr( tam - 8, 3 ) + '.' + vr.substr( tam - 5, 3 ) + ',' + vr.substr( tam - 2, tam ) ; }
+  if ( (tam >= 12) && (tam <= 14) ){
+    valorFormatado = vr.substr( 0, tam - 11 ) + '.' + vr.substr( tam - 11, 3 ) + '.' + vr.substr( tam - 8, 3 ) + '.' + vr.substr( tam - 5, 3 ) + ',' + vr.substr( tam - 2, tam ) ; }
+  if ( (tam >= 15) && (tam <= 17) ){
+    valorFormatado = vr.substr( 0, tam - 14 ) + '.' + vr.substr( tam - 14, 3 ) + '.' + vr.substr( tam - 11, 3 ) + '.' + vr.substr( tam - 8, 3 ) + '.' + vr.substr( tam - 5, 3 ) + ',' + vr.substr( tam - 2, tam ) ;}
+
+  valor.value = valorFormatado;
+}
+
+function toUppercase(obj){
+  var caretPos = doGetCaretPosition(obj);
+  obj.value = obj.value.toUpperCase();
+  setCaretPosition(obj, caretPos);
+}
+
+function doGetCaretPosition (ctrl) {
+  var caretPos = 0; // IE Support
+  if (document.selection) {
+    ctrl.focus ();
+    var sel = document.selection.createRange();
+    sel.moveStart ('character', -ctrl.value.length);
+    caretPos = sel.text.length;
+  } else if (ctrl.selectionStart || ctrl.selectionStart == '0') // Firefox support
+    caretPos = ctrl.selectionStart;
+  return caretPos;
+}
+
+function setCaretPosition(ctrl, pos){
+  if(ctrl.setSelectionRange) {
+    ctrl.focus();
+    ctrl.setSelectionRange(pos,pos);
+  } else if (ctrl.createTextRange) {
+    var range = ctrl.createTextRange();
+    range.collapse(true);
+    range.moveEnd('character', pos);
+    range.moveStart('character', pos);
+    range.select();
+  }
+}
+
+/* Função usada para so permirtir que o usuario digite numeros */
+function somenteNumero(campo, event) {
+
+    var tecla = (event!=null)? event.keyCode: 0;
+
+	if ( ((tecla < 48) || (tecla > 57))  &&
+		 ((tecla < 96) || (tecla > 105)) &&
+		 (tecla != 0) )
+
+    var rExp = /[^\0-\9]|\-|,|:|;|\./g;
+    var vr = campo.value.replace(rExp, "");
+    campo.value = vr;
+}

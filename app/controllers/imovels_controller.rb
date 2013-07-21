@@ -33,8 +33,6 @@ class ImovelsController < ApplicationController
     @imovel = Imovel.new
     @imovel.images.build
     
-    @editar = false 
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @imovel }
@@ -53,6 +51,8 @@ class ImovelsController < ApplicationController
     @imovel = Imovel.new(params[:imovel])
     
     @imovel.attributes = {:cadastrado_por_id => current_user.id}    
+    @imovel.attributes = {:ativo => true}
+    
     if has_role?(current_user, 'corretor')
       @imovel.attributes = {:ativo => false}
     end
@@ -108,8 +108,11 @@ class ImovelsController < ApplicationController
     end
   end
   
-  # Método que vai popular todos os campos do imóvel a ser exibido para o usuário.
+  
+  #Métodos auxiliares para o controller de Imovel
   private
+  
+  # Método que vai popular todos os campos do imóvel a ser exibido para o usuário.
   def popular_imovel
     
     @images = @imovel.images
@@ -158,16 +161,12 @@ class ImovelsController < ApplicationController
     end
   end
   
-  # Método que verifica se o código de referência já existe no banco
+  # Método que verifica se o código de referência já existe no banco.
+  # Esse método não vem sendo usado porque o número do código de referência está sendo construído a partir de todos os registros do campo.
+  # Isso elimina a possibilidade de repetição de código, mas por enquanto o método não será deletado para que uma analise melhor seja feita no modelo.
   def verifica_unicidade_codigo_referencia?(codigo_referencia)
     existe_codigo = (Imovel.count_by_sql "SELECT COUNT(*) FROM imovels i WHERE i.cod_ref = '"+codigo_referencia+"'") == 0
     return existe_codigo
-  end
-  
-  # Excecao para campo
-  def user_not_authorized
-    flash[:error] = "You don't have access to this section."
-    redirect_to :back
   end
   
 end
