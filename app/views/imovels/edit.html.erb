@@ -1,11 +1,10 @@
-<h1>Editing imovel</h1>
+<h1>Editar imóvel</h1>
 
-
+<fieldset>
 <%= render 'form' %>
+</fieldset>
 
 Cadastrado por:
 <b><%= User.find(@imovel.cadastrado_por_id).username%></b>
 <br/>
 
-<%= link_to 'Show', @imovel %> |
-<%= link_to 'Back', imovels_path %>

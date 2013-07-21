@@ -1,24 +1,79 @@
-<h2 class="h2-pages">Detalhes do Imóvel</h2>
+<h2 class="h2-pages">Visualização do Imóvel: <%= @imovel.nome %> <font class="text-error"><%= '(Vendido)' if @imovel.vendido? %></font></h2>
 
-<p id="notice"><%= notice %></p>
+<br />
 
-<div id="paintings">
-  <% @imovel.images.each do |image| %>
-    <div class="painting">
-		<%= image_tag image.image_url(:thumb) if image.image? %>
-    </div>
-  <% end %>
-</div>
+<% if !@imovel.images.nil? %>
+<table class="table table-hero" style="width: 60%;" align="center">
+  <tr>
+    <td>
+      <div id="myCarousel" class="carousel slide" align="center">
+        <ol class="carousel-indicators">
+          <% @imovel.images.each_with_index do |image, i| %>
+            <% if i == 0 %>
+              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <% else %>
+              <li data-target="#myCarousel" data-slide-to=<%= i %>></li>
+            <% end %>
+          <% end %>
+        </ol>
+        <!-- Carousel items -->
+        <div class="carousel-inner">
+          <% @imovel.images.each_with_index do |image, i| %>
+            <% if i == 0 %>
+              <div class="active item"><%= image_tag image.image_url(:thumb) if image.image? %></div>
+            <% else %>
+              <div class="item"><%= image_tag image.image_url(:thumb) if image.image? %></div>
+            <% end %>
+          <% end %>
+        </div>
+        <!-- Carousel nav -->
+        <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+        <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+      </div>
+    </td>
+  </tr>
+</table>
+  
+<% end %>
 
+<br>
 <table class="table table-visualizacao">
   <tr>
     <th nowrap>Código de Referência:</th>
-    <td><%= @imovel.cod_ref %></td>
+    <td><b><font class="text-success"><%= @imovel.cod_ref %></font></b></td>
   </tr>
+  <% if !@cadastrado_por.nil? %>
+  <tr>
+    <th nowrap>Cadastrado por:</th>
+    <td><%= @cadastrado_por.name %> ()</td>
+  </tr>
+  <% end %>
+  <% if !@responsavel.nil? %>
+  <tr>
+    <th nowrap>Responsável:</th>
+    <td><%= @responsavel.name %> ()</td>
+  </tr>
+  <% end %>
+  <% if !@vendedor.nil? %>
+  <tr>
+    <th nowrap>Vendido por:</th>
+    <td><%= @vendedor.name %></td>
+  </tr>
+  <% end %>
   <tr>
     <th nowrap>Nome do Imóvel:</th>
     <td><%= @imovel.nome %></td>
   </tr>
+  <tr>
+    <th nowrap>Tipo de imóvel:</th>
+    <td><%= @tipo_imovel.nome %></td>
+  </tr>
+  <% if !@transacao.nil? %>
+  <tr>
+    <th nowrap>Transação:</th>
+    <td><%= @transacao.nome %></td>
+  </tr>
+  <% end %>
   <tr>
     <th nowrap>Localização:</th>
     <td><%= @imovel.localizacao %></td>
@@ -27,11 +82,92 @@
     <th nowrap>Descrição:</th>
     <td><%= @imovel.descricao %></td>
   </tr>
+  
+  <% if @imovel.taxa_de_condominio? %>
+    <tr>
+    <th nowrap>Taxa de Condomínio:</th>
+    <td>R$ <%= @imovel.taxa_de_condominio %></td>
+  </tr>
+  <% end %>
+  
+  <% if @imovel.iptu? %>
+    <tr>
+    <th nowrap>IPTU:</th>
+    <td><%= @imovel.iptu %></td>
+  </tr>
+  <% end %>
+  
+  <% if @imovel.valor? %>
+    <tr>
+    <th nowrap>Valor:</th>
+    <td><%= @imovel.valor %></td>
+  </tr>
+  <% end %>
+  
+  <% if @imovel.quartos? %>
+    <tr>
+    <th nowrap>Número de quartos:</th>
+    <td><%= @imovel.quartos %></td>
+  </tr>
+  <% end %>
+  
+  <% if @imovel.suites? %>
+    <tr>
+    <th nowrap>Número de suítes:</th>
+    <td><%= @imovel.suites %></td>
+  </tr>
+  <% end %>
+  
+  <% if @imovel.area? %>
+    <tr>
+    <th nowrap>Área (m²):</th>
+    <td><%= @imovel.area %></td>
+  </tr>
+  <% end %>
+  
+  <% if @imovel.vagas? %>
+  <tr>
+    <th nowrap>Vagas na garagem:</th>
+    <td><%= @imovel.vagas %></td>
+  </tr>
+  <% end %>
+  
+  <tr>
+    <th>Detalhes:</th>
+    <td>
+      <% size = @imovel.imovel_detalhes.length %>
+      <% @imovel.imovel_detalhes.each_with_index do |detalhe, i| %>
+        <% case i %>
+          <% when (size-2) %>
+            <!-- Penultimo elemento da lista -->
+            <%= detalhe.nome %>
+          <% when (size-1) %>
+            <!-- Ultimo elemento da lista -->
+            e <%= detalhe.nome %>.
+          <% else %>
+            <%= detalhe.nome %>, 
+        <% end %>
+        
+      <% end %>
+    </td>
+  </tr>
+  
 </table>
 
 <div class="form-actions-white">
-  <%= link_to 'Voltar', imovels_path, :class => "btn" %> 
+  <%= link_to 'Voltar', imovels_path, :class => "btn" %>
   <%= link_to 'Alterar', edit_imovel_path(@imovel), :class => "btn btn-info" %>
-  <%= link_to "Remover", imovels_path(@imovel), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse imovel?")}", :class => 'btn' %>
+    <%= link_to "Remover", imovels_path(@imovel), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse imovel?")}", :class => 'btn' %>
+  
+  <!-- Estudar comportamento do imovel vendido para cada permissao -->
+  <!--
+  <% if @imovel.vendido? %>
+    <button class="btn btn-info disabled" type="submit">Alterar</button>
+    <button class="btn disabled" type="submit">Remover</button>
+  <% else %>
+    <%= link_to 'Alterar', edit_imovel_path(@imovel), :class => "btn btn-info" %>
+    <%= link_to "Remover", imovels_path(@imovel), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse imovel?")}", :class => 'btn' %>
+  <% end %>
+  -->
 </div>
 

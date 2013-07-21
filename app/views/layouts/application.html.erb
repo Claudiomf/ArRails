@@ -4,7 +4,7 @@
   <title>Ar Imóveis - Admin</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application"%>
-  <%= javascript_include_tag :defaults,"nested_form" %>
+  <% #= javascript_include_tag :defaults,"nested_form" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -190,25 +190,25 @@
 </div>
 
 <!-- Rodape -->
-<div class="row-fluid">
- <div class="span12 footer">
-   <div class="navbar navbar-inverse navbar-fixed-bottom navbar-fluid">
-     <div class="navbar-inner">
-       <div class="container-fluid">
-         <div class="span12">
+  <div class="row-fluid">
+   <div class="span12 footer">
+     <div class="navbar navbar-inverse navbar-fixed-bottom navbar-fluid">
+       <div class="navbar-inner">
+         <div class="container-fluid">
+           <div class="span12">
+             <br>
+             <p class="muted text-center">
+             ©2013 VADER Tecnologia
+           </p>
+           </div>
            
-           <p class="muted text-center">
-           2013 VADER Tecnologia
-         </p>
          </div>
-         
        </div>
      </div>
-   </div>
+     
+   </div> 
    
- </div> 
- 
-</div>
+  </div>
 
 </div>
 
