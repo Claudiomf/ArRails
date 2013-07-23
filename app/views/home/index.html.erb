@@ -1,2 +1,15 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+
+
+<% if user_signed_in? %>
+  <h1>Painel de Controle</h1>
+	<p>Find me in app/views/home/index.html.erb</p>
+<% else%>
+  <h1>Login</h1>
+  <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :class => "form-horizontal" ) do |f| -%>
+                            
+    <%= render :partial => "devise/sessions/new", :locals => {:f => f} %>
+    <%= f.submit "Entrar", :class => "btn btn-primary" %>
+                            
+  <% end -%>
+	
+<%end%>

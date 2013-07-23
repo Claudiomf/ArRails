@@ -54,10 +54,11 @@ class Corretor::UsersController < Corretor::CorretorController
     respond_to do |format|
       if @user.save
         flash[:notice] = flash[:notice].to_a.concat @user.errors.full_messages
-        format.html { redirect_to corretor_users_path, :notice => 'User was successfully created.' }
+        format.html { redirect_to corretor_users_path, :notice => 'O corretor foi cadastrado com sucesso.' }
         format.json { render :json => @user, :status => :created, :location => @user }
       else
-        flash[:notice] = flash[:notice].to_a.concat @user.errors.full_messages
+        # Tirado pois as mensagens estão sendo exibidas usando o padrao vistO NAS PAGINAS HTML.ERB
+        # flash[:notice] = flash[:notice].to_a.concat @user.errors.full_messages
         format.html { render :action => "new"}
         format.json { render :json => @user.errors, :status => :unprocessable_entity }
       end
@@ -75,7 +76,7 @@ class Corretor::UsersController < Corretor::CorretorController
  
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to corretor_users_path, :notice => 'User was successfully updated.' }
+        format.html { redirect_to corretor_users_path, :notice => 'O corretor foi atualizado com sucesso.' }
         format.json { head :ok }
       else
         format.html { render :action => "edit" }
@@ -91,7 +92,7 @@ class Corretor::UsersController < Corretor::CorretorController
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to corretor_users_url }
+      format.html { redirect_to corretor_users_url, :notice => 'O corretor foi removido com sucesso.' }
       format.json { head :ok }
     end
   end

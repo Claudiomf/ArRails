@@ -1,5 +1,12 @@
 @import "twitter/bootstrap/bootstrap";
+
+body {
+  padding: 40px;
+}
+
 @import "twitter/bootstrap/responsive";
+
+
 
 // Set the correct sprite paths
 @iconSpritePath: asset-path("twitter/bootstrap/glyphicons-halflings.png");
@@ -8,13 +15,216 @@
 // Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
 // Note: If you use asset_path() here, your compiled bootstrap_and_overrides.css will not
 //       have the proper paths. So for now we use the absolute path.
-@fontAwesomeEotPath: asset-path("fontawesome-webfont.eot?v=3.0.2");
-@fontAwesomeEotPath_iefix: asset-path("fontawesome-webfont.eot?#iefix&v=3.0.2");
-@fontAwesomeWoffPath: asset-path("fontawesome-webfont.woff?v=3.0.2");
-@fontAwesomeTtfPath: asset-path("fontawesome-webfont.ttf?v=3.0.2");
+
+//Substitui: asset-path aqui por image-url e resolvi o problema dos icones. Eles não eram exibidos.
+@fontAwesomeEotPath: image-url("fontawesome-webfont.eot?v=3.0.2");
+@fontAwesomeEotPath_iefix: image-url("fontawesome-webfont.eot?#iefix&v=3.0.2");
+@fontAwesomeWoffPath: image-url("fontawesome-webfont.woff?v=3.0.2");
+@fontAwesomeTtfPath: image-url("fontawesome-webfont.ttf?v=3.0.2");
+@fontAwesomeSvgPath: image-url("fontawesome-webfont.svg#fontawesomeregular");
 
 // Font Awesome
-@import "fontawesome";
+@import "fontawesome/font-awesome";
+
+//@navBarBgStart: #3D368B;
+//@navBarBgEnd: #232051;
+
+//@navbarBackground:  #3D368B;
+//@navbarBackgroundHighlight: #232051;
+
+//.dropdown-menu {
+  //   background-color: #2F2A6C; // defaults to #333
+//}
+//li a {
+//      color: #999;
+//      text-shadow: 0 1px 0 rgba(0,0,0,.5);
+//      &:hover {
+//        #gradient > .vertical(@navBarBgEnd, #1B183E);
+//        color: @white;
+//      }
+//    }
+
+//Correcao CSS
+
+//O modal aparece opaco quando eu uso navbar-fixed. Isso ocorre porque o z-index do navbar-fixed é 1030 enquanto que do modal-backdrop é 1040.
+//Resolvi diminuindo o z-index
+.modal-backdrop {
+    z-index: 1020;
+}
+
+//Fim Correcao
+
+//Modal
+#myModal .modal-body {
+  max-height: 800px;
+}
+
+#myModal {
+  width: 300px; /* SET THE WIDTH OF THE MODAL */
+  margin: -250px 0 0 350px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+}
+
+//Input required
+form .required {
+//    font-weight: bold;
+}
+form .required label:after {
+//    color: #e32;
+//    content: '*';
+//    display:inline;
+}
+
+.required {
+  //color: #e32;
+  //content: '*';
+  //padding-right: 0.9em;
+  //vertical-align: middle;
+  //display:inline;
+}
+
+.obrigatorio:after {
+  //color: #e32;
+  color: #049cdb;
+  content: '*';
+  font-weight: bold;
+  padding-left: 0.4em;
+  padding-right: 0.9em;
+  display:inline;
+}
+
+//Listagens
+th.rotulo {
+  background-color: #d9edf7;
+}
+
+.table-visualizacao {
+  //background-color: #f2f6f8; cinzinha claro
+  background-color: #ecf4f8;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  width: 100%;
+  border-spacing: 0;
+  
+  padding: 60px;
+  font-size: 14px;
+  line-height: 30px;
+  color: inherit;
+
+}
+
+.table-hero {
+  background-color: #f9f9f9;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  padding: 60px;
+  margin-bottom: 30px;
+  font-size: 14px;
+  font-weight: 200;
+  line-height: 30px;
+  color: inherit;
+  border: 0;
+}
+
+.table-hero th {
+  text-align: left;
+  width: 20%;
+  border: 0;
+}
+
+.table-hero caption {
+  padding: 10px;
+  padding-left: 20px;
+  background-color: inherit;
+  font-size: 22px;
+  font-weight: bold;
+  color: inherit;
+  //color: #b3b2b2; cinza
+  text-align: left;
+  border: 0;
+}
+
+.table-visualizacao caption {
+  padding: 10px;
+  padding-left: 20px;
+  background-color: #ecf4f8;
+  font-size: 22px;
+  font-weight: bold;
+  color: #3a87ad;
+  //color: #b3b2b2; cinza
+  text-align: left;
+}
+
+.table-visualizacao tr {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.table-visualizacao th {
+  padding-right: 0;
+  text-align: right;
+  width: 10%;
+  border: 0;
+}
+
+.table-visualizacao td {
+  padding-left: 2px;
+  text-align: left;
+  color: #707070;
+  border: 0;
+}
+
+.table-subListagem {
+  background-color: #ecf4f8;
+  padding: 0;
+}
+
+.table-subListagem td {
+  padding: 0;
+}
+
+.subListagem tr {
+  padding: 0;
+}
+
+.form-actions-white {
+  padding: 19px 20px 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  border-top: 1px solid #e5e5e5;
+  *zoom: 1;
+}
+
+.form-actions-white:before,
+.form-actions-white:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+.form-actions-white:after {
+  clear: both;
+}
+
+.h2-pages{
+  border-bottom: 1px solid #e5e5e5;
+  padding: 10px 20px 14px;
+  margin-bottom: 10px;
+}
+
+//Fim listagens
+
+//Link
+.link-icon:focus, .link-icon:hover {
+  text-decoration: none;
+}
+
+
+//Fim Links
 
 // Glyphicons
 //@import "twitter/bootstrap/sprites.less";

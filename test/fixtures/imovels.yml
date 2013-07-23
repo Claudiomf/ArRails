@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  cod_ref: MyString
+  nome: MyString
+  localizacao: MyString
+  descricao: MyText
+  imovel_dados_gerais_id: 1
+  imovel_adm_id: 1
+
+two:
+  cod_ref: MyString
+  nome: MyString
+  localizacao: MyString
+  descricao: MyText
+  imovel_dados_gerais_id: 1
+  imovel_adm_id: 1

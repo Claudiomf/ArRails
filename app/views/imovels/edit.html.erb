@@ -1,0 +1,10 @@
+<h1>Editar imóvel</h1>
+
+<fieldset>
+<%= render 'form' %>
+</fieldset>
+
+Cadastrado por:
+<b><%= User.find(@imovel.cadastrado_por_id).username%></b>
+<br/>
+

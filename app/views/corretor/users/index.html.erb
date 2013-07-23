@@ -1,59 +1,51 @@
-<h1>Users</h1>
-
-<%= search_form_for [:corretor, @search] do |f| %>
-  <div class="field">
-    <%= f.label :username_or_cpf_cont, "Digite o nome ou CPF" %>
-    <%= f.text_field :username_or_cpf_cont %>
+<h1>Corretores Cadastrados</h1>
+<dl>
+  <dd>
+    Nesta página, o administrador pode alterar, remover e visualizar corretores cadastrados.
+  </dd>
+</dl>
+<br>
+<%= search_form_for [:corretor, @search], :class => "form-search" do |f| %>
+  <div class="input-append">
+    <%= f.text_field :username_or_cpf_cont, :class => "input-medium search-query", :placeholder => "Digite o nome ou CPF", :style=> 'width: 200px'; %>
+    <%= f.submit "Buscar", :class => "btn btn-info" %>
   </div>
-  <div class="actions"><%= f.submit "Search" %></div>
 <% end %>
+<div class="well well-small" style="text-align: center;">
+  <i class="icon-search"></i> Visualizar | <i class="icon-pencil"></i> Alterar | <i class="icon-trash"></i> Remover
+</div>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th class="rotulo" width="40%"> <%= sort_link(@search, :name, "Nome Completo") %> </th>
+      
+      <th class="rotulo" width="25%"> <%= sort_link(@search, :cpf, "CPF") %> </th>
 
-<table class="table table-striped">
- <thead>
-  <tr>
-    <th>
-    	<%= sort_link(@search, :username, "Username") %>
-    </th>
-    
-    <th>
-    	<%= sort_link(@search, :cpf, "CPF") %>
-    </th>
-    
-    <th>
-      	<%= sort_link(@search, :email, "Email") %>
-    </th>
-    
-    <th>
-    	<%= sort_link(@search, :created_at, "Created at") %>
-    </th>
-        
-    <th>Actions</th>
-  </tr>
+      <th class="rotulo" style="text-align: center; width: 13%" nowrap> <%= sort_link(@search, :created_at, "Data de Cadastro") %> </th>
+
+      <th class="rotulo" style="width: 13%"></th>
+    </tr>
   </thead>
   <tbody>
-  <% @users.each do |user| -%>
-   <tr>    
-    <td>
-    	<%= link_to user.username, corretor_user_path(user) %>
-    </td>
-        
-    <td>
-    	<%= user.cpf %>
-    </td>
-        
-    <td>
-    	<%= user.email %>
-    </td>
-        
-    <td><%= user.created_at %></td>
-    <td>
-      <%= link_to "Show", corretor_user_path(user) %>
-      <%= link_to "Edit", edit_corretor_user_path(user) %>
-      <%= link_to "Destroy", corretor_user_path(user), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
-    </td>
+    <% @users.each do |user| -%>
+    <tr>
+      <td> <%= user.name %> </td>
+      <td> <%= user.cpf %> </td>
+      <td style="text-align: center;" nowrap><%= l(user.created_at, :format => :sample) %></td>
+      <td style="text-align: center;" nowrap>
+        <%= link_to(corretor_user_path(user), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
+         <i class="icon-search icon-white"></i>
+        <% end %> |
+         <%= link_to(edit_corretor_user_path(user), :class => "link-icon", :title => "Alterar") do %>
+         <i class="icon-pencil icon-white"></i>
+        <% end %> |
+      <%= link_to(corretor_user_path(user), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este corretor?")}", :class => "link-icon", :title => "Remover" ) do %>
+         <i class="icon-trash icon-white"></i>
+        <% end %>
+        </td>
     </tr>
     <% end -%>
-   </tbody>
+  </tbody>
 </table>
 
-<%= link_to "New", new_corretor_user_path, :class => 'btn btn-primary' %>
+<%= link_to "Cadastrar Novo Corretor", new_corretor_user_path, :class => 'btn btn-primary' %>
