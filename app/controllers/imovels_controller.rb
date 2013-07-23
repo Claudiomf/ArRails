@@ -143,7 +143,7 @@ class ImovelsController < ApplicationController
     end
   end
   
-  
+  # Testando!!
   # Método usado para gerar o código de referência de um imóvel baseado no tipo de imóvel escolhido no momento do cadastro.
   def gerar_codigo_referencia
     quantidade_imoveis  
