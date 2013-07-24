@@ -1,3 +1,45 @@
+<script type="text/javascript">
+
+function mostraCampoVendedor(){
+    if(document.getElementById('idVendido').checked)
+      document.getElementById('idVendedor').style.display = 'inline';
+    else
+      document.getElementById('idVendedor').style.display = 'none';
+  }
+  
+  function atualizaForm(){
+    var idTipo = document.getElementById('idTipoImovel').value;
+    if(idTipo == '4'){
+      document.getElementById('divQuartos').style.display = 'none';
+      document.getElementById('divSuites').style.display = 'none';
+      document.getElementById('divVagasGaragem').style.display = 'none';
+      document.getElementById('divDetalhes').style.display = 'none';
+      document.getElementById('liDetalhes').style.display = 'none';
+      document.getElementById('aDetalhes').style.display = 'none';
+      document.getElementById('txtNome').disabled = true;
+      atualizaNomeTipoTerreno();
+    } else {
+      document.getElementById('divQuartos').style.display = 'inline';
+      document.getElementById('divSuites').style.display = 'inline';
+      document.getElementById('divVagasGaragem').style.display = 'inline';
+      document.getElementById('divDetalhes').style.display = 'inline';
+      document.getElementById('liDetalhes').style.display = 'inline';
+      document.getElementById('aDetalhes').style.display = 'inline';
+      document.getElementById('txtNome').disabled = false;
+    }
+  }
+  
+  function atualizaNomeTipoTerreno(){
+    var valor = '';
+    var textoLocalizacao = document.getElementById('txtLocalizacao').value.toString();
+    if(document.getElementById('idTipoImovel').value == 4) {
+      valor = "TERRENO LOCALIZADO: "+textoLocalizacao;
+      document.getElementById('txtNome').value = valor;
+    }
+  }
+
+</script>
+
 <%= nested_form_for(@imovel, :html => {:multipart => true}) do |f| %>
 
   <% if @imovel.errors.any? %>
@@ -56,15 +98,21 @@
   <label class="control-label obrigatorio">Tipo do imóvel</label>
   <div class="controls">
     <% if @imovel.id.nil? %>
-      <%= select("imovel", "imovel_tipo_id", ImovelTipo.all.collect {|p| [ p.nome, p.id ] }, {include_blank: '-- Selecione o tipo de imóvel --'}, {class: "span4", onchange: "atualizaForm(this)"}) %>
+      <%= select("imovel", "imovel_tipo_id", ImovelTipo.all.collect {|p| [ p.nome, p.id ] }, {include_blank: '-- Selecione o tipo de imóvel --'}, {class: "span4", onchange: "atualizaForm()", id:"idTipoImovel"}) %>
     <% else %>
-      <%= select("imovel", "imovel_tipo_id", ImovelTipo.all.collect {|p| [ p.nome, p.id ] }, {include_blank: '-- Selecione o tipo de imóvel --'}, {class: "span4", disabled: "true"}) %>
+      <%= select("imovel", "imovel_tipo_id", ImovelTipo.all.collect {|p| [ p.nome, p.id ] }, {include_blank: '-- Selecione o tipo de imóvel --'}, {class: "span4", disabled: "true", id:"idTipoImovel"}) %>
     <% end %>
   </div>
 </div>
 
 <%= f.label :nome, :class => "control-label obrigatorio" %>
-<%= f.text_field :nome, :class => "input-xxlarge", :onkeyup => "toUppercase(this);" %>
+<%= f.text_field :nome, :class => "input-xxlarge", :id => "txtNome", :onkeyup => "toUppercase(this);" %>
+
+<%= f.label "Localização", :class => "control-label obrigatorio" %>
+<%= f.text_field :localizacao, :id => "txtLocalizacao", :onkeyup => "toUppercase(this);", :onblur => "atualizaNomeTipoTerreno()" %>
+
+<%= f.label "Descrição", :class => "control-label" %>
+<%= f.text_area :descricao, :rows => "5", :class => "span8"   %>
 
 <div class="control-group">
   <label class="control-label obrigatorio">Transação</label>
@@ -131,13 +179,6 @@
   </div>
 </div>
 
-<legend></legend>
-
-<%= f.label "Localização", :class => "control-label obrigatorio" %>
-<%= f.text_field :localizacao %>
-
-<%= f.label "Descrição", :class => "control-label" %>
-<%= f.text_area :descricao, :rows => "5", :class => "span8"   %>
 
 <br>
 <a href="#" class="link-icon pull-right"><i class="icon-arrow-up link-icon"></i> Topo do formulário</a>
@@ -161,7 +202,7 @@
 </div>
 <br>
 
-<a href="#" class="link-icon pull-right"><i class="icon-arrow-up link-icon"></i> Topo do formulário</a>
+<a href="#" class="link-icon pull-right" id="aDetalhes"><i class="icon-arrow-up link-icon"></i> Topo do formulário</a>
 <br>
 <legend>Administração<a name="administracao"></a></legend>
 <div class="control-group">
@@ -178,7 +219,7 @@
 <legend>Imagens<a name="imagens"></a></legend>
 
 
-<br><br><br><br>  
+<br><br>  
 <div class="field">
   <%= f.fields_for :images do |image_form|  %>
     <%= image_tag(image_form.object.image.thumb.url) if image_form.object.image? %>
@@ -194,10 +235,11 @@
   Ativo <%= check_box("imovel", "ativo", :class => "checkbox inline")%>
 <% end %>
 
+
 <div class="form-actions-white">
 	<!-- <%= f.submit %> -->
 	<% if @imovel.id.nil? %>
-	<button class="btn btn-primary" type="submit">Cadastrar</button>
+	<button class="btn btn-primary" type="submit" onclick="atualizaNomeTipoTerreno();">Cadastrar</button>
 	<% else %>
 	<button class="btn btn-info" type="submit">Alterar</button>
 	<% end %>
@@ -210,28 +252,7 @@
 
   mostraCampoVendedor();
   
-  function mostraCampoVendedor(){
-    if(document.getElementById('idVendido').checked)
-      document.getElementById('idVendedor').style.display = 'inline';
-    else
-      document.getElementById('idVendedor').style.display = 'none';
-  }
-  
-  function atualizaForm(idTipoImovel){
-    var idTipo = idTipoImovel.value;
-    if(idTipo == '4'){
-      document.getElementById('divQuartos').style.display = 'none';
-      document.getElementById('divSuites').style.display = 'none';
-      document.getElementById('divVagasGaragem').style.display = 'none';
-      document.getElementById('divDetalhes').style.display = 'none';
-      document.getElementById('liDetalhes').style.display = 'none';
-    } else {
-      document.getElementById('divQuartos').style.display = 'inline';
-      document.getElementById('divSuites').style.display = 'inline';
-      document.getElementById('divVagasGaragem').style.display = 'inline';
-      document.getElementById('divDetalhes').style.display = 'inline';
-      document.getElementById('liDetalhes').style.display = 'inline';
-    }
-  }
+  atualizaForm();
+  atualizaNomeTipoTerreno();
   
 </script>

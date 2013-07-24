@@ -7,6 +7,14 @@ class ImovelsController < ApplicationController
    
    #Traz apenas os imoveis ativos
    @imovels = Imovel.all.select { |i| i.ativo == true }
+   
+  # Mapa para guardar os valores das transacoes associadas a cada imovel.
+  # key: imovel_id, value: lista com [0]:transacao, [1]: tipos, [2] responsavel
+  @hash_informacoes_imoveis = Hash.new
+   
+   @imovels.each do |imovel|
+     popular_imovel(imovel)
+   end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -19,7 +27,7 @@ class ImovelsController < ApplicationController
   def show
     #Popular objeto imovel
     @imovel = Imovel.find(params[:id])
-    popular_imovel
+    popular_imovel(nil)
     
     respond_to do |format|
       format.html # show.html.erb
@@ -59,6 +67,18 @@ class ImovelsController < ApplicationController
     
     gerar_codigo_referencia
     
+    # arranjo temporario porque não tá cadastrando com nome quando é terreno
+    if @imovel.imovel_tipo_id==4
+      @imovel.attributes = {:nome => "TERRENO LOCALIZADO: "+@imovel.localizacao}
+    end
+    
+    if @imovel.imovel_tipo_id==4
+      @imovel.attributes = {:quartos => '0'}
+      @imovel.attributes = {:suites => '0'}
+      @imovel.attributes = {:vagas => '0'}
+      @imovel.attributes = {:imovel_detalhe_ids => []}
+    end
+    
     respond_to do |format|
       if @imovel.save
         format.html { redirect_to @imovel, notice: 'Imovel foi cadastrado com sucesso.' }
@@ -74,7 +94,15 @@ class ImovelsController < ApplicationController
   # PUT /imovels/1.json
   def update
     @imovel = Imovel.find(params[:id])
-
+    
+    if !@imovel.vendido?
+      @imovel.attributes = {:vendedor_id => '0'}
+    end
+    
+    # arranjo temporario porque não tá cadastrando com nome quando é terreno
+    if @imovel.imovel_tipo_id==4
+      @imovel.attributes = {:nome => "TERRENO LOCALIZADO: "+@imovel.localizacao}
+    end
  
     respond_to do |format|
       if @imovel.update_attributes(params[:imovel])
@@ -113,7 +141,7 @@ class ImovelsController < ApplicationController
   private
   
   # Método que vai popular todos os campos do imóvel a ser exibido para o usuário.
-  def popular_imovel
+  def popular_imovel_aux
     
     @images = @imovel.images
     @transacao = ImovelTansacao.find(@imovel.imovel_transacao_id) if !@imovel.imovel_transacao_id.nil?
@@ -124,6 +152,26 @@ class ImovelsController < ApplicationController
     
   end
   
+  # Método delegate: preenche um objeto imovel com todas as informações completas dele. Inclusive associando a outras entidades como: transação,
+  # responsável
+  def popular_imovel(imovel_aux)
+  
+    if imovel_aux.nil?
+      popular_imovel_aux
+      return
+    end
+  
+    # 0 transacao, 1 tipo_imovel, 2 responsavel
+    lista_aux = []
+    
+    lista_aux[0] = ImovelTansacao.find(imovel_aux.imovel_transacao_id) if !imovel_aux.imovel_transacao_id.nil?
+    lista_aux[1] = ImovelTipo.find(imovel_aux.imovel_tipo_id) if !imovel_aux.imovel_tipo_id.nil?
+    lista_aux[2] = User.find(imovel_aux.responsavel_id) if !imovel_aux.responsavel_id.nil?
+    
+    @hash_informacoes_imoveis[imovel_aux.id] = lista_aux
+    
+  end
+  
   # Método que retorna o número que integra o 'Código de Referência' para o tipo de imóvel escolhido.
   def quantidade_imoveis
     count_tipo_imovel = Imovel.count_by_sql "SELECT COUNT(*) FROM imovels i WHERE i.imovel_tipo_id = "+@imovel.imovel_tipo_id.to_s
@@ -131,13 +179,13 @@ class ImovelsController < ApplicationController
     puts count_tipo_imovel
     case count_tipo_imovel.to_s.length
     when 1
-      @numero_codigo_referencia = "0000" + count_tipo_imovel.to_s
-    when 2
       @numero_codigo_referencia = "000" + count_tipo_imovel.to_s
-    when 3
+    when 2
       @numero_codigo_referencia = "00" + count_tipo_imovel.to_s
-    when 4
+    when 3
       @numero_codigo_referencia = "0" + count_tipo_imovel.to_s
+    when 4
+      @numero_codigo_referencia = count_tipo_imovel.to_s
     else
       @numero_codigo_referencia = count_tipo_imovel.to_s
     end
@@ -157,7 +205,7 @@ class ImovelsController < ApplicationController
     when 4
       @imovel.attributes = {:cod_ref => "TE"+@numero_codigo_referencia}
     else
-      @imovel.attributes = {:cod_ref => "0000000"}
+      @imovel.attributes = {:cod_ref => "000000"}
     end
   end
   
