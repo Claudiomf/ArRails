@@ -7,6 +7,9 @@
 # Ignore bundler config
 /.bundle
 
+# Ignore Images
+/public/uploads
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 
@@ -46,3 +49,9 @@ RCSLOG
 SCCS
 _$*
 _svn
+Gemfile
+Gemfile.lock
+config/database.yml
+.settings/org.eclipse.core.resources.prefs
+config/database.yml
+Gemfile.lock

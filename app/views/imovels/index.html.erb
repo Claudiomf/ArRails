@@ -7,32 +7,6 @@
 <br>
 
 <form class="form-search">
-  <div class="controls">
-    <div class="control-group">
-      <input type="checkbox" class="checkbox inline" value=""/> Vendedor
-      <select name="imovel[quartos]">
-      <option>-- Número de quartos --</option>
-      <option value="1">1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
-    </select>
-    </div>
-  </div>
-  <div class="controls">
-    <div class="control-group">
-      <input type="checkbox" class="checkbox inline" value=""/> Vendedor
-      <select name="imovel[quartos]">
-      <option>-- Número de quartos --</option>
-      <option value="1">1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
-    </select>
-    </div>
-  </div>
   <div class="input-append">
     <input type="text" class="input-medium search-query" placeholder="Digite o código de referência" style="width: 200px;"/>
     <input type="submit" name="Buscar" class="btn btn-info"/>
@@ -46,36 +20,75 @@
 <table class="table table-bordered">
   <thead>
     <tr>
-      <th class="rotulo" width="15%">Cod. Referência</th>
+      <th class="rotulo" width="15%" style="text-align: right;">Cod. Referência</th>
       <th class="rotulo">Nome</th>
       <th class="rotulo">Localização</th>
       <th class="rotulo"></th>
     </tr>    
   </thead>
   <tbody>
-    <% @imovels.each do |imovel| %>
-      <tr>
-        <td rowspan="2"><%= imovel.cod_ref %></td>
-        <td><%= imovel.nome %> <strong><font class="text-error"><%= '(Vendido)' if imovel.vendido? %></font></strong></td>
-        <td><%= imovel.localizacao %></td>
-        
-        
-        <td style="text-align: center;" width="15%" valign="middle;" rowspan="2">
-          <%= link_to(imovel, :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
-           <i class="icon-search icon-white"></i>
-          <% end %> |
-          <% if !imovel.vendido? %>
-            <%= link_to(edit_imovel_path(imovel), :class => "link-icon", :title => "Alterar") do %>
-             <i class="icon-pencil icon-white"></i>
+    <% if !@imovels.empty? %>
+      <% @imovels.each do |imovel| %>
+        <tr>
+          <td style="text-align: right;"><%= imovel.cod_ref %></td>
+          <td><%= imovel.nome %> <strong><font class="text-error"><%= '(Vendido)' if imovel.vendido? %></font></strong></td>
+          <td><%= imovel.localizacao %></td>
+          
+          
+          <td style="text-align: center;" width="15%" valign="middle;" rowspan="2">
+            <%= link_to(imovel, :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
+             <i class="icon-search icon-white"></i>
             <% end %> |
-          <% else %>
-            <i class="icon-pencil icon-white"></i> |
-          <% end %>
-          <%= link_to(imovel, :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este imóvel?")}", :class => "link-icon", :title => "Remover" ) do %>
-           <i class="icon-trash icon-white"></i>
-          <% end %>
+            <% if !imovel.vendido? %>
+              <%= link_to(edit_imovel_path(imovel), :class => "link-icon", :title => "Alterar") do %>
+               <i class="icon-pencil icon-white"></i>
+              <% end %> |
+            <% else %>
+              <i class="icon-pencil icon-white"></i> |
+            <% end %>
+            <%= link_to(imovel, :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este imóvel?")}", :class => "link-icon", :title => "Remover" ) do %>
+             <i class="icon-trash icon-white"></i>
+            <% end %>
+        </tr>
+        <tr>
+          <td colspan="3" rowspan="1">
+            <div class="media">
+              <a class="pull-left" href="#">
+                <%= image_tag(imovel.images[0].image_url(:thumb), :class => "media-object") if !imovel.images[0].nil? %>
+                <%= image_tag("no_image.png", :class => "media-object") if imovel.images[0].nil? %>
+              </a>
+              <div class="media-body" style="text-align: justify;">
+                <h5 class="media-heading">Descrição</h5>
+                <% if imovel.descricao.empty? %>
+                  Não informada.
+                <% else %>
+                  <%= imovel.descricao %>
+                <% end %>
+                <div class="media">
+                  <div class="media-body" style="text-align: justify;">
+                    <table>
+                      <tr>
+                        <th style="border: 0;" nowrap>Transação:</th>
+                        <td style="border: 0;"><%= @hash_informacoes_imoveis[imovel.id][0].nome %></td>
+                        <th style="border: 0;" nowrap>Tipo:</th>
+                        <td style="border: 0;"><%= @hash_informacoes_imoveis[imovel.id][1].nome %></td>
+                        <th style="border: 0;" nowrap>Responsável:</th>
+                        <td style="border: 0;"><%= @hash_informacoes_imoveis[imovel.id][2].name if !@hash_informacoes_imoveis[imovel.id][2].nil? %> <%= "Não atribuido." if @hash_informacoes_imoveis[imovel.id][2].nil? %></td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+      <% else %>
+      <tr>
+        <td colspan="3" style="text-align: center">
+          <font class="text-error" >Não há imóveis cadastrados.</font>
+        </td>
       </tr>
-      <tr><td colspan="2"><b>Descrição:</b> <%= imovel.descricao %></td></tr>
     <% end %>
   </tbody>
 

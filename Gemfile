@@ -5,8 +5,8 @@ gem 'rails', '3.2.1'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+# Pacote para instalar o postgres
 gem 'pg'
-
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -18,20 +18,36 @@ group :assets do
   # gem 'therubyracer'
 
   gem 'twitter-bootstrap-rails'
+  #gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails'
 
   gem 'uglifier', '>= 1.0.3'
 end
 
 gem 'jquery-rails'
 
+# gem para o bootstrap
 gem "therubyracer", :require => 'v8'
 gem 'less-rails'
 gem 'jasny_bootstrap_extension_rails'
 
+# gem para autorização login
 gem "devise"
+
+# gem para roles
 gem "cancan"
+
+# Pacote para auxiliar na busca
 gem 'ransack'
+
+# Pacote para auxiliar dados BR
 gem 'brazilian-rails'
+
+# Gem para salvar aquivos e imagens
+gem 'carrierwave'
+gem 'rmagick'
+
+# para modelos aninhados
+gem 'nested_form'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
