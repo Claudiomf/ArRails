@@ -1,0 +1,40 @@
+<h1>Detalhes Cadastrados</h1>
+
+<div class="well-small">
+  <dl>
+    <dd>
+      Os <b>detalhes de imóveis</b> são características usadas para descrever imóveis com maior especificidade.    
+    </dd>
+  </dl>
+  <dl>
+    <dd>
+      Nesta página, o administrador pode alterar, remover e visualizar detalhes de imoveis cadastrados.
+    </dd>
+  </dl>
+</div>
+<br>
+<div class="well well-small" style="text-align: center;">
+  <i class="icon-search"></i> Visualizar | <i class="icon-pencil"></i> Alterar | <i class="icon-trash"></i> Remover |<%= link_to 'Cadastrar Novo Detalhe', new_imovel_detalhe_path, :class => "btn btn-link" %>
+</div>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th class="rotulo">Nome</th>
+      <th class="rotulo" style="text-align: center; width: 20%">Data de Cadastro</th>
+      <th class="rotulo" style="text-align: center; width: 20%"></th>
+    </tr>    
+  </thead>
+  <tbody>
+    <% if !@imovel_detalhes.empty? %>
+      <% @imovel_detalhes.each do |detalhe| %>
+        <tr>
+          <td><%= detalhe.nome %></td>
+          <td style="text-align: center;"><%= l(detalhe.created_at, :format => :sample) %></td>
+          <td style="text-align: center; width: 20%"></td>
+        </tr>
+      <% end %>
+    <% else %>
+    <% end %>
+  </tbody>
+</table>

@@ -7,32 +7,6 @@
 <br>
 
 <form class="form-search">
-  <div class="controls">
-    <div class="control-group">
-      <input type="checkbox" class="checkbox inline" value=""/> Vendedor
-      <select name="imovel[quartos]">
-      <option>-- Número de quartos --</option>
-      <option value="1">1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
-    </select>
-    </div>
-  </div>
-  <div class="controls">
-    <div class="control-group">
-      <input type="checkbox" class="checkbox inline" value=""/> Vendedor
-      <select name="imovel[quartos]">
-      <option>-- Número de quartos --</option>
-      <option value="1">1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
-    </select>
-    </div>
-  </div>
   <div class="input-append">
     <input type="text" class="input-medium search-query" placeholder="Digite o código de referência" style="width: 200px;"/>
     <input type="submit" name="Buscar" class="btn btn-info"/>
@@ -42,12 +16,11 @@
 <div class="well well-small" style="text-align: center;">
   <i class="icon-search"></i> Visualizar | <i class="icon-pencil"></i> Alterar | <i class="icon-trash"></i> Remover
 </div>
-<%= @hash_informacoes_imoveis[71][0].nome %>
 
 <table class="table table-bordered">
   <thead>
     <tr>
-      <th class="rotulo" width="15%">Cod. Referência</th>
+      <th class="rotulo" width="15%" style="text-align: right;">Cod. Referência</th>
       <th class="rotulo">Nome</th>
       <th class="rotulo">Localização</th>
       <th class="rotulo"></th>
@@ -57,7 +30,7 @@
     <% if !@imovels.empty? %>
       <% @imovels.each do |imovel| %>
         <tr>
-          <td><%= imovel.cod_ref %></td>
+          <td style="text-align: right;"><%= imovel.cod_ref %></td>
           <td><%= imovel.nome %> <strong><font class="text-error"><%= '(Vendido)' if imovel.vendido? %></font></strong></td>
           <td><%= imovel.localizacao %></td>
           

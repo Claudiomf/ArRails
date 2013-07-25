@@ -1,0 +1,2 @@
+module ImovelDetalhesHelper
+end
