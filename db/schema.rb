@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130726130921) do
+ActiveRecord::Schema.define(:version => 20130726154120) do
 
   create_table "caracteristica_imovels", :force => true do |t|
     t.string   "descricao",  :limit => 300
@@ -51,17 +51,15 @@ ActiveRecord::Schema.define(:version => 20130726130921) do
   end
 
   create_table "imovels", :force => true do |t|
-    t.string   "cod_ref"
+    t.string   "codigo_referencia"
     t.string   "nome"
     t.string   "localizacao"
     t.text     "descricao"
-    t.integer  "taxa_de_condominio"
+    t.integer  "taxa_condominio"
     t.integer  "iptu"
     t.integer  "valor"
-    t.integer  "quartos"
-    t.integer  "suites"
     t.integer  "area"
-    t.integer  "vagas"
+    t.integer  "vagas_garagem"
     t.integer  "imovel_transacao_id"
     t.integer  "imovel_tipo_id"
     t.integer  "responsavel_id"
@@ -91,6 +89,12 @@ ActiveRecord::Schema.define(:version => 20130726130921) do
   create_table "roles_users", :id => false, :force => true do |t|
     t.integer "role_id"
     t.integer "user_id"
+  end
+
+  create_table "transacao_imovels", :force => true do |t|
+    t.string   "descricao",  :limit => 180
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
 
   create_table "users", :force => true do |t|
