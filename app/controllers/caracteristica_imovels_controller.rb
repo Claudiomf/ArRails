@@ -23,7 +23,6 @@ class CaracteristicaImovelsController < ApplicationController
     
     if has_role?(current_user, 'corretor')
       #@imovel_detalhe.attributes = {:ativo => false}
-      
     end
     
     #@caracteristica_imovel.increment!(:contador)
