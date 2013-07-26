@@ -6,11 +6,11 @@ class CaracteristicaImovelsController < ApplicationController
   # GET /imovels/new
   # GET /imovels/new.json
   def new
-    @caracteristica_imovels = CaracteristicaImovel.new
+    @caracteristica_imovel = CaracteristicaImovel.new
     
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @imovel }
+      format.json { render json: @caracteristica_imovel }
     end
   end
   
@@ -30,10 +30,10 @@ class CaracteristicaImovelsController < ApplicationController
     respond_to do |format|
       if @caracteristica_imovel.save
         format.html { redirect_to new_caracteristica_imovel_path, notice: 'Caracteristica foi cadastrada com sucesso.' }
-        format.json { render json: new_caracteristica_imovel_path, status: :created, location: new_caracteristica_imovel_path }
+        format.json { render json: @caracteristica_imovel, status: :created, location: new_caracteristica_imovel_path }
       else
         format.html { render action: "new" }
-        format.json { render json: @imovel_detalhe.errors, status: :unprocessable_entity }
+        format.json { render json: @caracteristica_imovel.errors, status: :unprocessable_entity }
       end
     end
   end
