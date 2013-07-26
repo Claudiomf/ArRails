@@ -12,7 +12,7 @@ function mostraCampoVendedor(){
     if(idTipo == '4'){
       document.getElementById('divQuartos').style.display = 'none';
       document.getElementById('divSuites').style.display = 'none';
-      document.getElementById('divvagas_garagemGaragem').style.display = 'none';
+      document.getElementById('divVagasGaragem').style.display = 'none';
       document.getElementById('divDetalhes').style.display = 'none';
       document.getElementById('liDetalhes').style.display = 'none';
       document.getElementById('aDetalhes').style.display = 'none';
@@ -21,7 +21,7 @@ function mostraCampoVendedor(){
     } else {
       document.getElementById('divQuartos').style.display = 'inline';
       document.getElementById('divSuites').style.display = 'inline';
-      document.getElementById('divvagas_garagemGaragem').style.display = 'inline';
+      document.getElementById('divVagasGaragem').style.display = 'inline';
       document.getElementById('divDetalhes').style.display = 'inline';
       document.getElementById('liDetalhes').style.display = 'inline';
       document.getElementById('aDetalhes').style.display = 'inline';
@@ -91,7 +91,7 @@ function mostraCampoVendedor(){
 
 <% if !@imovel.id.nil? %>
   <%= f.label 'Código de referência', :class => "control-label" %>
-  <%= f.text_field :codigo_referencia, :class => "input-small", :disabled => "true" %>
+  <%= f.text_field :cod_ref, :class => "input-small", :disabled => "true" %>
 <% end %>
 
 <div class="control-group">
@@ -117,7 +117,7 @@ function mostraCampoVendedor(){
 <div class="control-group">
   <label class="control-label obrigatorio">Transação</label>
   <div class="controls">
-    <%= select("imovel", "imovel_transacao_id", TransacaoImovel.all.collect {|p| [ p.descricao, p.id ] }, {include_blank: '-- Selecione a transação --'}, {class: "input-large"}) %>
+    <%= select("imovel", "imovel_transacao_id", ImovelTansacao.all.collect {|p| [ p.nome, p.id ] }, {include_blank: '-- Selecione a transação --'}, {class: "input-large"}) %>
   </div>
 </div>
 
@@ -125,7 +125,7 @@ function mostraCampoVendedor(){
   <label class="control-label">Taxa de Condomínio</label>
   <div class="controls input-prepend input-append">
     <span class="add-on">R$</span>
-    <%= f.text_field :taxa_condominio, :class => "span5", :onkeyup => "formatarValor(this)" %>
+    <%= f.text_field :taxa_de_condominio, :class => "span5", :onkeyup => "formatarValor(this)" %>
   </div>
 </div>
 
@@ -172,10 +172,10 @@ function mostraCampoVendedor(){
   </div>
 </div>
 
-<div class="control-group" id="divvagas_garagemGaragem">
-  <label class="control-label">vagas_garagem de garagem</label>
+<div class="control-group" id="divVagasGaragem">
+  <label class="control-label">Vagas de garagem</label>
   <div class="controls">
-    <%= f.text_field :vagas_garagem, :class => "input-small", :onkeyup => "somenteNumero(this, event)", :maxlength => "4" %>
+    <%= f.text_field :vagas, :class => "input-small", :onkeyup => "somenteNumero(this, event)", :maxlength => "4" %>
   </div>
 </div>
 
@@ -186,12 +186,11 @@ function mostraCampoVendedor(){
 <div id="divDetalhes">
   <legend>Detalhes<a name="detalhes"></a></legend>
   <table width="80%">
-  <% CaracteristicaImovel.find(:all).each_with_index do |c,i| %>
+  <% ImovelDetalhe.find(:all).each_with_index do |c,i| %>
     <% if i%3 == 0 %>
-      <% if i != 0 %> 
+      <% if i != 0 %>
         </tr>
       <% end %>
-      
     <tr>
       <td><%= check_box_tag'imovel[imovel_detalhe_ids][]', c.id, @imovel.imovel_detalhes.include?(c), class: 'checkbox inline' %> <%= c.nome %></td>
     <% else %>
