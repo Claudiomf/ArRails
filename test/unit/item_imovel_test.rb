@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ImovelDetalheTest < ActiveSupport::TestCase
+class ItemImovelTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

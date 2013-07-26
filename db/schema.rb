@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130706040107) do
+ActiveRecord::Schema.define(:version => 20130726130921) do
+
+  create_table "caracteristica_imovels", :force => true do |t|
+    t.string   "descricao",  :limit => 300
+    t.integer  "contador"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
 
   create_table "images", :force => true do |t|
     t.string   "image"
@@ -64,6 +71,15 @@ ActiveRecord::Schema.define(:version => 20130706040107) do
     t.boolean  "ativo"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+  end
+
+  create_table "item_imovels", :force => true do |t|
+    t.boolean  "visibilidade"
+    t.string   "quantidade",               :limit => 60
+    t.integer  "imovel_id"
+    t.integer  "caracteristica_imovel_id"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
   end
 
   create_table "roles", :force => true do |t|
