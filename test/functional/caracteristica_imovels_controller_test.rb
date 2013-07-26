@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CaracteristicaImovelControllerTest < ActionController::TestCase
+class CaracteristicaImovelsControllerTest < ActionController::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -144,7 +144,7 @@ class ImovelsController < ApplicationController
   def popular_imovel_aux
     
     @images = @imovel.images
-    @transacao = ImovelTansacao.find(@imovel.imovel_transacao_id) if !@imovel.imovel_transacao_id.nil?
+    @transacao = TransacaoImovel.find(@imovel.imovel_transacao_id) if !@imovel.imovel_transacao_id.nil?
     @tipo_imovel = ImovelTipo.find(@imovel.imovel_tipo_id) if !@imovel.imovel_tipo_id.nil?
     @responsavel = User.find(@imovel.responsavel_id) if !@imovel.responsavel_id.nil?
     @vendedor = User.find(@imovel.vendedor_id) if !@imovel.vendedor_id.nil?
@@ -164,7 +164,7 @@ class ImovelsController < ApplicationController
     # 0 transacao, 1 tipo_imovel, 2 responsavel
     lista_aux = []
     
-    lista_aux[0] = ImovelTansacao.find(imovel_aux.imovel_transacao_id) if !imovel_aux.imovel_transacao_id.nil?
+    lista_aux[0] = TransacaoImovel.find(imovel_aux.imovel_transacao_id) if !imovel_aux.imovel_transacao_id.nil?
     lista_aux[1] = ImovelTipo.find(imovel_aux.imovel_tipo_id) if !imovel_aux.imovel_tipo_id.nil?
     lista_aux[2] = User.find(imovel_aux.responsavel_id) if !imovel_aux.responsavel_id.nil?
     

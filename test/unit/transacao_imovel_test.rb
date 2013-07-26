@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ImovelTansacaoTest < ActiveSupport::TestCase
+class TransacaoImovelTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
