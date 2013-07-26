@@ -1,2 +1,0 @@
-class CaracteristicaImovelController < ApplicationController
-end
