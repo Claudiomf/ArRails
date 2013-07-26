@@ -1,0 +1,2 @@
+module CaracteristicaImovelHelper
+end
