@@ -41,7 +41,7 @@ class CaracteristicaImovelsController < ApplicationController
     
     respond_to do |format|
       if @caracteristica_imovel.save
-        format.html { redirect_to new_caracteristica_imovel_path, notice: 'Caracteristica foi cadastrada com sucesso.' }
+        format.html { redirect_to new_caracteristica_imovel_path, notice: 'Caracteristica '+@caracteristica_imovel.descricao+' foi cadastrada com sucesso.' }
         format.json { render json: @caracteristica_imovel, status: :created, location: new_caracteristica_imovel_path }
       else
         format.html { render action: "new" }
