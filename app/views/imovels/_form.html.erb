@@ -13,8 +13,8 @@ function mostraCampoVendedor(){
       document.getElementById('divQuartos').style.display = 'none';
       document.getElementById('divSuites').style.display = 'none';
       document.getElementById('divVagasGaragem').style.display = 'none';
-      document.getElementById('divDetalhes').style.display = 'none';
-      document.getElementById('liDetalhes').style.display = 'none';
+      document.getElementById('divCaracteristicas').style.display = 'none';
+      document.getElementById('liCaracteristicas').style.display = 'none';
       document.getElementById('aDetalhes').style.display = 'none';
       document.getElementById('txtNome').disabled = true;
       atualizaNomeTipoTerreno();
@@ -22,8 +22,8 @@ function mostraCampoVendedor(){
       document.getElementById('divQuartos').style.display = 'inline';
       document.getElementById('divSuites').style.display = 'inline';
       document.getElementById('divVagasGaragem').style.display = 'inline';
-      document.getElementById('divDetalhes').style.display = 'inline';
-      document.getElementById('liDetalhes').style.display = 'inline';
+      document.getElementById('divCaracteristicas').style.display = 'inline';
+      document.getElementById('liCaracteristicas').style.display = 'inline';
       document.getElementById('aDetalhes').style.display = 'inline';
       document.getElementById('txtNome').disabled = false;
     }
@@ -66,8 +66,8 @@ function mostraCampoVendedor(){
         <li>
           <a href="#dadosGerais">Dados Gerais</a> <span class="divider">/</span>
         </li>
-        <li id="liDetalhes">
-          <a href="#detalhes">Detalhes</a> <span class="divider">/</span>
+        <li id="liCaracteristicas">
+          <a href="#caracteristicas">Características</a> <span class="divider">/</span>
         </li>
         <li>
           <a href="#administracao">Administração</a> <span class="divider">/</span>
@@ -156,8 +156,8 @@ function mostraCampoVendedor(){
 <br>
 <a href="#" class="link-icon pull-right"><i class="icon-arrow-up link-icon"></i> Topo do formulário</a>
 <br>
-<div id="divDetalhes">
-  <legend>Detalhes<a name="detalhes"></a></legend>
+<div id="divCaracteristicas">
+  <legend>Características<a name="caracteristicas"></a></legend>
   <table width="80%">
   <% CaracteristicaImovel.order(:descricao).each_with_index do |c,i| %>
     <% if i%3 == 0 %>
