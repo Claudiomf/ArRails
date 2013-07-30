@@ -57,7 +57,7 @@ function mostraCampoVendedor(){
   <% end %>
   <% if @imovel.id.nil? %>
   <br>
-  <div class="alert alert-error">
+  <div class="alert alert-info">
     <span class="label label-important">Importante</span> Após o cadastro de imóvel, não será possível alterar o <b>tipo do imóvel</b>, pois o <b>Código de Referência</b> gerado pelo sistema depende dessa informação.
   </div> 
   <% end %>
@@ -98,18 +98,18 @@ function mostraCampoVendedor(){
   <label class="control-label obrigatorio">Tipo do imóvel</label>
   <div class="controls">
     <% if @imovel.id.nil? %>
-      <%= select("imovel", "imovel_tipo_id", ImovelTipo.all.collect {|p| [ p.nome, p.id ] }, {include_blank: '-- Selecione o tipo de imóvel --'}, {class: "span4", onchange: "atualizaForm()", id:"idTipoImovel"}) %>
+      <%= select("imovel", "tipo_imovel_id", ImovelTipo.all.collect {|p| [ p.nome, p.id ] }, {include_blank: '-- Selecione o tipo de imóvel --'}, {class: "span4", onchange: "atualizaForm()", id:"idTipoImovel"}) %>
     <% else %>
-      <%= select("imovel", "imovel_tipo_id", ImovelTipo.all.collect {|p| [ p.nome, p.id ] }, {include_blank: '-- Selecione o tipo de imóvel --'}, {class: "span4", disabled: "true", id:"idTipoImovel"}) %>
+      <%= select("imovel", "tipo_imovel_id", ImovelTipo.all.collect {|p| [ p.nome, p.id ] }, {include_blank: '-- Selecione o tipo de imóvel --'}, {class: "span4", disabled: "true", id:"idTipoImovel"}) %>
     <% end %>
   </div>
 </div>
 
 <%= f.label :nome, :class => "control-label obrigatorio" %>
-<%= f.text_field :nome, :class => "input-xxlarge", :id => "txtNome", :onkeyup => "toUppercase(this);" %>
+<%= f.text_field :nome, :class => "input-xxlarge", :id => "txtNome", :onkeyup => "toUppercase(this);", :maxlength => "200" %>
 
 <%= f.label "Localização", :class => "control-label obrigatorio" %>
-<%= f.text_field :localizacao, :id => "txtLocalizacao", :onkeyup => "toUppercase(this);", :onblur => "atualizaNomeTipoTerreno()" %>
+<%= f.text_field :localizacao, :id => "txtLocalizacao", :onkeyup => "toUppercase(this);", :onblur => "atualizaNomeTipoTerreno()", :maxlength => "200" %>
 
 <%= f.label "Descrição", :class => "control-label" %>
 <%= f.text_area :descricao, :rows => "5", :class => "span8"   %>
@@ -117,7 +117,15 @@ function mostraCampoVendedor(){
 <div class="control-group">
   <label class="control-label obrigatorio">Transação</label>
   <div class="controls">
-    <%= select("imovel", "imovel_transacao_id", TransacaoImovel.all.collect {|p| [ p.descricao, p.id ] }, {include_blank: '-- Selecione a transação --'}, {class: "input-large"}) %>
+    <%= select("imovel", "transacao_imovel_id", TransacaoImovel.all.collect {|p| [ p.descricao, p.id ] }, {include_blank: '-- Selecione a transação --'}, {class: "input-large"}) %>
+  </div>
+</div>
+
+<div class="control-group">
+  <label class="control-label">Valor</label>
+  <div class="controls input-prepend input-append">
+    <span class="add-on">R$</span>
+    <%= f.text_field :valor, :class => "span5", :onkeyup => "somenteNumero(this, event), formatarValor(this)", :maxlength => "11", :size => "30" %>
   </div>
 </div>
 
@@ -125,7 +133,7 @@ function mostraCampoVendedor(){
   <label class="control-label">Taxa de Condomínio</label>
   <div class="controls input-prepend input-append">
     <span class="add-on">R$</span>
-    <%= f.text_field :taxa_condominio, :class => "span5", :onkeyup => "formatarValor(this)" %>
+    <%= f.text_field :taxa_condominio, :class => "span5", :onkeyup => "somenteNumero(this, event), formatarValor(this)", :maxlength => "10", :size => "30" %>
   </div>
 </div>
 
@@ -133,21 +141,49 @@ function mostraCampoVendedor(){
   <label class="control-label">IPTU</label>
   <div class="controls input-prepend input-append">
     <span class="add-on">R$</span>
-    <%= f.text_field :iptu, :class => "span5", :onkeyup => "formatarValor(this)" %>
+    <%= f.text_field :iptu, :class => "span5", :onkeyup => "somenteNumero(this, event), formatarValor(this)", :maxlength => "10", :size => "30" %>
+  </div>
+</div>
+
+<div class="control-group" style="display: inline;" id="divQuartos">
+  <label class="control-label">Quartos</label>
+  <div class="controls">
+    <select name="imovel[quantidade_quartos]">
+      <option>-- Número de quartos --</option>
+      <option value="1">1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+  </div>
+</div>
+
+<div class="control-group" id="divSuites">
+  <label class="control-label">Suites</label>
+  <div class="controls">
+    <select name="imovel[quantidade_suites]">
+      <option>-- Número de suites --</option>
+      <option value="1">1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
   </div>
 </div>
 
 <div class="control-group">
   <label class="control-label">Área (m²)</label>
   <div class="controls">
-    <%= f.text_field :area, :class => "input-small", :onkeyup => "formatarValor(this)" %>
+    <%= f.text_field :area, :class => "input-small", :onkeyup => "somenteNumero(this, event), formatarValor(this)", :maxlength => "8", :size => "25" %>
   </div>
 </div>
 
 <div class="control-group" id="divVagasGaragem">
-  <label class="control-label">vagas_garagem de garagem</label>
+  <label class="control-label">Vagas na garagem</label>
   <div class="controls">
-    <%= f.text_field :vagas_garagem, :class => "input-small", :onkeyup => "somenteNumero(this, event)", :maxlength => "4" %>
+    <%= f.text_field :vagas_garagem, :class => "span1", :onkeyup => "somenteNumero(this, event)", :maxlength => "3" %>
   </div>
 </div>
 
@@ -166,9 +202,9 @@ function mostraCampoVendedor(){
       <% end %>
       
     <tr>
-      <td><%= check_box_tag'imovel[item_imovel_ids][]', c.id, @imovel.caracteristica_imovels.include?(c), class: 'checkbox inline' %> <%= c.descricao %></td>
+      <td><%= check_box_tag'imovel[caracteristica_imovel_ids][]', c.id, @imovel.caracteristica_imovels.include?(c), class: 'checkbox inline' %> <%= c.descricao %></td>
     <% else %>
-    <td><%= check_box_tag'imovel[item_imovel_ids][]', c.id, @imovel.caracteristica_imovels.include?(c), class: 'checkbox inline' %> <%= c.descricao %></td>
+    <td><%= check_box_tag'imovel[caracteristica_imovel_ids][]', c.id, @imovel.caracteristica_imovels.include?(c), class: 'checkbox inline' %> <%= c.descricao %></td>
     <% end %>
   <% end %>
   </table>

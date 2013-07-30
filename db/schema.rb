@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130726130921) do
+ActiveRecord::Schema.define(:version => 20130727234435) do
 
   create_table "caracteristica_imovels", :force => true do |t|
     t.string   "descricao",  :limit => 300
@@ -51,26 +51,26 @@ ActiveRecord::Schema.define(:version => 20130726130921) do
   end
 
   create_table "imovels", :force => true do |t|
-    t.string   "cod_ref"
-    t.string   "nome"
-    t.string   "localizacao"
+    t.string   "codigo_referencia",   :limit => 10
+    t.string   "nome",                :limit => 200
+    t.string   "localizacao",         :limit => 200
     t.text     "descricao"
-    t.integer  "taxa_de_condominio"
-    t.integer  "iptu"
-    t.integer  "valor"
-    t.integer  "quartos"
-    t.integer  "suites"
-    t.integer  "area"
-    t.integer  "vagas"
-    t.integer  "imovel_transacao_id"
-    t.integer  "imovel_tipo_id"
+    t.decimal  "taxa_condominio",                    :precision => 8, :scale => 2
+    t.decimal  "iptu",                               :precision => 8, :scale => 2
+    t.decimal  "valor",                              :precision => 9, :scale => 2
+    t.decimal  "area",                               :precision => 7, :scale => 2
+    t.integer  "vagas_garagem"
+    t.integer  "transacao_imovel_id"
+    t.integer  "tipo_imovel_id"
     t.integer  "responsavel_id"
     t.integer  "vendedor_id"
     t.integer  "cadastrado_por_id"
     t.boolean  "vendido"
     t.boolean  "ativo"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",                                                       :null => false
+    t.datetime "updated_at",                                                       :null => false
+    t.integer  "quantidade_quartos"
+    t.integer  "quantidade_suites"
   end
 
   create_table "item_imovels", :force => true do |t|
@@ -91,6 +91,12 @@ ActiveRecord::Schema.define(:version => 20130726130921) do
   create_table "roles_users", :id => false, :force => true do |t|
     t.integer "role_id"
     t.integer "user_id"
+  end
+
+  create_table "transacao_imovels", :force => true do |t|
+    t.string   "descricao",  :limit => 180
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
 
   create_table "users", :force => true do |t|

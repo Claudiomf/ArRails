@@ -43,7 +43,7 @@
 <caption>Dados Gerais</caption>
 <tr>
   <th nowrap>Código de Referência:</th>
-  <td colspan="3"><b><font class="text-success"><%= @imovel.cod_ref %></font></b></td>
+  <td colspan="3"><b><font class="text-success"><%= @imovel.codigo_referencia %></font></b></td>
 </tr>
 <tr>
   <th>Nome do Imóvel:</th>
@@ -55,7 +55,7 @@
   <th>Tipo do Imóvel:</th>
   <td><%= @tipo_imovel.nome %></td>
   <th>Transação:</th>
-  <td><%= @transacao.nome %></td>
+  <td><%= @transacao.descricao if !@transacao.nil? %></td>
 </tr>
 <tr>
   <th>Descrição:</th>
@@ -74,8 +74,8 @@
   <tr>
     <th>Taxa de Condomínio:</th>
     <td>
-      <% if @imovel.taxa_de_condominio? %>
-        R$ <%= @imovel.taxa_de_condominio %>
+      <% if @imovel.taxa_condominio? %>
+        R$ <%= @imovel.taxa_condominio %>
       <% else %>
         Não informado
       <% end %>
@@ -92,16 +92,16 @@
   <tr>
     <th>Número de quartos:</th>
     <td>
-      <% if @imovel.quartos? %>
-        <%= @imovel.quartos %>
+      <% if @imovel.quantidade_quartos? %>
+        <%= @imovel.quantidade_quartos %>
       <% else %>
         Não informado
       <% end %>
     </td>
     <th>Número de suites:</th>
     <td>
-      <% if @imovel.suites? %>
-        <%= @imovel.suites %>
+      <% if @imovel.quantidade_suites? %>
+        <%= @imovel.quantidade_suites %>
       <% else %>
         Não informado
       <% end %>
@@ -118,29 +118,32 @@
     </td>
     <th>Vagas na garagem:</th>
     <td>
-      <% if @imovel.vagas? %>
-        <%= @imovel.vagas %>
+      <% if @imovel.vagas_garagem? %>
+        <%= @imovel.vagas_garagem %>
       <% else %>
         Não informado
       <% end %>
     </td>    
   </tr>
   <tr>
-    <th>Detalhes:</th>
+    <th>Características:</th>
     <td colspan="3">
-      <% size = @imovel.imovel_detalhes.length %>
-      <% @imovel.imovel_detalhes.each_with_index do |detalhe, i| %>
-        <% case i %>
-          <% when (size-2) %>
-            <!-- Penultimo elemento da lista -->
-            <%= detalhe.nome %>
-          <% when (size-1) %>
-            <!-- Ultimo elemento da lista -->
-            e <%= detalhe.nome %>.
-          <% else %>
-            <%= detalhe.nome %>, 
+      <% size = @imovel.caracteristica_imovels.length %>
+      <% @imovel.caracteristica_imovels.each_with_index do |caracteristica, i| %>
+        <% if size > 1 %>
+          <% case i %>
+            <% when (size-2) %>
+              <!-- Penultimo elemento da lista -->
+              <%= caracteristica.descricao %>
+            <% when (size-1) %>
+              <!-- Ultimo elemento da lista -->
+              e <%= caracteristica.descricao %>.
+            <% else %>
+              <%= caracteristica.descricao %>, 
+            <% end %>
+        <% else %>
+            <%= caracteristica.descricao %>.
         <% end %>
-        
       <% end %>
     </td>
   </tr>

@@ -14,7 +14,7 @@
 </form>
 
 <div class="well well-small" style="text-align: center;">
-  <i class="icon-search"></i> Visualizar | <i class="icon-pencil"></i> Alterar | <i class="icon-trash"></i> Remover
+  <i class="icon-search"></i> Visualizar | <i class="icon-pencil"></i> Alterar | <i class="icon-trash"></i> Remover |<%= link_to(new_imovel_path, :class => "btn btn-link link-icon") do %><i class="icon-plus-sign"></i> Cadastrar Imóvel <% end %>
 </div>
 
 <table class="table table-bordered">
@@ -30,7 +30,7 @@
     <% if !@imovels.empty? %>
       <% @imovels.each do |imovel| %>
         <tr>
-          <td style="text-align: right;"><%= imovel.cod_ref %></td>
+          <td style="text-align: right;"><%= imovel.codigo_referencia %></td>
           <td><%= imovel.nome %> <strong><font class="text-error"><%= '(Vendido)' if imovel.vendido? %></font></strong></td>
           <td><%= imovel.localizacao %></td>
           
@@ -69,7 +69,7 @@
                     <table>
                       <tr>
                         <th style="border: 0;" nowrap>Transação:</th>
-                        <td style="border: 0;"><%= @hash_informacoes_imoveis[imovel.id][0].nome %></td>
+                        <td style="border: 0;"><%= @hash_informacoes_imoveis[imovel.id][0].descricao if !@hash_informacoes_imoveis[imovel.id][0].nil? %></td>
                         <th style="border: 0;" nowrap>Tipo:</th>
                         <td style="border: 0;"><%= @hash_informacoes_imoveis[imovel.id][1].nome %></td>
                         <th style="border: 0;" nowrap>Responsável:</th>
@@ -96,4 +96,3 @@
 
 <br />
 
-<%= link_to 'Cadastrar Novo Imóvel', new_imovel_path, :class => "btn btn-primary" %>
