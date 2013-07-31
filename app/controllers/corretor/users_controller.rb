@@ -1,11 +1,4 @@
-class Corretor::UsersController < Corretor::CorretorController
-  before_filter :verify_corretor
-  
-   def verify_corretor
-    :authenticate_user!
-    redirect_to root_url unless has_role?(current_user, 'admin')
-  end
-  
+class Corretor::UsersController < Corretor::CorretorController  
   #load_and_authorize_resource
   # GET /users
   # GET /users.json
