@@ -125,7 +125,7 @@ function mostraCampoVendedor(){
   <label class="control-label">Taxa de Condomínio</label>
   <div class="controls input-prepend input-append">
     <span class="add-on">R$</span>
-    <%= f.text_field :taxa_de_condominio, :class => "span5", :onkeyup => "formatarValor(this)" %>
+    <%= f.text_field :taxa_condominio, :class => "span5", :onkeyup => "formatarValor(this)" %>
   </div>
 </div>
 
@@ -175,7 +175,7 @@ function mostraCampoVendedor(){
 <div class="control-group" id="divVagasGaragem">
   <label class="control-label">Vagas de garagem</label>
   <div class="controls">
-    <%= f.text_field :vagas, :class => "input-small", :onkeyup => "somenteNumero(this, event)", :maxlength => "4" %>
+    <%= f.text_field :vagas_garagem, :class => "input-small", :onkeyup => "somenteNumero(this, event)", :maxlength => "4" %>
   </div>
 </div>
 

@@ -10,7 +10,6 @@ ArRails::Application.routes.draw do
   namespace :corretor do
     match '/' => 'users#index'
     resources :users
-    resources :painel_controle
   end
 
   # The priority is based upon order of creation:
