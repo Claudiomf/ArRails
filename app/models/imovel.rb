@@ -1,11 +1,15 @@
 class Imovel < ActiveRecord::Base
-  has_and_belongs_to_many :imovel_detalhes
   has_many :images, :dependent => :destroy
   belongs_to :users
+  has_many :item_imovels
+  has_many :caracteristica_imovels, through: :item_imovels
   accepts_nested_attributes_for :images, :reject_if => lambda { |a| a[:image].blank? }, :allow_destroy => true
   
-  attr_accessible :cod_ref, :nome, :localizacao, :descricao, :taxa_de_condominio, :iptu, 
-                  :quartos, :suites, :area, :vagas, :imovel_detalhe_ids, :imovel_transacao_id, 
-                  :imovel_tipo_id, :responsavel_id, :cadastrado_por_id, :vendedor_id,
-                  :vendido, :ativo, :images_attributes
+  validates :tipo_imovel_id, :nome, :localizacao, :transacao_imovel_id, presence: true
+  
+  attr_accessible :codigo_referencia, :nome, :localizacao, :descricao, :taxa_condominio, :iptu, 
+                  :area, :vagas_garagem, :transacao_imovel_id, 
+                  :tipo_imovel_id, :responsavel_id, :cadastrado_por_id, :vendedor_id,
+                  :vendido, :ativo, :images_attributes, :quantidade_quartos, :quantidade_suites, :valor, :item_imovel_ids, :caracteristica_imovel_ids
+                  
 end

@@ -1,7 +1,7 @@
 ArRails::Application.routes.draw do
   resources :imovels, :path => "imoveis"
   resources :images
-  resources :imovel_detalhes
+  resources :caracteristica_imovels
   
   match '/corretor' => 'corretor/users#index', :as => :user_root
 
@@ -13,6 +13,7 @@ ArRails::Application.routes.draw do
   namespace :corretor do
     match '/' => 'users#index'
     resources :users
+    #resources :painel_controle
   end
 
   # The priority is based upon order of creation:

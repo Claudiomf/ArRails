@@ -55,3 +55,5 @@ config/database.yml
 .settings/org.eclipse.core.resources.prefs
 config/database.yml
 Gemfile.lock
+db/schema.rb
+db/schema.rb

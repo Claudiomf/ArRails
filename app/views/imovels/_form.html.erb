@@ -13,8 +13,8 @@ function mostraCampoVendedor(){
       document.getElementById('divQuartos').style.display = 'none';
       document.getElementById('divSuites').style.display = 'none';
       document.getElementById('divVagasGaragem').style.display = 'none';
-      document.getElementById('divDetalhes').style.display = 'none';
-      document.getElementById('liDetalhes').style.display = 'none';
+      document.getElementById('divCaracteristicas').style.display = 'none';
+      document.getElementById('liCaracteristicas').style.display = 'none';
       document.getElementById('aDetalhes').style.display = 'none';
       document.getElementById('txtNome').disabled = true;
       atualizaNomeTipoTerreno();
@@ -22,8 +22,8 @@ function mostraCampoVendedor(){
       document.getElementById('divQuartos').style.display = 'inline';
       document.getElementById('divSuites').style.display = 'inline';
       document.getElementById('divVagasGaragem').style.display = 'inline';
-      document.getElementById('divDetalhes').style.display = 'inline';
-      document.getElementById('liDetalhes').style.display = 'inline';
+      document.getElementById('divCaracteristicas').style.display = 'inline';
+      document.getElementById('liCaracteristicas').style.display = 'inline';
       document.getElementById('aDetalhes').style.display = 'inline';
       document.getElementById('txtNome').disabled = false;
     }
@@ -39,35 +39,35 @@ function mostraCampoVendedor(){
   }
 
 </script>
+<br>
+<div class="alert alert-info">
+  <span class="label label-important">Importante</span> Após o cadastro de imóvel, não será possível alterar o <b>tipo do imóvel</b>, pois o <b>Código de Referência</b> gerado pelo sistema depende dessa informação.
+</div> 
 
+<fieldset>
 <%= nested_form_for(@imovel, :html => {:multipart => true}) do |f| %>
 
   <% if @imovel.errors.any? %>
-  <div id="error_explanation">
-  	<h2><%= pluralize(@imovel.errors.count, "error") %> prohibited this imovel from being saved:</h2>
-  
-  	<ul>
-  		<% @imovel.errors.full_messages.each do |msg| %>
-  		<li>
-  			<%= msg %>
-  		</li>
-  		<% end %>
-  	</ul>
+  <div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <ul>
+      <% @imovel.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
   </div>
   <% end %>
   <% if @imovel.id.nil? %>
   <br>
-  <div class="alert alert-error">
-    <span class="label label-important">Importante</span> Após o cadastro de imóvel, não será possível alterar o <b>tipo do imóvel</b>, pois o <b>Código de Referência</b> gerado pelo sistema depende dessa informação.
-  </div> 
+  
   <% end %>
   
   <ul class="breadcrumb">
         <li>
           <a href="#dadosGerais">Dados Gerais</a> <span class="divider">/</span>
         </li>
-        <li id="liDetalhes">
-          <a href="#detalhes">Detalhes</a> <span class="divider">/</span>
+        <li id="liCaracteristicas">
+          <a href="#caracteristicas">Características</a> <span class="divider">/</span>
         </li>
         <li>
           <a href="#administracao">Administração</a> <span class="divider">/</span>
@@ -91,25 +91,25 @@ function mostraCampoVendedor(){
 
 <% if !@imovel.id.nil? %>
   <%= f.label 'Código de referência', :class => "control-label" %>
-  <%= f.text_field :cod_ref, :class => "input-small", :disabled => "true" %>
+  <%= f.text_field :codigo_referencia, :class => "input-small", :disabled => "true" %>
 <% end %>
 
 <div class="control-group">
   <label class="control-label obrigatorio">Tipo do imóvel</label>
   <div class="controls">
     <% if @imovel.id.nil? %>
-      <%= select("imovel", "imovel_tipo_id", ImovelTipo.all.collect {|p| [ p.nome, p.id ] }, {include_blank: '-- Selecione o tipo de imóvel --'}, {class: "span4", onchange: "atualizaForm()", id:"idTipoImovel"}) %>
+      <%= select("imovel", "tipo_imovel_id", ImovelTipo.all.collect {|p| [ p.nome, p.id ] }, {include_blank: '-- Selecione o tipo de imóvel --'}, {class: "span4", onchange: "atualizaForm()", id:"idTipoImovel"}) %>
     <% else %>
-      <%= select("imovel", "imovel_tipo_id", ImovelTipo.all.collect {|p| [ p.nome, p.id ] }, {include_blank: '-- Selecione o tipo de imóvel --'}, {class: "span4", disabled: "true", id:"idTipoImovel"}) %>
+      <%= select("imovel", "tipo_imovel_id", ImovelTipo.all.collect {|p| [ p.nome, p.id ] }, {include_blank: '-- Selecione o tipo de imóvel --'}, {class: "span4", disabled: "true", id:"idTipoImovel"}) %>
     <% end %>
   </div>
 </div>
 
 <%= f.label :nome, :class => "control-label obrigatorio" %>
-<%= f.text_field :nome, :class => "input-xxlarge", :id => "txtNome", :onkeyup => "toUppercase(this);" %>
+<%= f.text_field :nome, :class => "input-xxlarge", :id => "txtNome", :onkeyup => "toUppercase(this);", :maxlength => "200" %>
 
 <%= f.label "Localização", :class => "control-label obrigatorio" %>
-<%= f.text_field :localizacao, :id => "txtLocalizacao", :onkeyup => "toUppercase(this);", :onblur => "atualizaNomeTipoTerreno()" %>
+<%= f.text_field :localizacao, :id => "txtLocalizacao", :onkeyup => "toUppercase(this);", :onblur => "atualizaNomeTipoTerreno()", :maxlength => "200" %>
 
 <%= f.label "Descrição", :class => "control-label" %>
 <%= f.text_area :descricao, :rows => "5", :class => "span8"   %>
@@ -117,7 +117,15 @@ function mostraCampoVendedor(){
 <div class="control-group">
   <label class="control-label obrigatorio">Transação</label>
   <div class="controls">
-    <%= select("imovel", "imovel_transacao_id", ImovelTansacao.all.collect {|p| [ p.nome, p.id ] }, {include_blank: '-- Selecione a transação --'}, {class: "input-large"}) %>
+    <%= select("imovel", "transacao_imovel_id", TransacaoImovel.all.collect {|p| [ p.descricao, p.id ] }, {include_blank: '-- Selecione a transação --'}, {class: "input-large"}) %>
+  </div>
+</div>
+
+<div class="control-group">
+  <label class="control-label">Valor</label>
+  <div class="controls input-prepend input-append">
+    <span class="add-on">R$</span>
+    <%= f.text_field :valor, :class => "span5", :onkeyup => "somenteNumero(this, event), formatarValor(this)", :maxlength => "11", :size => "30" %>
   </div>
 </div>
 
@@ -125,7 +133,7 @@ function mostraCampoVendedor(){
   <label class="control-label">Taxa de Condomínio</label>
   <div class="controls input-prepend input-append">
     <span class="add-on">R$</span>
-    <%= f.text_field :taxa_condominio, :class => "span5", :onkeyup => "formatarValor(this)" %>
+    <%= f.text_field :taxa_condominio, :class => "span5", :onkeyup => "somenteNumero(this, event), formatarValor(this)", :maxlength => "10", :size => "30" %>
   </div>
 </div>
 
@@ -133,14 +141,14 @@ function mostraCampoVendedor(){
   <label class="control-label">IPTU</label>
   <div class="controls input-prepend input-append">
     <span class="add-on">R$</span>
-    <%= f.text_field :iptu, :class => "span5", :onkeyup => "formatarValor(this)" %>
+    <%= f.text_field :iptu, :class => "span5", :onkeyup => "somenteNumero(this, event), formatarValor(this)", :maxlength => "10", :size => "30" %>
   </div>
 </div>
 
 <div class="control-group" style="display: inline;" id="divQuartos">
   <label class="control-label">Quartos</label>
   <div class="controls">
-    <select name="imovel[quartos]">
+    <select name="imovel[quantidade_quartos]">
       <option>-- Número de quartos --</option>
       <option value="1">1</option>
       <option>2</option>
@@ -154,7 +162,7 @@ function mostraCampoVendedor(){
 <div class="control-group" id="divSuites">
   <label class="control-label">Suites</label>
   <div class="controls">
-    <select name="imovel[suites]">
+    <select name="imovel[quantidade_suites]">
       <option>-- Número de suites --</option>
       <option value="1">1</option>
       <option>2</option>
@@ -168,33 +176,35 @@ function mostraCampoVendedor(){
 <div class="control-group">
   <label class="control-label">Área (m²)</label>
   <div class="controls">
-    <%= f.text_field :area, :class => "input-small", :onkeyup => "formatarValor(this)" %>
+    <%= f.text_field :area, :class => "input-small", :onkeyup => "somenteNumero(this, event), formatarValor(this)", :maxlength => "8", :size => "25" %>
   </div>
 </div>
 
 <div class="control-group" id="divVagasGaragem">
-  <label class="control-label">Vagas de garagem</label>
+  <label class="control-label">Vagas na garagem</label>
   <div class="controls">
-    <%= f.text_field :vagas_garagem, :class => "input-small", :onkeyup => "somenteNumero(this, event)", :maxlength => "4" %>
+    <%= f.text_field :vagas_garagem, :class => "span1", :onkeyup => "somenteNumero(this, event)", :maxlength => "3" %>
   </div>
 </div>
+
 
 
 <br>
 <a href="#" class="link-icon pull-right"><i class="icon-arrow-up link-icon"></i> Topo do formulário</a>
 <br>
-<div id="divDetalhes">
-  <legend>Detalhes<a name="detalhes"></a></legend>
+<div id="divCaracteristicas">
+  <legend>Características<a name="caracteristicas"></a></legend>
   <table width="80%">
-  <% ImovelDetalhe.find(:all).each_with_index do |c,i| %>
+  <% CaracteristicaImovel.order(:descricao).each_with_index do |c,i| %>
     <% if i%3 == 0 %>
-      <% if i != 0 %>
+      <% if i != 0 %> 
         </tr>
       <% end %>
+      
     <tr>
-      <td><%= check_box_tag'imovel[imovel_detalhe_ids][]', c.id, @imovel.imovel_detalhes.include?(c), class: 'checkbox inline' %> <%= c.nome %></td>
+      <td><%= check_box_tag'imovel[caracteristica_imovel_ids][]', c.id, @imovel.caracteristica_imovels.include?(c), class: 'checkbox inline' %> <%= c.descricao %></td>
     <% else %>
-    <td><%= check_box_tag'imovel[imovel_detalhe_ids][]', c.id, @imovel.imovel_detalhes.include?(c), class: 'checkbox inline' %> <%= c.nome %></td>
+    <td><%= check_box_tag'imovel[caracteristica_imovel_ids][]', c.id, @imovel.caracteristica_imovels.include?(c), class: 'checkbox inline' %> <%= c.descricao %></td>
     <% end %>
   <% end %>
   </table>
@@ -206,7 +216,7 @@ function mostraCampoVendedor(){
 <br>
 <legend>Administração<a name="administracao"></a></legend>
 <div class="control-group">
-  <label class="control-label obrigatorio">Corretor responsável</label>
+  <label class="control-label">Corretor responsável</label>
   <div class="controls">
     <%= select("imovel", "responsavel_id", User.all.collect {|p| [ p.name, p.id ] } , {include_blank: '-- Selecione um corretor responsável --'}, {class: "span4"}) %>
   </div>
@@ -247,6 +257,7 @@ function mostraCampoVendedor(){
 	<%= link_to "Cancelar", imovels_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
 </div>
 <% end %>
+</fieldset>
 
 <script type="text/javascript">
 

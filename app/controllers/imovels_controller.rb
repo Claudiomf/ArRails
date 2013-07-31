@@ -42,6 +42,8 @@ class ImovelsController < ApplicationController
     @imovel = Imovel.new
     @imovel.images.build
     
+    @imovel.item_imovels.build
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @imovel }
@@ -57,6 +59,7 @@ class ImovelsController < ApplicationController
   # POST /imovels
   # POST /imovels.json
   def create
+
     @imovel = Imovel.new(params[:imovel])
     
     @imovel.attributes = {:cadastrado_por_id => current_user.id}    
@@ -66,19 +69,29 @@ class ImovelsController < ApplicationController
       @imovel.attributes = {:ativo => false}
     end
     
-    gerar_codigo_referencia
+    if !@imovel.tipo_imovel_id.nil?
+      gerar_codigo_referencia
+    end
     
     # arranjo temporario porque não tá cadastrando com nome quando é terreno
-    if @imovel.imovel_tipo_id==4
+    if @imovel.tipo_imovel_id==4
       @imovel.attributes = {:nome => "TERRENO LOCALIZADO: "+@imovel.localizacao}
     end
     
-    if @imovel.imovel_tipo_id==4
+    if @imovel.tipo_imovel_id==4
       @imovel.attributes = {:quartos => '0'}
       @imovel.attributes = {:suites => '0'}
       @imovel.attributes = {:vagas => '0'}
-      @imovel.attributes = {:imovel_detalhe_ids => []}
+      @imovel.attributes = {:item_imovel_ids => []}
     end
+    
+    # Para as buscas no site
+    #@imovel.caracteristica_imovels.each do |caracteristica|
+    #  aux = caracteristica.contador+1
+    #  caracteristica.update_attribute(:contador, aux)
+    #end
+    
+    teste = CaracteristicaImovel.find(:first)
     
     respond_to do |format|
       if @imovel.save
@@ -101,7 +114,7 @@ class ImovelsController < ApplicationController
     end
     
     # arranjo temporario porque não tá cadastrando com nome quando é terreno
-    if @imovel.imovel_tipo_id==4
+    if @imovel.tipo_imovel_id==4
       @imovel.attributes = {:nome => "TERRENO LOCALIZADO: "+@imovel.localizacao}
     end
  
@@ -145,8 +158,8 @@ class ImovelsController < ApplicationController
   def popular_imovel_aux
     
     @images = @imovel.images
-    @transacao = ImovelTansacao.find(@imovel.imovel_transacao_id) if !@imovel.imovel_transacao_id.nil?
-    @tipo_imovel = ImovelTipo.find(@imovel.imovel_tipo_id) if !@imovel.imovel_tipo_id.nil?
+    @transacao = TransacaoImovel.find(@imovel.transacao_imovel_id) if !@imovel.transacao_imovel_id.nil?
+    @tipo_imovel = ImovelTipo.find(@imovel.tipo_imovel_id) if !@imovel.tipo_imovel_id.nil?
     @responsavel = User.find(@imovel.responsavel_id) if !@imovel.responsavel_id.nil?
     @vendedor = User.find(@imovel.vendedor_id) if !@imovel.vendedor_id.nil?
     @cadastrado_por = User.find(@imovel.cadastrado_por_id) if !@imovel.cadastrado_por_id.nil?
@@ -165,8 +178,8 @@ class ImovelsController < ApplicationController
     # 0 transacao, 1 tipo_imovel, 2 responsavel
     lista_aux = []
     
-    lista_aux[0] = ImovelTansacao.find(imovel_aux.imovel_transacao_id) if !imovel_aux.imovel_transacao_id.nil?
-    lista_aux[1] = ImovelTipo.find(imovel_aux.imovel_tipo_id) if !imovel_aux.imovel_tipo_id.nil?
+    lista_aux[0] = TransacaoImovel.find(imovel_aux.transacao_imovel_id) if !imovel_aux.transacao_imovel_id.nil?
+    lista_aux[1] = ImovelTipo.find(imovel_aux.tipo_imovel_id) if !imovel_aux.tipo_imovel_id.nil?
     lista_aux[2] = User.find(imovel_aux.responsavel_id) if !imovel_aux.responsavel_id.nil?
     
     @hash_informacoes_imoveis[imovel_aux.id] = lista_aux
@@ -175,7 +188,7 @@ class ImovelsController < ApplicationController
   
   # Método que retorna o número que integra o 'Código de Referência' para o tipo de imóvel escolhido.
   def quantidade_imoveis
-    count_tipo_imovel = Imovel.count_by_sql "SELECT COUNT(*) FROM imovels i WHERE i.imovel_tipo_id = "+@imovel.imovel_tipo_id.to_s
+    count_tipo_imovel = Imovel.count_by_sql "SELECT COUNT(*) FROM imovels i WHERE i.tipo_imovel_id = "+@imovel.tipo_imovel_id.to_s
     count_tipo_imovel += 1
     puts count_tipo_imovel
     case count_tipo_imovel.to_s.length
@@ -196,17 +209,17 @@ class ImovelsController < ApplicationController
   # Método usado para gerar o código de referência de um imóvel baseado no tipo de imóvel escolhido no momento do cadastro.
   def gerar_codigo_referencia
     quantidade_imoveis  
-    case @imovel.imovel_tipo_id
+    case @imovel.tipo_imovel_id
     when 1
-      @imovel.attributes = {:cod_ref => "AP"+@numero_codigo_referencia}
+      @imovel.attributes = {:codigo_referencia => "AP"+@numero_codigo_referencia}
     when 2
-      @imovel.attributes = {:cod_ref => "CA"+@numero_codigo_referencia}
+      @imovel.attributes = {:codigo_referencia => "CA"+@numero_codigo_referencia}
     when 3
-      @imovel.attributes = {:cod_ref => "PC"+@numero_codigo_referencia}
+      @imovel.attributes = {:codigo_referencia => "PC"+@numero_codigo_referencia}
     when 4
-      @imovel.attributes = {:cod_ref => "TE"+@numero_codigo_referencia}
+      @imovel.attributes = {:codigo_referencia => "TE"+@numero_codigo_referencia}
     else
-      @imovel.attributes = {:cod_ref => "000000"}
+      @imovel.attributes = {:codigo_referencia => "000000"}
     end
   end
   

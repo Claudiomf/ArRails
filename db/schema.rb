@@ -11,8 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130726154120) do
-
+ActiveRecord::Schema.define(:version => 20130706040107) do
   create_table "caracteristica_imovels", :force => true do |t|
     t.string   "descricao",  :limit => 300
     t.integer  "contador"
@@ -51,6 +50,17 @@ ActiveRecord::Schema.define(:version => 20130726154120) do
   end
 
   create_table "imovels", :force => true do |t|
+    t.string   "codigo_referencia",   :limit => 10
+    t.string   "nome",                :limit => 200
+    t.string   "localizacao",         :limit => 200
+    t.text     "descricao"
+    t.decimal  "taxa_condominio",                    :precision => 8, :scale => 2
+    t.decimal  "iptu",                               :precision => 8, :scale => 2
+    t.decimal  "valor",                              :precision => 9, :scale => 2
+    t.decimal  "area",                               :precision => 7, :scale => 2
+    t.integer  "vagas_garagem"
+    t.integer  "transacao_imovel_id"
+    t.integer  "tipo_imovel_id"
     t.string   "codigo_referencia"
     t.string   "nome"
     t.string   "localizacao"
@@ -67,8 +77,19 @@ ActiveRecord::Schema.define(:version => 20130726154120) do
     t.integer  "cadastrado_por_id"
     t.boolean  "vendido"
     t.boolean  "ativo"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",                                                       :null => false
+    t.datetime "updated_at",                                                       :null => false
+    t.integer  "quantidade_quartos"
+    t.integer  "quantidade_suites"
+  end
+
+  create_table "item_imovels", :force => true do |t|
+    t.boolean  "visibilidade"
+    t.string   "quantidade",               :limit => 60
+    t.integer  "imovel_id"
+    t.integer  "caracteristica_imovel_id"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
   end
 
   create_table "item_imovels", :force => true do |t|

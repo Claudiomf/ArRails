@@ -1,3 +1,16 @@
+<fieldset>
+<% if @user.errors.any? %>
+<div class="alert alert-error">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+  
+
 <legend>Informações Pessoais</legend>
 
 <%= f.label :name, t("activerecord.attributes.user.name", :default => "Nome Completo"), :class => 'control-label obrigatorio' %>
@@ -58,3 +71,5 @@
   ou
   <%= link_to "Cancelar", corretor_users_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
 </div>
+
+</fieldset>
