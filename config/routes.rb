@@ -3,6 +3,9 @@ ArRails::Application.routes.draw do
   resources :images
   resources :imovel_detalhes
   
+  match '/corretor' => 'corretor/users#index', :as => :user_root
+
+  
   root :to => "home#index"
   
   devise_for :users, :path_names => {:sign_in => "login", :sign_out => "logout"}, :path => "usr", :skip => [:registrations] 
