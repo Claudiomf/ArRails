@@ -39,27 +39,27 @@ function mostraCampoVendedor(){
   }
 
 </script>
+<br>
+<div class="alert alert-info">
+  <span class="label label-important">Importante</span> Após o cadastro de imóvel, não será possível alterar o <b>tipo do imóvel</b>, pois o <b>Código de Referência</b> gerado pelo sistema depende dessa informação.
+</div> 
 
+<fieldset>
 <%= nested_form_for(@imovel, :html => {:multipart => true}) do |f| %>
 
   <% if @imovel.errors.any? %>
-  <div id="error_explanation">
-  	<h2><%= pluralize(@imovel.errors.count, "error") %> prohibited this imovel from being saved:</h2>
-  
-  	<ul>
-  		<% @imovel.errors.full_messages.each do |msg| %>
-  		<li>
-  			<%= msg %>
-  		</li>
-  		<% end %>
-  	</ul>
+  <div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <ul>
+      <% @imovel.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
   </div>
   <% end %>
   <% if @imovel.id.nil? %>
   <br>
-  <div class="alert alert-info">
-    <span class="label label-important">Importante</span> Após o cadastro de imóvel, não será possível alterar o <b>tipo do imóvel</b>, pois o <b>Código de Referência</b> gerado pelo sistema depende dessa informação.
-  </div> 
+  
   <% end %>
   
   <ul class="breadcrumb">
@@ -216,7 +216,7 @@ function mostraCampoVendedor(){
 <br>
 <legend>Administração<a name="administracao"></a></legend>
 <div class="control-group">
-  <label class="control-label obrigatorio">Corretor responsável</label>
+  <label class="control-label">Corretor responsável</label>
   <div class="controls">
     <%= select("imovel", "responsavel_id", User.all.collect {|p| [ p.name, p.id ] } , {include_blank: '-- Selecione um corretor responsável --'}, {class: "span4"}) %>
   </div>
@@ -257,6 +257,7 @@ function mostraCampoVendedor(){
 	<%= link_to "Cancelar", imovels_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
 </div>
 <% end %>
+</fieldset>
 
 <script type="text/javascript">
 

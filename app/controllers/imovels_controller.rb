@@ -58,6 +58,7 @@ class ImovelsController < ApplicationController
   # POST /imovels
   # POST /imovels.json
   def create
+
     @imovel = Imovel.new(params[:imovel])
     
     @imovel.attributes = {:cadastrado_por_id => current_user.id}    
@@ -67,7 +68,9 @@ class ImovelsController < ApplicationController
       @imovel.attributes = {:ativo => false}
     end
     
-    gerar_codigo_referencia
+    if !@imovel.tipo_imovel_id.nil?
+      gerar_codigo_referencia
+    end
     
     # arranjo temporario porque não tá cadastrando com nome quando é terreno
     if @imovel.tipo_imovel_id==4
