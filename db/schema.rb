@@ -11,8 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130727234435) do
-
+ActiveRecord::Schema.define(:version => 20130706040107) do
   create_table "caracteristica_imovels", :force => true do |t|
     t.string   "descricao",  :limit => 300
     t.integer  "contador"
@@ -62,6 +61,17 @@ ActiveRecord::Schema.define(:version => 20130727234435) do
     t.integer  "vagas_garagem"
     t.integer  "transacao_imovel_id"
     t.integer  "tipo_imovel_id"
+    t.string   "codigo_referencia"
+    t.string   "nome"
+    t.string   "localizacao"
+    t.text     "descricao"
+    t.integer  "taxa_condominio"
+    t.integer  "iptu"
+    t.integer  "valor"
+    t.integer  "area"
+    t.integer  "vagas_garagem"
+    t.integer  "imovel_transacao_id"
+    t.integer  "imovel_tipo_id"
     t.integer  "responsavel_id"
     t.integer  "vendedor_id"
     t.integer  "cadastrado_por_id"
@@ -71,6 +81,15 @@ ActiveRecord::Schema.define(:version => 20130727234435) do
     t.datetime "updated_at",                                                       :null => false
     t.integer  "quantidade_quartos"
     t.integer  "quantidade_suites"
+  end
+
+  create_table "item_imovels", :force => true do |t|
+    t.boolean  "visibilidade"
+    t.string   "quantidade",               :limit => 60
+    t.integer  "imovel_id"
+    t.integer  "caracteristica_imovel_id"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
   end
 
   create_table "item_imovels", :force => true do |t|

@@ -1,5 +1,6 @@
 class ImovelsController < ApplicationController
   load_and_authorize_resource
+  
   # GET /imovels
   # GET /imovels.json
   def index

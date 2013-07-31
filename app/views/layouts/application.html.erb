@@ -188,7 +188,20 @@
   <div class="container">
     <p class="pull-right"><a href="#">Voltar ao topo</a></p>
     <p>Desenvolvido por <a href="http://www.vadertecnologia.com.br" target="_blank">Vader Tecnologia</a>.</p>
+
+<!-- Conteudo -->
+<div class="row-fluid">
+  <div class="span1"></div>
+  <div class="span10">
+    <% flash.each do |name, msg| %>
+    <div class="alert alert-success">
+      <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+    </div>
+    <% end %>
+    
+    <%= yield %>
   </div>
+  <div class="span1"></div>
 </div>
 
 
