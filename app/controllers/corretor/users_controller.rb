@@ -1,10 +1,12 @@
 class Corretor::UsersController < Corretor::CorretorController
-  #load_and_authorize_resource
+  load_and_authorize_resource
+  
   # GET /users
   # GET /users.json
   def index
     @search = User.search(params[:q])
     @users = @search.result
+    
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,7 +18,7 @@ class Corretor::UsersController < Corretor::CorretorController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
-
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @user }

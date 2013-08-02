@@ -12,14 +12,18 @@
   </div>
 <% end %>
 <div class="well well-small" style="text-align: center;">
-  <i class="icon-search"></i> Visualizar | <i class="icon-pencil"></i> Alterar | <i class="icon-trash"></i> Remover
+  <i class="icon-search"></i> Visualizar | <i class="icon-pencil"></i> Alterar | <i class="icon-trash"></i> Remover |<%= link_to(new_corretor_user_path, :class => "btn btn-link link-icon") do %><i class="icon-plus-sign"></i> Cadastrar Corretor <% end %>
 </div>
 <table class="table table-bordered">
   <thead>
     <tr>
       <th class="rotulo" width="40%"> <%= sort_link(@search, :name, "Nome Completo") %> </th>
       
-      <th class="rotulo" width="25%"> <%= sort_link(@search, :cpf, "CPF") %> </th>
+      <th class="rotulo" width="5%">Permissão</th>
+      
+      <th class="rotulo" width="12%" nowrap>CRECI</th>
+      
+      <th class="rotulo" width="12%" nowrap> <%= sort_link(@search, :cpf, "CPF") %> </th>
 
       <th class="rotulo" style="text-align: center; width: 13%" nowrap> <%= sort_link(@search, :created_at, "Data de Cadastro") %> </th>
 
@@ -30,6 +34,8 @@
     <% @users.each do |user| -%>
     <tr>
       <td> <%= user.name %> </td>
+      <td> <%= user.roles[0].name %> </td>
+      <td></td>
       <td> <%= user.cpf %> </td>
       <td style="text-align: center;" nowrap><%= l(user.created_at, :format => :sample) %></td>
       <td style="text-align: center;" nowrap>
@@ -47,5 +53,3 @@
     <% end -%>
   </tbody>
 </table>
-
-<%= link_to "Cadastrar Novo Corretor", new_corretor_user_path, :class => 'btn btn-primary' %>
