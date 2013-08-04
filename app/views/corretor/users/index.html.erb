@@ -7,7 +7,7 @@
 <br>
 <%= search_form_for [:corretor, @search], :class => "form-search" do |f| %>
   <div class="input-append">
-    <%= f.text_field :username_or_cpf_cont, :class => "input-medium search-query", :placeholder => "Digite o nome ou CPF", :style=> 'width: 200px'; %>
+    <%#= f.text_field :username_or_cpf_cont, :class => "input-medium search-query", :placeholder => "Digite o nome ou CPF", :style=> 'width: 200px'; %>
     <%= f.submit "Buscar", :class => "btn btn-info" %>
   </div>
 <% end %>
@@ -17,7 +17,7 @@
 <table class="table table-bordered">
   <thead>
     <tr>
-      <th class="rotulo" width="40%"> <%= sort_link(@search, :name, "Nome Completo") %> </th>
+      <th class="rotulo" width="40%"> <%= sort_link(@search, :username, "Nome Completo") %> </th>
       
       <th class="rotulo" width="5%">Permissão</th>
       
@@ -33,10 +33,10 @@
   <tbody>
     <% @users.each do |user| -%>
     <tr>
-      <td> <%= user.name %> </td>
+      <td> <%= user.corretor.nome %> </td>
       <td> <%= user.roles[0].name %> </td>
-      <td></td>
-      <td> <%= user.cpf %> </td>
+      <td> <%= user.corretor.creci %> </td>
+      <td> <%= user.corretor.cpf %> </td>
       <td style="text-align: center;" nowrap><%= l(user.created_at, :format => :sample) %></td>
       <td style="text-align: center;" nowrap>
         <%= link_to(corretor_user_path(user), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>

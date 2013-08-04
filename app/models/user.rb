@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   usar_como_cpf :cpf
   has_and_belongs_to_many :roles
   has_many :imovels
+  belongs_to :corretor
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -10,7 +11,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :name, :cpf, :tel, :cel, :rg, :ende, :role_ids
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :role_ids, :corretor_id
+  #:corretor_id
+  
 
   before_save :setup_role
 

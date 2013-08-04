@@ -11,12 +11,34 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130706040107) do
+ActiveRecord::Schema.define(:version => 20130804021640) do
+
   create_table "caracteristica_imovels", :force => true do |t|
     t.string   "descricao",  :limit => 300
     t.integer  "contador"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
+  end
+
+  create_table "corretors", :force => true do |t|
+    t.string   "nome",       :limit => 300
+    t.string   "cpf",        :limit => 30
+    t.string   "rg",         :limit => 30
+    t.string   "creci",      :limit => 10
+    t.string   "telefone1",  :limit => 20
+    t.string   "telefone2",  :limit => 20
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  create_table "enderecos", :force => true do |t|
+    t.string   "logradouro",  :limit => 400
+    t.string   "bairro",      :limit => 100
+    t.string   "cidade",      :limit => 120
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.integer  "corretor_id"
+    t.foreign_key ["corretor_id"], "corretors", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_corretors"
   end
 
   create_table "images", :force => true do |t|
@@ -61,17 +83,6 @@ ActiveRecord::Schema.define(:version => 20130706040107) do
     t.integer  "vagas_garagem"
     t.integer  "transacao_imovel_id"
     t.integer  "tipo_imovel_id"
-    t.string   "codigo_referencia"
-    t.string   "nome"
-    t.string   "localizacao"
-    t.text     "descricao"
-    t.integer  "taxa_condominio"
-    t.integer  "iptu"
-    t.integer  "valor"
-    t.integer  "area"
-    t.integer  "vagas_garagem"
-    t.integer  "imovel_transacao_id"
-    t.integer  "imovel_tipo_id"
     t.integer  "responsavel_id"
     t.integer  "vendedor_id"
     t.integer  "cadastrado_por_id"
@@ -81,15 +92,9 @@ ActiveRecord::Schema.define(:version => 20130706040107) do
     t.datetime "updated_at",                                                       :null => false
     t.integer  "quantidade_quartos"
     t.integer  "quantidade_suites"
-  end
-
-  create_table "item_imovels", :force => true do |t|
-    t.boolean  "visibilidade"
-    t.string   "quantidade",               :limit => 60
-    t.integer  "imovel_id"
-    t.integer  "caracteristica_imovel_id"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.foreign_key ["cadastrado_por_id"], "corretors", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_imovels_cadastrado_por"
+    t.foreign_key ["responsavel_id"], "corretors", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_imovels_responsavel"
+    t.foreign_key ["vendedor_id"], "corretors", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_imovels_vendedor"
   end
 
   create_table "item_imovels", :force => true do |t|
@@ -132,15 +137,10 @@ ActiveRecord::Schema.define(:version => 20130706040107) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "username"
-    t.string   "name"
-    t.string   "cpf"
-    t.string   "tel"
-    t.string   "cel"
-    t.string   "rg"
-    t.string   "ende"
+    t.integer  "corretor_id"
+    t.index ["email"], :name => "index_users_on_email", :unique => true, :order => {"email" => :asc}
+    t.index ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true, :order => {"reset_password_token" => :asc}
+    t.foreign_key ["corretor_id"], "corretors", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_corretor"
   end
-
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end

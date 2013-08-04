@@ -6,35 +6,39 @@
 
     <tr>
       <th>Nome:</th>
-      <td><%= @user.name %></td>
+      <td><%= @user.corretor.nome %></td>
     </tr>
     <tr>
       <th>RG:</th>
-      <td><%= @user.rg %></td>
+      <td><%= @user.corretor.rg %></td>
     </tr>
     <tr>
       <th>CPF:</th>
-      <td><%= @user.cpf %></td>
+      <td><%= @user.corretor.cpf %></td>
     </tr>
     <tr>
       <th>Telefone:</th>
-      <td><%= @user.tel %></td>
+      <td><%= @user.corretor.telefone1 %></td>
     </tr>
     <tr>
       <th>Celular:</th>
-      <td><%= @user.cel %></td>
+      <td><%= @user.corretor.telefone2 %></td>
     </tr>
     <tr>
-      <th>Endereço:</th>
-      <td><%= @user.ende %></td>
+      <th>Logradouro:</th>
+      <td><%#= @user.ende %></td>
+    </tr>
+    <tr>
+      <th>Bairro:</th>
+      <td><%#= @user.ende %></td>
+    </tr>
+    <tr>
+      <th>Cidade:</th>
+      <td><%#= @user.ende %></td>
     </tr>
     <tr>
       <th><%= t("activerecord.attributes.user.email", :default => t("activerecord.labels.email", :default => "Email")) %>:</th>
       <td><%= @user.email %></td>
-    </tr>
-    <tr>
-      <th>Username:</th>
-      <td><%= @user.username %></td>
     </tr>
     <tr>
       <th>Username:</th>

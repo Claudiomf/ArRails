@@ -7,7 +7,6 @@ class Corretor::UsersController < Corretor::CorretorController
     @search = User.search(params[:q])
     @users = @search.result
     
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @users }
@@ -29,6 +28,8 @@ class Corretor::UsersController < Corretor::CorretorController
   # GET /users/new.json
   def new
     @user = User.new
+    @corretor = Corretor.new
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @user }
@@ -46,16 +47,23 @@ class Corretor::UsersController < Corretor::CorretorController
     #@user.attributes = params[:user]
     #@user.role_ids = params[:user][:role_ids] if params[:user]
     @user = User.new(params[:user])
+    @corretor = Corretor.new(params[:corretor])
+    
+    if @corretor.save
+      @user.corretor_id = @corretor.id      
+    end
+    
     respond_to do |format|
       if @user.save
         flash[:notice] = flash[:notice].to_a.concat @user.errors.full_messages
+        flash[:notice] = flash[:notice].to_a.concat @corretor.errors.full_messages
         format.html { redirect_to corretor_users_path, :notice => 'O corretor foi cadastrado com sucesso.' }
         format.json { render :json => @user, :status => :created, :location => @user }
       else
         # Tirado pois as mensagens estão sendo exibidas usando o padrao vistO NAS PAGINAS HTML.ERB
         # flash[:notice] = flash[:notice].to_a.concat @user.errors.full_messages
         format.html { render :action => "new"}
-        format.json { render :json => @user.errors, :status => :unprocessable_entity }
+        format.json { render :json => @user.errors + @corretor.errors, :status => :unprocessable_entity }
       end
     end
   end

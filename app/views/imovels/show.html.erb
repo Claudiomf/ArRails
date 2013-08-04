@@ -154,12 +154,12 @@
   <tr>
     <th>Cadastrador por:</th>
     <td>
-        <%= @cadastrado_por.name %>
+        <%= @cadastrado_por.nome %>
     </td>
     <th>Responsável:</th>
     <td>
       <% if !@responsavel.nil? %>
-        <%= @responsavel.name %>
+        <%= @responsavel.nome %>
       <% else %>
         Não informado
       <% end %>
@@ -169,7 +169,7 @@
     <th>Negociado por:</th>
     <td>
       <% if @imovel.vendido? %>
-        <%= vendedor.name %>
+        <%= vendedor.nome %>
       <% else %>
         Ainda não foi negociado
       <% end %>

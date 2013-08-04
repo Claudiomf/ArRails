@@ -62,7 +62,7 @@ class ImovelsController < ApplicationController
 
     @imovel = Imovel.new(params[:imovel])
     
-    @imovel.attributes = {:cadastrado_por_id => current_user.id}    
+    @imovel.attributes = {:cadastrado_por_id => current_user.corretor.id}    
     @imovel.attributes = {:ativo => true}
     
     if has_role?(current_user, 'corretor')
@@ -160,9 +160,9 @@ class ImovelsController < ApplicationController
     @images = @imovel.images
     @transacao = TransacaoImovel.find(@imovel.transacao_imovel_id) if !@imovel.transacao_imovel_id.nil?
     @tipo_imovel = ImovelTipo.find(@imovel.tipo_imovel_id) if !@imovel.tipo_imovel_id.nil?
-    @responsavel = User.find(@imovel.responsavel_id) if !@imovel.responsavel_id.nil?
-    @vendedor = User.find(@imovel.vendedor_id) if !@imovel.vendedor_id.nil?
-    @cadastrado_por = User.find(@imovel.cadastrado_por_id) if !@imovel.cadastrado_por_id.nil?
+    @responsavel = Corretor.find(@imovel.responsavel_id) if !@imovel.responsavel_id.nil?
+    @vendedor = Corretor.find(@imovel.vendedor_id) if !@imovel.vendedor_id.nil?
+    @cadastrado_por = Corretor.find(@imovel.cadastrado_por_id) if !@imovel.cadastrado_por_id.nil?
     
   end
   
@@ -180,7 +180,7 @@ class ImovelsController < ApplicationController
     
     lista_aux[0] = TransacaoImovel.find(imovel_aux.transacao_imovel_id) if !imovel_aux.transacao_imovel_id.nil?
     lista_aux[1] = ImovelTipo.find(imovel_aux.tipo_imovel_id) if !imovel_aux.tipo_imovel_id.nil?
-    lista_aux[2] = User.find(imovel_aux.responsavel_id) if !imovel_aux.responsavel_id.nil?
+    lista_aux[2] = Corretor.find(imovel_aux.responsavel_id) if !imovel_aux.responsavel_id.nil?
     
     @hash_informacoes_imoveis[imovel_aux.id] = lista_aux
     
@@ -193,13 +193,13 @@ class ImovelsController < ApplicationController
     puts count_tipo_imovel
     case count_tipo_imovel.to_s.length
     when 1
-      @numero_codigo_referencia = "000" + count_tipo_imovel.to_s
+      @numero_codigo_referencia = "0000" + count_tipo_imovel.to_s
     when 2
-      @numero_codigo_referencia = "00" + count_tipo_imovel.to_s
+      @numero_codigo_referencia = "000" + count_tipo_imovel.to_s
     when 3
-      @numero_codigo_referencia = "0" + count_tipo_imovel.to_s
+      @numero_codigo_referencia = "00" + count_tipo_imovel.to_s
     when 4
-      @numero_codigo_referencia = count_tipo_imovel.to_s
+      @numero_codigo_referencia = "0" + count_tipo_imovel.to_s
     else
       @numero_codigo_referencia = count_tipo_imovel.to_s
     end

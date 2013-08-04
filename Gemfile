@@ -46,6 +46,8 @@ gem 'brazilian-rails'
 gem 'carrierwave'
 gem 'rmagick'
 
+gem "schema_plus"
+
 # para modelos aninhados
 gem 'nested_form'
 # To use ActiveModel has_secure_password
