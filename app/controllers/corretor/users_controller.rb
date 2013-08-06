@@ -39,6 +39,7 @@ class Corretor::UsersController < Corretor::CorretorController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+    @corretor = Corretor.find(params[:id])
   end
 
   # POST /users
@@ -91,12 +92,19 @@ class Corretor::UsersController < Corretor::CorretorController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
+    @search = User.search(params[:q])
+    @users = @search.result
+    
     @user = User.find(params[:id])
-    @user.destroy
-
+    
     respond_to do |format|
-      format.html { redirect_to corretor_users_url, :notice => 'O corretor foi removido com sucesso.' }
-      format.json { head :ok }
+      if @user.destroy
+        format.html { redirect_to corretor_users_url, :notice => 'O corretor foi removido com sucesso.' }
+        format.json { head :ok }
+      else
+        format.html { redirect_to corretor_users_path, :flash => { :error => "Nao foi possivel remover este corretor, pois ele esta associado a imoveis cadastrados." } }
+        #format.json { head :json => @user.errors, :status => :unprocessable_entity }
+      end
     end
   end
 end

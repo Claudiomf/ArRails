@@ -1,3 +1,40 @@
+<script type="text/javascript">
+  function formatarCRECI(campo, event) {
+
+    campo.value = campo.value.toUpperCase();
+
+    rExpL=/[^\A-\Z]/g; //Algum caracter exceto as letras
+    rExpL2 = /[^\F\J]/g; //Algum caracter exceto o F e J
+    var rExp = /[^\0-\9]|\-|,|:|;|\./g; //Exceto  numeros
+
+    //Verifica se o campo tem menos de 4 caracteres, ou seja, que ainda esteja sendo informados os numeros do CRECI
+    if (campo.value.length <= 4){
+
+      //Remove todo caracter sem ser digito 
+      campo.value = campo.value.replace(rExp,"");
+
+    }else{//Caso contrário, verifica se foram informados os 4 digitos do creci e verifica as letras
+
+      var digitos = campo.value.substring(0,4);    //Obtém os digitos do creci
+      digitos = digitos.replace(rExp,"");      //Remove todo caracter sem ser numero 
+
+      if(digitos.length < 4){ //Caso tenha menos de 4 digitos, ou seja, falta algum digito
+
+        campo.value = campo.value.replace(rExp,""); //Remove todo caracter sem ser digito do campo
+
+      }else{ //Caso contrário, já existem os 4 digitos
+
+        var letras = campo.value.substring(4, 6); //Obtém a letra do CRECI
+        letras = letras.replace(rExpL,"");    //Remove todo caracter sem ser dígito do campo
+        letras = letras.replace(rExpL2,"");    //Remove todas as letras sem ser 'F' ou 'J'
+
+        campo.value = digitos + "-" + letras;
+      }
+    }
+  }
+  
+</script>
+
 <fieldset>
 <% if @user.errors.any? %>
 <div class="alert alert-error">
@@ -21,10 +58,10 @@
   <%=fa.text_field :nome, :class => 'text_field input-xlarge'  %>
   
   <%=fa.label :creci, t("activerecord.attributes.corretor.creci", :default => "CRECI"), :class => 'control-label obrigatorio'  %>
-  <%=fa.text_field :creci, :class => 'text_field input-medium', :data => { :mask => "99999-a" }  %>
+  <%=fa.text_field :creci, :class => 'text_field input-medium', :onkeyup => "formatarCRECI(this, event);" %>
   
   <%= fa.label :rg, t("activerecord.attributes.corretor.rg", :default => "RG"), :class => 'control-label obrigatorio' %>
-  <%= fa.text_field :rg, :class => 'text_field input-medium'%>
+  <%= fa.text_field :rg, :class => 'text_field input-medium', :maxlength => "20" %>
   
   <%= fa.label :cpf, t("activerecord.attributes.corretor.cpf", :default => "CPF"), :class => 'control-label obrigatorio' %>
   <%= fa.text_field :cpf, :class => 'text_field input-medium', :data => { :mask => "999.999.999-99" } %>
@@ -43,7 +80,7 @@
 <legend>Informações Cadastrais</legend>
 
 <%= f.label :username, t("activerecord.attributes.user.username", :default => "Username"), :class => 'control-label obrigatorio' %>
-<%= f.text_field :username, :class => 'text_field' %>
+<%= f.text_field :username, :class => 'text_field'%>
 
 <%= f.label :email, t("activerecord.attributes.user.email", :default => "Email"), :class => 'control-label obrigatorio' %>
 <%= f.text_field :email, :class => 'text_field' %>

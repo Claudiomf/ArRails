@@ -137,7 +137,7 @@ class ImovelsController < ApplicationController
     #@imovel.destroy
     
     
-    @imovel.attributes = {:ativo => false}
+    #@imovel.attributes = {:ativo => false}
 
     respond_to do |format|
       if @imovel.update_attributes(params[:imovel])
@@ -227,7 +227,7 @@ class ImovelsController < ApplicationController
   # Esse método não vem sendo usado porque o número do código de referência está sendo construído a partir de todos os registros do campo.
   # Isso elimina a possibilidade de repetição de código, mas por enquanto o método não será deletado para que uma analise melhor seja feita no modelo.
   def verifica_unicidade_codigo_referencia?(codigo_referencia)
-    existe_codigo = (Imovel.count_by_sql "SELECT COUNT(*) FROM imovels i WHERE i.cod_ref = '"+codigo_referencia+"'") == 0
+    existe_codigo = (Imovel.count_by_sql "SELECT COUNT(*) FROM imovels i WHERE i.codigo_referencia = '"+codigo_referencia+"'") == 0
     return existe_codigo
   end
   

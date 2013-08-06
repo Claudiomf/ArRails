@@ -12,5 +12,5 @@ class Imovel < ActiveRecord::Base
                   :tipo_imovel_id, :responsavel_id, :cadastrado_por_id, :vendedor_id,
                   :vendido, :ativo, :images_attributes, :quantidade_quartos, :quantidade_suites, :valor, :item_imovel_ids, 
                   :caracteristica_imovel_ids
-                  
+
 end
