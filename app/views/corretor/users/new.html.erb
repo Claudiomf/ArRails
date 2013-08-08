@@ -1,5 +1,5 @@
 <h1>Cadastrar Corretor</h1>
   
-	<%= form_for [:corretor, @user], :url => corretor_users_path, :html => { :class => :form } do |f| -%>
+	<%= form_for [:corretor, @corretor], :url => corretor_corretor_path, :html => { :class => :form } do |f| -%>
 	  <%= render :partial => "form", :locals => {:f => f} %>
 	<% end -%>

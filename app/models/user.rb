@@ -2,7 +2,18 @@ class User < ActiveRecord::Base
   usar_como_cpf :cpf
   has_and_belongs_to_many :roles
   has_many :imovels
-  belongs_to :corretor, dependent: :destroy
+  
+  belongs_to :corretor, foreign_key: :corretor_id
+  
+  # Teste, descomente estas linhas pra finalizar o teste
+  # belongs_to :corretor, dependent: :destroy
+  
+  # Fim do teste, comente estas linhas
+  #has_one :corretor
+  #has_one :endereco, through: :corretor
+  
+  #accepts_nested_attributes_for :corretor, :allow_destroy => true
+  #accept_nested_attributes_for :endereco, :allow_destroy => true
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -11,11 +22,11 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :role_ids, :corretor_id
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :role_ids 
 
   before_save :setup_role
   
-  before_destroy :verifica_corretor_associado
+  #before_destroy :verifica_corretor_associado
 
   def role?(role)
       return !!self.roles.find_by_name(role.to_s.camelize)
@@ -29,7 +40,7 @@ class User < ActiveRecord::Base
   end
   
   def verifica_corretor_associado
-    if (Imovel.count_by_sql "SELECT COUNT(*) FROM imovels i WHERE i.responsavel_id = " +corretor.id.to_s) > 0
+    if (Imovel.count_by_sql "SELECT COUNT(*) FROM imovels i WHERE i.responsavel_id = " +self.corretor.id.to_s) > 0
       return false
     end
     if (Imovel.count_by_sql "SELECT COUNT(*) FROM imovels i WHERE i.cadastrado_por_id = " +corretor.id.to_s) > 0

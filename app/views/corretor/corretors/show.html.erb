@@ -1,0 +1,52 @@
+  
+  <h2 class="h2-pages">Perfil do corretoraa</h2>
+  
+  <table class="table table-visualizacao">
+    <!-- <caption>Dados Gerais</caption> -->
+
+    <tr>
+      <th>Nome:</th>
+      <td><%= @corretor.nome %></td>
+    </tr>
+    <tr>
+      <th>RG:</th>
+      <td><%= @corretor.rg %></td>
+    </tr>
+    <tr>
+      <th>CPF:</th>
+      <td><%= @corretor.cpf %></td>
+    </tr>
+    <tr>
+      <th>Telefone:</th>
+      <td><%= @corretor.telefone1 %></td>
+    </tr>
+    <tr>
+      <th>Celular:</th>
+      <td><%= @corretor.telefone2.empty? ? "Não informado." : @corretor.telefone2 %></td>
+    </tr>
+    <tr>
+      <th>Logradouro:</th>
+      <td><%= @corretor.endereco.logradouro.empty? ? "Não informado." : @corretor.endereco.logradouro %></td>
+    </tr>
+    <tr>
+      <th>Bairro:</th>
+      <td><%= @corretor.endereco.bairro.empty? ? "Não informado." : @corretor.endereco.bairro %></td>
+    </tr>
+    <tr>
+      <th>Cidade:</th>
+      <td><%= @corretor.endereco.cidade.empty? ? "Não informada." : @corretor.endereco.cidade %></td>
+    </tr>
+    <tr>
+      <th><%= t("activerecord.attributes.user.email", :default => t("activerecord.labels.email", :default => "Email")) %>:</th>
+      <td><%= @corretor.user.email %></td>
+    </tr>
+    <tr>
+      <th>Username:</th>
+      <td><%= @corretor.user.username %></td>
+    </tr>
+  </table>
+<div class="form-actions-white">
+  <%= link_to "Voltar", corretor_corretors_path, :class => 'btn'  %>
+  <%= link_to "Alterar", edit_corretor_corretor_path(@corretor), :class => 'btn btn-info' %>
+  <%= link_to "Remover", corretor_corretor_path(@corretor), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse corretor ?")}", :class => 'btn' %>
+</div>

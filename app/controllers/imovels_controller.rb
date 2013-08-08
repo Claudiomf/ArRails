@@ -91,8 +91,6 @@ class ImovelsController < ApplicationController
     #  caracteristica.update_attribute(:contador, aux)
     #end
     
-    teste = CaracteristicaImovel.find(:first)
-    
     respond_to do |format|
       if @imovel.save
         format.html { redirect_to @imovel, notice: 'Imovel foi cadastrado com sucesso.' }

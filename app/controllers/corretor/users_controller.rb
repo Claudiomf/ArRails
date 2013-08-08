@@ -18,6 +18,8 @@ class Corretor::UsersController < Corretor::CorretorController
   def show
     @user = User.find(params[:id])
     
+    #@endereco = Endereco.find(:first,:conditions => { :corretor_id => @user.corretor.id} )
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @user }
@@ -28,7 +30,8 @@ class Corretor::UsersController < Corretor::CorretorController
   # GET /users/new.json
   def new
     @user = User.new
-    @corretor = Corretor.new
+    @user.build_corretor
+    @user.corretor.build_endereco
     
     respond_to do |format|
       format.html # new.html.erb
@@ -39,32 +42,29 @@ class Corretor::UsersController < Corretor::CorretorController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
-    @corretor = Corretor.find(params[:id])
+    #@user.build_corretor
+    #@user.corretor.build_endereco
+    #@corretor = Corretor.find(@user.corretor.id)
+    #@endereco = Endereco.find(:first,:conditions => { :corretor_id => @user.corretor.id} )
+    #@endereco = Endereco.new if @endereco.nil?
+    
   end
 
   # POST /users
   # POST /users.json
   def create
-    #@user.attributes = params[:user]
-    #@user.role_ids = params[:user][:role_ids] if params[:user]
     @user = User.new(params[:user])
-    @corretor = Corretor.new(params[:corretor])
-    
-    if @corretor.save
-      @user.corretor_id = @corretor.id      
-    end
     
     respond_to do |format|
       if @user.save
         flash[:notice] = flash[:notice].to_a.concat @user.errors.full_messages
-        flash[:notice] = flash[:notice].to_a.concat @corretor.errors.full_messages
         format.html { redirect_to corretor_users_path, :notice => 'O corretor foi cadastrado com sucesso.' }
         format.json { render :json => @user, :status => :created, :location => @user }
       else
         # Tirado pois as mensagens estão sendo exibidas usando o padrao vistO NAS PAGINAS HTML.ERB
         # flash[:notice] = flash[:notice].to_a.concat @user.errors.full_messages
         format.html { render :action => "new"}
-        format.json { render :json => @user.errors + @corretor.errors, :status => :unprocessable_entity }
+        format.json { render :json => @user.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -77,6 +77,14 @@ class Corretor::UsersController < Corretor::CorretorController
         params[:user].delete(:password)
         params[:user].delete(:password_confirmation)
     end
+    
+    @user.corretor
+    
+    #@corretor = @user.corretor
+    #@corretor.update_attributes(params[:corretor])
+    
+    #@endereco = Endereco.find(:first,:conditions => { :corretor_id => @user.corretor.id} )
+    #@endereco.update_attributes(params[:endereco])
  
     respond_to do |format|
       if @user.update_attributes(params[:user])
@@ -92,19 +100,12 @@ class Corretor::UsersController < Corretor::CorretorController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @search = User.search(params[:q])
-    @users = @search.result
-    
     @user = User.find(params[:id])
-    
+    @user.destroy
+
     respond_to do |format|
-      if @user.destroy
-        format.html { redirect_to corretor_users_url, :notice => 'O corretor foi removido com sucesso.' }
-        format.json { head :ok }
-      else
-        format.html { redirect_to corretor_users_path, :flash => { :error => "Nao foi possivel remover este corretor, pois ele esta associado a imoveis cadastrados." } }
-        #format.json { head :json => @user.errors, :status => :unprocessable_entity }
-      end
+      format.html { redirect_to corretor_corretors_url, :notice => 'O corretor foi removido com sucesso.' }
+      format.json { head :ok }
     end
   end
 end

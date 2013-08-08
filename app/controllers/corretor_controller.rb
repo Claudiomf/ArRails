@@ -1,0 +1,2 @@
+class CorretorController < ApplicationController
+end

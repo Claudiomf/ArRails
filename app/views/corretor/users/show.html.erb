@@ -22,19 +22,19 @@
     </tr>
     <tr>
       <th>Celular:</th>
-      <td><%= @user.corretor.telefone2 %></td>
+      <td><%= @user.corretor.telefone2.empty? ? "Não informado." : @user.corretor.telefone2 %></td>
     </tr>
     <tr>
       <th>Logradouro:</th>
-      <td><%#= @user.ende %></td>
+      <td><%= @user.corretor.endereco.logradouro.empty? ? "Não informado." : @user.corretor.endereco.logradouro %></td>
     </tr>
     <tr>
       <th>Bairro:</th>
-      <td><%#= @user.ende %></td>
+      <td><%= @user.corretor.endereco.bairro.empty? ? "Não informado." : @user.corretor.endereco.bairro %></td>
     </tr>
     <tr>
       <th>Cidade:</th>
-      <td><%#= @user.ende %></td>
+      <td><%= @user.corretor.endereco.cidade.empty? ? "Não informada." : @user.corretor.endereco.cidade %></td>
     </tr>
     <tr>
       <th><%= t("activerecord.attributes.user.email", :default => t("activerecord.labels.email", :default => "Email")) %>:</th>

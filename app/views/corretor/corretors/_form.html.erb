@@ -1,0 +1,126 @@
+<script type="text/javascript">
+  function formatarCRECI(campo, event) {
+
+    campo.value = campo.value.toUpperCase();
+
+    rExpL=/[^\A-\Z]/g; //Algum caracter exceto as letras
+    rExpL2 = /[^\F\J]/g; //Algum caracter exceto o F e J
+    var rExp = /[^\0-\9]|\-|,|:|;|\./g; //Exceto  numeros
+
+    //Verifica se o campo tem menos de 4 caracteres, ou seja, que ainda esteja sendo informados os numeros do CRECI
+    if (campo.value.length <= 4){
+
+      //Remove todo caracter sem ser digito 
+      campo.value = campo.value.replace(rExp,"");
+
+    }else{//Caso contrário, verifica se foram informados os 4 digitos do creci e verifica as letras
+
+      var digitos = campo.value.substring(0,4);    //Obtém os digitos do creci
+      digitos = digitos.replace(rExp,"");      //Remove todo caracter sem ser numero 
+
+      if(digitos.length < 4){ //Caso tenha menos de 4 digitos, ou seja, falta algum digito
+
+        campo.value = campo.value.replace(rExp,""); //Remove todo caracter sem ser digito do campo
+
+      }else{ //Caso contrário, já existem os 4 digitos
+
+        var letras = campo.value.substring(4, 6); //Obtém a letra do CRECI
+        letras = letras.replace(rExpL,"");    //Remove todo caracter sem ser dígito do campo
+        letras = letras.replace(rExpL2,"");    //Remove todas as letras sem ser 'F' ou 'J'
+
+        campo.value = digitos + "-" + letras;
+      }
+    }
+  }
+  
+</script>
+
+<fieldset>
+<% if @corretor.errors.any? %>
+<div class="alert alert-error">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <ul>
+    <% @corretor.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+  
+
+<legend>Informações Pessoais</legend>
+
+<%=f.label :nome, t("activerecord.attributes.corretor.nome", :default => "Nome Completo"), :class => 'control-label obrigatorio'  %>
+<%=f.text_field :nome, :class => 'text_field input-xlarge'  %>
+
+<%=f.label :creci, t("activerecord.attributes.corretor.creci", :default => "CRECI"), :class => 'control-label obrigatorio'  %>
+<%=f.text_field :creci, :class => 'text_field input-medium', :onkeyup => "formatarCRECI(this, event);" %>
+
+<%= f.label :rg, t("activerecord.attributes.corretor.rg", :default => "RG"), :class => 'control-label obrigatorio' %>
+<%= f.text_field :rg, :class => 'text_field input-medium', :maxlength => "20" %>
+
+<%= f.label :cpf, t("activerecord.attributes.corretor.cpf", :default => "CPF"), :class => 'control-label obrigatorio' %>
+<%= f.text_field :cpf, :class => 'text_field input-medium', :data => { :mask => "999.999.999-99" } %>
+
+<%= f.label :telefone1, t("activerecord.attributes.corretor.telefone1", :default => "Telefone"), :class => 'control-label obrigatorio' %>
+<%= f.text_field :telefone1, :class => 'text_field ', :data => { :mask => "(99) 9999-9999" } %>
+
+<%= f.label :telefone2, t("activerecord.attributes.corretor.telefone2", :default => "Celular"), :class => 'control-label' %>
+<%= f.text_field :telefone2, :class => 'text_field', :data => { :mask => "(99) 9999-9999" } %>
+
+<%= f.fields_for :endereco do |fb| %>
+  <%= fb.label :logradouro, t("activerecord.attributes.endereco.logradouro", :default => "Logradouro"), :class => 'control-label obrigatorio' %>
+  <%= fb.text_field :logradouro, :class => 'text_field input-xxlarge'%> <span class="help-inline">Informe a rua, o número, e o complemento.</span>
+  
+  <%= fb.label :bairro, t("activerecord.attributes.endereco.bairro", :default => "Bairro"), :class => 'control-label obrigatorio' %>
+  <%= fb.text_field :bairro, :class => 'text_field input-xsmall'%>
+  
+  <%= fb.label :cidade, t("activerecord.attributes.endereco.cidade", :default => "Cidade"), :class => 'control-label obrigatorio' %>
+  <%= fb.text_field :cidade, :class => 'text_field input-xsmall'%>  
+<% end %>
+  
+
+
+<legend>Informações Cadastrais</legend>
+
+<%= f.fields_for :user do |fa| %>
+
+  <%= fa.label :username, t("activerecord.attributes.user.username", :default => "Username"), :class => 'control-label obrigatorio' %>
+  <%= fa.text_field :username, :class => 'text_field'%>
+  
+  <%= fa.label :email, t("activerecord.attributes.user.email", :default => "Email"), :class => 'control-label obrigatorio' %>
+  <%= fa.text_field :email, :class => 'text_field' %>
+  
+  <% if (@corretor.nil? || @corretor.user.id.nil?) %>
+    <%= fa.label :password, t("activerecord.attributes.user.password", :default => "Senha"), :class => 'control-label obrigatorio' %>
+    <%= fa.password_field :password, :class => 'password_field' %>
+    <span class="help-inline">Escolha uma senha de no mínimo 6 caracteres</span>
+  
+    <%= fa.label :Password, t("activerecord.attributes.user.password_confirmation", :default => "Confirmar senha"), :class => 'control-label obrigatorio' %>
+    <%= fa.password_field :password_confirmation, :class => 'password_field' %>
+  <% end %>
+
+
+  <br>
+  <br>
+  <legend class="obrigatorio">Permissões</legend>
+  <% for role in Role.find(:all) %>
+    <div class="controls">
+       <%= radio_button_tag "user[role_ids][]", role.id, @corretor.user.roles.include?(role) %><%= fa.label role.name , :class => 'radio inline' %>
+    </div>
+  <% end %>  
+
+<% end %>
+
+<br>
+<div class="form-actions-white">
+  <% if (@corretor.nil? || @corretor.user.id.nil?) %>
+    <button class="btn btn-primary" type="submit">Cadastrar</button>
+  <% else %>
+    <button class="btn btn-info" type="submit">Alterar</button> 
+  <% end %>
+  ou
+  <%= link_to "Cancelar", corretor_users_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
+</div>
+
+</fieldset>

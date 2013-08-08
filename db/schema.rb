@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130804021640) do
+ActiveRecord::Schema.define(:version => 20130808020323) do
 
   create_table "caracteristica_imovels", :force => true do |t|
     t.string   "descricao",  :limit => 300
@@ -138,9 +138,10 @@ ActiveRecord::Schema.define(:version => 20130804021640) do
     t.datetime "updated_at",                             :null => false
     t.string   "username"
     t.integer  "corretor_id"
+    t.index ["corretor_id"], :name => "fk__users_corretor_id", :order => {"corretor_id" => :asc}
     t.index ["email"], :name => "index_users_on_email", :unique => true, :order => {"email" => :asc}
     t.index ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true, :order => {"reset_password_token" => :asc}
-    t.foreign_key ["corretor_id"], "corretors", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_corretor"
+    t.foreign_key ["corretor_id"], "corretors", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_users_corretor_id"
   end
 
 end

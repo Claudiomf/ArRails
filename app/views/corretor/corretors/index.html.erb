@@ -31,21 +31,21 @@
     </tr>
   </thead>
   <tbody>
-    <% @users.each do |user| -%>
+    <% @corretors.each do |corretor| -%>
     <tr>
-      <td> <%= user.corretor.nil? ? "" : user.corretor.nome %> </td>
-      <td> <%= user.roles[0].name %> </td>
-      <td> <%= user.corretor.nil? ? "" : user.corretor.creci %> </td>
-      <td> <%= user.corretor.nil? ? "" : user.corretor.cpf %> </td>
-      <td style="text-align: center;" nowrap><%= l(user.created_at, :format => :sample) %></td>
+      <td> <%= corretor.nil? ? "" : corretor.nome %> </td>
+      <td> <%= corretor.user.roles[0].name %> </td>
+      <td> <%= corretor.nil? ? "" : corretor.creci %> </td>
+      <td> <%= corretor.nil? ? "" : corretor.cpf %> </td>
+      <td style="text-align: center;" nowrap><%= l(corretor.created_at, :format => :sample) %></td>
       <td style="text-align: center;" nowrap>
-        <%= link_to(corretor_user_path(user), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
+        <%= link_to(corretor_corretor_path(corretor), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
          <i class="icon-search icon-white"></i>
         <% end %> |
-         <%= link_to(edit_corretor_user_path(user), :class => "link-icon", :title => "Alterar") do %>
+         <%= link_to(edit_corretor_corretor_path(corretor), :class => "link-icon", :title => "Alterar") do %>
          <i class="icon-pencil icon-white"></i>
         <% end %> |
-      <%= link_to(corretor_user_path(user), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este corretor?")}", :class => "link-icon", :title => "Remover" ) do %>
+      <%= link_to(corretor_corretor_path(corretor), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este corretor?")}", :class => "link-icon", :title => "Remover" ) do %>
          <i class="icon-trash icon-white"></i>
         <% end %>
         </td>
