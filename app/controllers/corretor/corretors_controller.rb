@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Corretor::CorretorsController < Corretor::CorretorController
   
   # GET /users

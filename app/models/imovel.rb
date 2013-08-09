@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Imovel < ActiveRecord::Base
   has_many :images, :dependent => :destroy
   belongs_to :corretors

@@ -7,6 +7,8 @@ ArRails::Application.routes.draw do
   
   devise_for :users, :path_names => {:sign_in => "login", :sign_out => "logout"}, :path => "usr", :skip => [:registrations] 
   
+  #match users_root => 'users#index'
+  
   namespace :corretor do
     match '/' => 'users#index'
     resources :users

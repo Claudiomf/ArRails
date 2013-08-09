@@ -1,3 +1,4 @@
+# encoding: utf-8
 class ImovelsController < ApplicationController
   load_and_authorize_resource
   
@@ -93,7 +94,7 @@ class ImovelsController < ApplicationController
     
     respond_to do |format|
       if @imovel.save
-        format.html { redirect_to @imovel, notice: 'Imovel foi cadastrado com sucesso.' }
+        format.html { redirect_to @imovel, notice: 'Imóvel foi cadastrado com sucesso.' }
         format.json { render json: @imovel, status: :created, location: @imovel }
       else
         format.html { render action: "new" }
@@ -118,7 +119,7 @@ class ImovelsController < ApplicationController
  
     respond_to do |format|
       if @imovel.update_attributes(params[:imovel])
-        format.html { redirect_to @imovel, notice: 'Imovel atualizado com sucesso.' }
+        format.html { redirect_to @imovel, notice: 'Imóvel atualizado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -139,7 +140,7 @@ class ImovelsController < ApplicationController
 
     respond_to do |format|
       if @imovel.update_attributes(params[:imovel])
-        format.html { redirect_to imovels_url, notice: 'Imovel removido com sucesso.'  }
+        format.html { redirect_to imovels_url, notice: 'Imóvel removido com sucesso.'  }
         format.json { head :no_content }
       else
         format.html { render action: "destroy" }
