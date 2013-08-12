@@ -1,5 +1,10 @@
+<div class="span12 h2-pages">
 <h1>Cadastrar Corretor</h1>
-  
+</div>
+
+<div class="span12">
+</div>
+
 	<%= form_for [:corretor, @user], :url => corretor_users_path, :html => { :class => :form } do |f| -%>
 	  <%= render :partial => "form", :locals => {:f => f} %>
 	<% end -%>

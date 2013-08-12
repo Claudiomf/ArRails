@@ -1,226 +1,156 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Ar Imóveis - Admin</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application"%>
-  <% #= javascript_include_tag :defaults,"nested_form" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-<!-- Cabecalho -->
+	<head>
+		<title>Ar Imóveis - Admin</title>
+		<%= stylesheet_link_tag    "application", :media => "all" %>
+		<%= javascript_include_tag "application"%>
+		<%= csrf_meta_tags %>
+	</head>
+	<body>
 
-<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span12">
-      <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-          <div class="container-fluid">
-            <a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </a>
-            <%= link_to("AR Imóveis", root_path, :class => "brand") %>
-            
-              <% #= image_tag("logo_ar_imoveis.png") %>
-            <div class="nav-collapse collapse navbar-responsive-collapse">
-              <ul class="nav">
-                <li class="active">
-                  <%= link_to 'Home', root_path %>
-                </li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200" data-close-others="true">
-                   Corretor
-                  <b class="caret"></b>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <%= link_to 'Cadastrar', new_corretor_user_path %>
-                    </li>
-                    <li>
-                      <%= link_to('Listar', corretor_users_path) %>
-                    </li>
-                  </ul>
-                </li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200" data-close-others="true">
-                  Imóveis
-                  <b class="caret"></b>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <%= link_to 'Cadastrar', new_imovel_path %>
-                    </li>
-                    <li>
-                      <%= link_to 'Listar', imovels_path %>
-                    </li>
-                    <li class="divider"></li>
-                    <li class="nav-header">
-                      Detalhes
-                    </li>
-                    <li>
-                      <%= link_to 'Cadastrar', new_caracteristica_imovel_path %>
-                    </li>
-                    <li>
-                      <%= link_to 'Listar', caracteristica_imovels_path %>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <a href="#">Clientes</a>
-                </li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200" data-close-others="true">
-                  Relatórios
-                  <b class="caret"></b>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <a href="#">Número de acessos</a>
-                    </li>
-                    <li>
-                      <a href="#">Características mais pesquisadas</a>
-                    </li>
-                    <li>
-                      <a href="#">Imóveis mais procurados</a>
-                    </li>
-                    <li>
-                      <a href="#">Estatísticas de acesso</a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <a href="#"><i class="icon-envelope icon-white"></i> Mensagens</a>
-                </li>
-              </ul>
-              <ul class="nav pull-right">
-                <li class="divider-vertical">
-                </li>
-                <% if user_signed_in? %>
-                  <li class="dropdown">
-                      <%= link_to(corretor_users_path, :data => {:toggle=>"dropdown", :hover => "dropdown", :delay => "200", :close => { :others => "true"} }, :class => "dropdown-toggle") do %>
-                       <i class="icon-user icon-white"></i> <%= current_user.email %><strong class="caret"></strong>
-                      <% end %>
-                      <ul class="dropdown-menu">
-                      <li>
-                        <a href="#"><i class="icon-wrench"></i> Painel de Controle</a>
-                      </li>
-                      <li>
-                        <a href="#"><i class="icon-envelope icon-white"></i> Mensagens</a>
-                      </li>
-                      <li class="divider">
-                      </li>
-                      <li>
-                          <%= link_to(destroy_user_session_path, :method=>'delete') do %>
-                            <i class="icon-off"></i> Sair
-                          <% end %>
-                      </li>
-                    </ul>
-                  </li>
-                <% else%>
-                    <!-- Login Modal -->
-                    <!--
-                    <li>
-                      #<a href="#myModal" role="button" class="link" data-toggle="modal"><i class="iconic-key-stroke"></i> Login</a>
-                      
-                      <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<!-- Cabecalho -->
+		<div class="container-fluid">
+			<div class="navbar navbar-fixed-top">
+				<div class="navbar-inner">
+					<div class="container-fluid">
+						<a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a>
+						<%= link_to("AR Imóveis", root_path, :class => "brand") %>
 
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h2 id="myModalLabel">Login</h2>
-                          </div>
-                          <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :class => "form-horizontal" ) do |f| -%>
-                          <div class="modal-body">
-                            
-                              <%= render :partial => "devise/sessions/new", :locals => {:f => f} %>
-                          </div>
-                          <div class="modal-footer">
-                            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>    
-                              <%= f.submit "Entrar", :class => "btn btn-primary" %>
-                            
-                          </div>
-                          <% end -%>
-                          
-                      </div>
-                    -->
-                    </li>
-                    <li class="dropdown" id="menuLogin">
-                    <a class="dropdown-toggle" href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="200" data-close-others="true" id="navLogin"><i class="iconic-key-stroke"></i> Login<strong class="caret"></strong></a>
-                      <div class="dropdown-menu" style="padding:17px;">
-                        <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :class => "form-horizontal" ) do |f| -%>
-                          <%= render :partial => "devise/sessions/form_login", :locals => {:f => f} %>
-                          <%= f.submit "Entrar", :class => "btn btn-primary input-level-block" %>
-                        <% end -%>
-                      </div>
-                    </li>
-                <%end%>
-              </ul>
-            </div>
-            
-          </div>
-        </div>
-        
-      </div>
-    </div>
-  </div>
+						<div class="nav-collapse collapse navbar-responsive-collapse">
+							<ul class="nav">
+								<li class="active">
+									<%= link_to 'Home', root_path %>
+								</li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200" data-close-others="true"> Corretor <b class="caret"></b> </a>
+									<ul class="dropdown-menu">
+										<li>
+											<%= link_to 'Cadastrar', new_corretor_user_path %>
+										</li>
+										<li>
+											<%= link_to('Listar', corretor_users_path) %>
+										</li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200" data-close-others="true"> Imóveis <b class="caret"></b> </a>
+									<ul class="dropdown-menu">
+										<li>
+											<%= link_to 'Cadastrar', new_imovel_path %>
+										</li>
+										<li>
+											<%= link_to 'Listar', imovels_path %>
+										</li>
+										<li class="divider"></li>
+										<li class="nav-header">
+											Detalhes
+										</li>
+										<li>
+											<%= link_to 'Cadastrar', new_caracteristica_imovel_path %>
+										</li>
+										<li>
+											<%= link_to 'Listar', caracteristica_imovels_path %>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a href="#">Clientes</a>
+								</li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200" data-close-others="true"> Relatórios <b class="caret"></b> </a>
+									<ul class="dropdown-menu">
+										<li>
+											<a href="#">Número de acessos</a>
+										</li>
+										<li>
+											<a href="#">Características mais pesquisadas</a>
+										</li>
+										<li>
+											<a href="#">Imóveis mais procurados</a>
+										</li>
+										<li>
+											<a href="#">Estatísticas de acesso</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a href="#"><i class="icon-envelope icon-white"></i> Mensagens</a>
+								</li>
+							</ul>
+							<ul class="nav pull-right">
+								<li class="divider-vertical"></li>
+								<% if user_signed_in? %>
+								<li class="dropdown">
+									<%= link_to(corretor_users_path, :data => {:toggle=>"dropdown", :hover => "dropdown", :delay => "200", :close => { :others => "true"} }, :class => "dropdown-toggle") do %>
+									<i class="icon-user icon-white"></i> <%= current_user.email %><strong class="caret"></strong>
+									<% end %>
+									<ul class="dropdown-menu">
+										<li>
+											<a href="#"><i class="icon-wrench"></i> Painel de Controle</a>
+										</li>
+										<li>
+											<a href="#"><i class="icon-envelope icon-white"></i> Mensagens</a>
+										</li>
+										<li class="divider"></li>
+										<li>
+											<%= link_to(destroy_user_session_path, :method=>'delete') do %>
+											<i class="icon-off"></i> Sair
+											<% end %>
+										</li>
+									</ul>
+								</li>
+								</li>
+								<li class="dropdown" id="menuLogin">
+									<a class="dropdown-toggle" href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="200" data-close-others="true" id="navLogin"><i class="iconic-key-stroke"></i> Login<strong class="caret"></strong></a>
+									<div class="dropdown-menu" style="padding:17px;">
+										<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :class => "form-horizontal" ) do |f| -%>
+										<%= render :partial => "devise/sessions/form_login", :locals => {:f => f} %>
+										<%= f.submit "Entrar", :class => "btn btn-primary input-level-block" %>
+										<% end -%>
+									</div>
+								</li>
+								<%end%>
+							</ul>
+						</div>
 
-<!-- Conteudo -->
-<div class="row-fluid">
-  <div class="span1">
-    
-    
-    
-    <% if user_signed_in? %>
-      Você está logado.
-      <br>
-      Olá<strong> </strong>!
-      <br>
-      <br>
-      <li> <%= link_to('Sair', destroy_user_session_path, :method=>'delete') %></li>
-    <% else%>
-      <li> <%= link_to('Login', new_user_session_path) %> </li>
-    <%end%>
-    <br>
-    <br>
-    Menu direita
-  </div>
-  <div class="span10">
-    <% flash.each do |name, msg| %>
-    <div class="alert alert-success">
-      <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
-    </div>
-    <% end %>
-    
-    <%= yield %>
-  </div>
-  <div class="span1">
-    Menu esquerda
-  </div>
-</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-<!-- Rodape -->
-  <div class="row-fluid">
-   <div class="span12 footer">
-     <div class="navbar navbar-inverse navbar-fixed-bottom navbar-fluid">
-       <div class="navbar-inner">
-         <div class="container-fluid">
-           <div class="span12">
-             <br>
-             <p class="muted text-center">
-             ©2013 VADER Tecnologia
-           </p>
-           </div>
-           
-         </div>
-       </div>
-     </div>
-     
-   </div> 
-   
-  </div>
+		<!-- Conteudo -->
+		<div class="container-fluid background-pagina-principal">
+			<div class="row-fluid">
+				<div class="span10 offset1  box-pagina-principal well">
+					<% flash.each do |name, msg| %>
+					<div class="alert alert-success">
+						<%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+					</div>
+					<% end %>
 
-</div>
+					<%= yield %>
+				</div>
+			</div>
+		</div>
 
-</body>
+
+		<!-- Rodape -->
+	
+				<div class="navbar navbar-fixed-bottom navbar-fluid">
+					<div class="navbar-inner">
+						<div class="container-fluid">
+							<div class="span12">
+								<br>
+								<p class="muted text-center">
+									©2013 VADER Tecnologia
+								</p>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+		<!-- Rodape END-->
+
+	</body>
 </html>
