@@ -39,6 +39,19 @@ class User < ActiveRecord::Base
     end
   end
   
+  # bypass re-entering current password for edit
+  def update_with_password(params={}) 
+    current_password = params.delete(:current_password)
+
+    if params[:password].blank? 
+      params.delete(:password) 
+      params.delete(:password_confirmation) if params[:password_confirmation].blank? 
+    end 
+    update_attributes(params) 
+
+    clean_up_passwords
+  end
+  
   def verifica_corretor_associado
     if (Imovel.count_by_sql "SELECT COUNT(*) FROM imovels i WHERE i.responsavel_id = " +self.corretor.id.to_s) > 0
       return false

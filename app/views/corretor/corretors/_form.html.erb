@@ -91,14 +91,12 @@
   <%= fa.label :email, t("activerecord.attributes.user.email", :default => "Email"), :class => 'control-label obrigatorio' %>
   <%= fa.text_field :email, :class => 'text_field' %>
   
-  <% if (@corretor.nil? || @corretor.user.id.nil?) %>
-    <%= fa.label :password, t("activerecord.attributes.user.password", :default => "Senha"), :class => 'control-label obrigatorio' %>
-    <%= fa.password_field :password, :class => 'password_field' %>
-    <span class="help-inline">Escolha uma senha de no mínimo 6 caracteres</span>
-  
-    <%= fa.label :Password, t("activerecord.attributes.user.password_confirmation", :default => "Confirmar senha"), :class => 'control-label obrigatorio' %>
-    <%= fa.password_field :password_confirmation, :class => 'password_field' %>
-  <% end %>
+  <%= fa.label :password, t("activerecord.attributes.user.password", :default => "Senha"), :class => 'control-label obrigatorio' %>
+  <%= fa.password_field :password, :class => 'password_field' %>
+  <span class="help-inline">Escolha uma senha de no mínimo 6 caracteres</span>
+
+  <%= fa.label :Password, t("activerecord.attributes.user.password_confirmation", :default => "Confirmar senha"), :class => 'control-label obrigatorio' %>
+  <%= fa.password_field :password_confirmation, :class => 'password_field' %>
 
 
   <br>
@@ -106,7 +104,7 @@
   <legend class="obrigatorio">Permissões</legend>
   <% for role in Role.find(:all) %>
     <div class="controls">
-       <%= radio_button_tag "user[role_ids][]", role.id, @corretor.user.roles.include?(role) %><%= fa.label role.name , :class => 'radio inline' %>
+       <%= radio_button_tag "corretor[user_attributes][role_ids]", role.id, @corretor.user.roles.include?(role) %><%= fa.label role.name , :class => 'radio inline' %>
     </div>
   <% end %>  
 
@@ -120,7 +118,7 @@
     <button class="btn btn-info" type="submit">Alterar</button> 
   <% end %>
   ou
-  <%= link_to "Cancelar", corretor_users_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
+  <%= link_to "Cancelar", corretor_corretors_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
 </div>
 
 </fieldset>

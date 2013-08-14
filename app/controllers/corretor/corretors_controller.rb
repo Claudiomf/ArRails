@@ -73,17 +73,8 @@ class Corretor::CorretorsController < Corretor::CorretorController
   # PUT /users/1.json
   def update
     @corretor = Corretor.find(params[:id])
-    if params[:user][:password].blank?
-        params[:user].delete(:password)
-        params[:user].delete(:password_confirmation)
-    end
+    @corretor.user.update_with_password(params[:corretor][:user_attributes])
     
-    #@corretor = @user.corretor
-    #@corretor.update_attributes(params[:corretor])
-    
-    #@endereco = Endereco.find(:first,:conditions => { :corretor_id => @user.corretor.id} )
-    #@endereco.update_attributes(params[:endereco])
- 
     respond_to do |format|
       if @corretor.update_attributes(params[:corretor])
         format.html { redirect_to corretor_corretors_path, :notice => 'O corretor foi atualizado com sucesso.' }
