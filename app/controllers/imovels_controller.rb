@@ -66,12 +66,10 @@ class ImovelsController < ApplicationController
     @imovel.attributes = {:cadastrado_por_id => current_user.corretor.id}    
     @imovel.attributes = {:ativo => true}
     
+    #@caracteristica_imovel.increment!(:contador)
+    
     if has_role?(current_user, 'corretor')
       @imovel.attributes = {:ativo => false}
-    end
-    
-    if !@imovel.tipo_imovel_id.nil?
-      gerar_codigo_referencia
     end
     
     # arranjo temporario porque não tá cadastrando com nome quando é terreno
@@ -158,7 +156,7 @@ class ImovelsController < ApplicationController
     
     @images = @imovel.images
     @transacao = TransacaoImovel.find(@imovel.transacao_imovel_id) if !@imovel.transacao_imovel_id.nil?
-    @tipo_imovel = ImovelTipo.find(@imovel.tipo_imovel_id) if !@imovel.tipo_imovel_id.nil?
+    @tipo_imovel = TipoImovel.find(@imovel.tipo_imovel_id) if !@imovel.tipo_imovel_id.nil?
     @responsavel = Corretor.find(@imovel.responsavel_id) if !@imovel.responsavel_id.nil?
     @vendedor = Corretor.find(@imovel.vendedor_id) if !@imovel.vendedor_id.nil?
     @cadastrado_por = Corretor.find(@imovel.cadastrado_por_id) if !@imovel.cadastrado_por_id.nil?
@@ -178,7 +176,7 @@ class ImovelsController < ApplicationController
     lista_aux = []
     
     lista_aux[0] = TransacaoImovel.find(imovel_aux.transacao_imovel_id) if !imovel_aux.transacao_imovel_id.nil?
-    lista_aux[1] = ImovelTipo.find(imovel_aux.tipo_imovel_id) if !imovel_aux.tipo_imovel_id.nil?
+    lista_aux[1] = TipoImovel.find(imovel_aux.tipo_imovel_id) if !imovel_aux.tipo_imovel_id.nil?
     lista_aux[2] = Corretor.find(imovel_aux.responsavel_id) if !imovel_aux.responsavel_id.nil?
     
     @hash_informacoes_imoveis[imovel_aux.id] = lista_aux
@@ -201,24 +199,6 @@ class ImovelsController < ApplicationController
       @numero_codigo_referencia = "0" + count_tipo_imovel.to_s
     else
       @numero_codigo_referencia = count_tipo_imovel.to_s
-    end
-  end
-  
-  # Testando!!
-  # Método usado para gerar o código de referência de um imóvel baseado no tipo de imóvel escolhido no momento do cadastro.
-  def gerar_codigo_referencia
-    quantidade_imoveis  
-    case @imovel.tipo_imovel_id
-    when 1
-      @imovel.attributes = {:codigo_referencia => "AP"+@numero_codigo_referencia}
-    when 2
-      @imovel.attributes = {:codigo_referencia => "CA"+@numero_codigo_referencia}
-    when 3
-      @imovel.attributes = {:codigo_referencia => "PC"+@numero_codigo_referencia}
-    when 4
-      @imovel.attributes = {:codigo_referencia => "TE"+@numero_codigo_referencia}
-    else
-      @imovel.attributes = {:codigo_referencia => "000000"}
     end
   end
   

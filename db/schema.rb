@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130808020323) do
+ActiveRecord::Schema.define(:version => 20130814163400) do
 
   create_table "caracteristica_imovels", :force => true do |t|
     t.string   "descricao",  :limit => 300
@@ -115,6 +115,13 @@ ActiveRecord::Schema.define(:version => 20130808020323) do
   create_table "roles_users", :id => false, :force => true do |t|
     t.integer "role_id"
     t.integer "user_id"
+  end
+
+  create_table "tipo_imovels", :force => true do |t|
+    t.string   "nome",                 :limit => 100
+    t.integer  "contador_tipo_imovel",                :default => 0, :null => false
+    t.datetime "created_at",                                         :null => false
+    t.datetime "updated_at",                                         :null => false
   end
 
   create_table "transacao_imovels", :force => true do |t|

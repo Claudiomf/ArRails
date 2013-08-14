@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ImovelTipoTest < ActiveSupport::TestCase
+class TipoImovelTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

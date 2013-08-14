@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+  # TipoImovel.create(nome: 'Apartamento')
+  # TipoImovel.create(nome: 'Casa')
+  # TipoImovel.create(nome: 'Ponto Comercial')
+  # TipoImovel.create(nome: 'Terreno')
+  

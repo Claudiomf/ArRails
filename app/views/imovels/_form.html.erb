@@ -98,9 +98,9 @@ function mostraCampoVendedor(){
   <label class="control-label obrigatorio">Tipo do imóvel</label>
   <div class="controls">
     <% if @imovel.id.nil? %>
-      <%= select("imovel", "tipo_imovel_id", ImovelTipo.all.collect {|p| [ p.nome, p.id ] }, {include_blank: '-- Selecione o tipo de imóvel --'}, {class: "span4", onchange: "atualizaForm()", id:"idTipoImovel"}) %>
+      <%= select("imovel", "tipo_imovel_id", TipoImovel.all.collect {|p| [ p.nome, p.id ] }, {include_blank: '-- Selecione o tipo de imóvel --'}, {class: "span4", onchange: "atualizaForm()", id:"idTipoImovel"}) %>
     <% else %>
-      <%= select("imovel", "tipo_imovel_id", ImovelTipo.all.collect {|p| [ p.nome, p.id ] }, {include_blank: '-- Selecione o tipo de imóvel --'}, {class: "span4", disabled: "true", id:"idTipoImovel"}) %>
+      <%= select("imovel", "tipo_imovel_id", TipoImovel.all.collect {|p| [ p.nome, p.id ] }, {include_blank: '-- Selecione o tipo de imóvel --'}, {class: "span4", disabled: "true", id:"idTipoImovel"}) %>
     <% end %>
   </div>
 </div>
