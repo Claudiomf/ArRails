@@ -4,6 +4,8 @@ class Imovel < ActiveRecord::Base
   belongs_to :corretors
   has_many :item_imovels
   has_many :caracteristica_imovels, through: :item_imovels
+  belongs_to :tipo_imovel, foreign_key: :tipo_imovel_id
+  belongs_to :transacao_imovel, foreign_key: :transacao_imovel_id
   
   accepts_nested_attributes_for :images, :reject_if => lambda { |a| a[:image].blank? }, :allow_destroy => true
   

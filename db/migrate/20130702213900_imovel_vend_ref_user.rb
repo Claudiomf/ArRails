@@ -4,7 +4,7 @@ class ImovelVendRefUser < ActiveRecord::Migration
        ALTER TABLE imovels
           ADD CONSTRAINT fk_imovels_vendedor
           FOREIGN KEY (vendedor_id)
-          REFERENCES users(id)  
+          REFERENCES corretors(id)  
      SQL
   end
 

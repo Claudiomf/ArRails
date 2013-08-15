@@ -4,6 +4,10 @@ class CreateEnderecos < ActiveRecord::Migration
       t.string :logradouro, limit: 400
       t.string :bairro, limit: 100
       t.string :cidade, limit: 120
+      t.string :estado, limit: 120
+      
+      # Foreign key
+      t.integer :corretor_id
 
       t.timestamps
     end
@@ -15,7 +19,7 @@ class CreateEnderecos < ActiveRecord::Migration
            ADD CONSTRAINT fk_corretors
            FOREIGN KEY (corretor_id)
            REFERENCES corretors(id)   
-      SQL
+        SQL
   end
 
   def down

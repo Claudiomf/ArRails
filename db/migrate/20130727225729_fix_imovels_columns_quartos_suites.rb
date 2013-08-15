@@ -12,7 +12,7 @@ class FixImovelsColumnsQuartosSuites < ActiveRecord::Migration
       t.change :codigo_referencia, :string, :limit => 10
       t.change :nome, :string, :limit => 200
       t.change :localizacao, :string, :limit => 200
-      t.change :taxa_condominio, :numeric, :precision => 8, :scale => 2
+      t.change :taxa_condominio, :numeric, :precision => 10, :scale => 2
       t.change :iptu, :numeric, :precision => 8, :scale => 2
       t.change :valor, :numeric, :precision => 9, :scale => 2
       t.change :area, :numeric, :precision => 7, :scale => 2

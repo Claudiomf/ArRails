@@ -10,16 +10,7 @@
 <body>
 <!-- Conteudo -->
 <div class="row-fluid">
-  <div class="span2">
-  	<% if user_signed_in? %>
-     Você está logado<b> <%= current_user.email%></b>
-      <br>
-      Olá<strong> </strong>!
-      <br>
-      <br>
-      <li> <%= link_to('Sair', destroy_user_session_path, :method=>'delete') %></li>
-    <%end%>
-  </div>
+  <div class="span1"></div>
   <div class="span10">
     <% flash.each do |name, msg| %>
     <div class="alert alert-success">

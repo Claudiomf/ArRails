@@ -3,16 +3,16 @@ class ImovelCadPorRefUser < ActiveRecord::Migration
     # add a foreign key
      execute <<-SQL
        ALTER TABLE imovels
-           ADD CONSTRAINT fk_imovels_cadastrado_por
-           FOREIGN KEY (cadastrado_por_id)
-           REFERENCES users(id)   
+           ADD CONSTRAINT fk_imovels_cadastrador
+           FOREIGN KEY (cadastrador_id)
+           REFERENCES corretors(id)   
       SQL
   end
 
   def down
     execute <<-SQL
       ALTER TABLE imovels
-      DROP FOREIGN KEY fk_imovels_responsavel
+      DROP FOREIGN KEY fk_imovels_cadastrador
    SQL
   end
 end

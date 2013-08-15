@@ -2,26 +2,29 @@ class CreateImovels < ActiveRecord::Migration
   def change
     create_table :imovels do |t|
       # Dados principais
-      t.string :cod_ref
-      t.string :nome
-      t.string :localizacao
+      t.string :codigo_referencia, limit: 10
+      t.string :nome, limit: 200
+      t.string :localizacao, limit: 200
       t.text :descricao
       
       # Dados gerais
-      t.integer :taxa_de_condominio
-      t.integer :iptu
-      t.integer :valor
-      t.integer :quartos
-      t.integer :suites
-      t.integer :area
-      t.integer :vagas
-      t.references :imovel_transacao
-      t.references :imovel_tipo
+      t.numeric :taxa_condominio, :precision => 8, :scale => 2
+      t.numeric :iptu, :precision => 8, :scale => 2
+      t.numeric :valor, :precision => 10, :scale => 2
+      t.double :area
+      t.integer :quantidade_quartos
+      t.integer :quantidade_suites
+      t.integer :vagas_garagem
+      
+      # Foreign Key
+      t.belongs_to :transacao_imovel
+      t.belongs_to :tipo_imovel
       
       # Administracao
       t.integer :responsavel_id
       t.integer :vendedor_id
-      t.integer :cadastrado_por_id
+      t.integer :cadastrador_id
+      
       t.boolean :vendido
       t.boolean :ativo
       

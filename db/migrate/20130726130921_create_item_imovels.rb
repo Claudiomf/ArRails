@@ -5,7 +5,7 @@ class CreateItemImovels < ActiveRecord::Migration
       t.boolean :visibilidade
       t.string :quantidade, limit: 60
       
-      # Dados associativos
+      # Dados associativos: vai gerar a coluna imovel_id, caracteristica_imovel_id
       t.belongs_to :imovel
       t.belongs_to :caracteristica_imovel
       

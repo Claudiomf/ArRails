@@ -18,6 +18,11 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.datetime :last_sign_in_at
       t.string   :current_sign_in_ip
       t.string   :last_sign_in_ip
+      
+      #
+      t.string :username, limit: 80
+      # Foreign key
+      t.integer :corretor_id
 
       ## Confirmable
       # t.string   :confirmation_token
