@@ -1,5 +1,5 @@
 <fieldset>
-
+	<div class="span12"></div>
 	<div class="row-fluid">
 		<% if @user.errors.any? %>
 		<div class="alert alert-error">
@@ -42,52 +42,49 @@
 			<div class="controls">
 				<%= f.text_field :ende, :class => "span9", :type => "text", :placeholder => "Endereço"%>
 			</div>
-		</div>
-	</div>
 
-	<div class="span12"></div>
+			<div class="span12"></div>
 
-	<div class="row-fluid">
-		<div class="span6 offset3 table-visualizacao">
 			<legend>
 				Informações Cadastrais
 			</legend>
 			<div class="controls-row">
-				<div class="span2"> </div>
-				
+				<div class="span2"></div>
+
 				<%= f.text_field :username, :class => "span4", :type => "text", :placeholder => "Username" %>
-		
+
 				<%= f.text_field :email,:class => "span4", :type => "text", :placeholder => "Email" %>
 			</div>
 
 			<% if @user.id == nil %>
 			<div class="controls-row">
-				<div class="span2"> </div>
+				<div class="span2"></div>
 				<%= f.password_field :password, :class => "span4", :type => "text", :placeholder => "Senha" %>
 
 				<%= f.password_field :password_confirmation,:class => "span4", :type => "text", :placeholder => "Confirmar Senha" %>
 			</div>
 
-			<!--<div class="controls-row"> 
-				<div class="span3"> </div>
+			<div class="controls-row">
+				<div class="span3"></div>
 				<span class="help-inline">Escolha uma senha de no mínimo 6 caracteres</span>
 			</div>
-			<% end %>-->
-			</div>
-	</div>
+			<% end %>
 
-	<div class="span12"></div>
+			<div class="span12"></div>
 
-	<div class="row-fluid">
-		<div class="span2 offset5 table-visualizacao">
 			<legend class="obrigatorio">
 				Permissões
 			</legend>
-			<% for role in Role.find(:all) %>
-			<div class="controls">
-				<%= radio_button_tag "user[role_ids][]", role.id, @user.roles.include?(role) %><%= f.label role.name , :class => 'radio inline' %>
+
+			<div class="controls-row">
+				<div class="span5"></div>
+				<% for role in Role.find(:all) %>
+				<label class="radio inline">
+					<input type="radio" name="user[role_ids][]" id="user_role_ids__<%= role.id%>" value=<%= role.id%>  <%= @user.roles.include?(role) ? "checked" : " " %> >
+					<%= role.name%> </label>
+				<% end %>
 			</div>
-			<% end %>
+
 		</div>
 	</div>
 
@@ -100,7 +97,7 @@
 				Cadastrar
 			</button>
 			<% else %>
-			<button class="btn btn-info" type="submit">
+			<button class="btn btn-primary" type="submit">
 				Alterar
 			</button>
 			<% end %>

@@ -5,6 +5,7 @@ class Corretor::UsersController < Corretor::CorretorController
   def index
     @search = User.search(params[:q])
     @users = @search.result
+    @search.build_condition
 
     respond_to do |format|
       format.html # index.html.erb
