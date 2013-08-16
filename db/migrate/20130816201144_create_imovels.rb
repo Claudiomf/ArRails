@@ -8,10 +8,10 @@ class CreateImovels < ActiveRecord::Migration
       t.text :descricao
       
       # Dados gerais
-      t.numeric :taxa_condominio, :precision => 8, :scale => 2
-      t.numeric :iptu, :precision => 8, :scale => 2
-      t.numeric :valor, :precision => 10, :scale => 2
-      t.double :area
+      t.column :taxa_condominio, :numeric, :precision => 8, :scale => 2
+      t.column :iptu, :numeric, :precision => 8, :scale => 2
+      t.column :valor, :numeric, :precision => 10, :scale => 2
+      t.float :area
       t.integer :quantidade_quartos
       t.integer :quantidade_suites
       t.integer :vagas_garagem

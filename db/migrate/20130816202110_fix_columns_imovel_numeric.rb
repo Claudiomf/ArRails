@@ -1,4 +1,4 @@
-class FixImovelsColumnsNumeric < ActiveRecord::Migration
+class FixColumnsImovelNumeric < ActiveRecord::Migration
   def change
     execute("ALTER TABLE imovels ALTER COLUMN taxa_condominio TYPE numeric(8,2);")
     execute("ALTER TABLE imovels ALTER COLUMN iptu TYPE numeric(8,2);")

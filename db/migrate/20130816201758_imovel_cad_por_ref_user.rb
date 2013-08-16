@@ -1,5 +1,5 @@
 class ImovelCadPorRefUser < ActiveRecord::Migration
-  def up
+def up
     # add a foreign key
      execute <<-SQL
        ALTER TABLE imovels
