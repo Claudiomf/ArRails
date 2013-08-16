@@ -218,7 +218,7 @@ function mostraCampoVendedor(){
 <div class="control-group">
   <label class="control-label">Corretor responsável</label>
   <div class="controls">
-    <%= select("imovel", "responsavel_id", User.all.collect {|p| [ p.corretor.nome, p.corretor.id ] } , {include_blank: '-- Selecione um corretor responsável --'}, {class: "span4"}) %>
+    
   </div>
 </div>
 

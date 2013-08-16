@@ -17,7 +17,7 @@ class Imovel < ActiveRecord::Base
   
   attr_accessible :codigo_referencia, :nome, :localizacao, :descricao, :taxa_condominio, :iptu, 
                   :area, :vagas_garagem, :transacao_imovel_id, 
-                  :tipo_imovel_id, :responsavel_id, :cadastrado_por_id, :vendedor_id,
+                  :tipo_imovel_id, :cadastrado_por_id, :vendedor_id,
                   :vendido, :ativo, :images_attributes, :quantidade_quartos, :quantidade_suites, :valor, :item_imovel_ids, 
                   :caracteristica_imovel_ids
 

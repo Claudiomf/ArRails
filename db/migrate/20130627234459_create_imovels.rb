@@ -21,7 +21,6 @@ class CreateImovels < ActiveRecord::Migration
       t.belongs_to :tipo_imovel
       
       # Administracao
-      t.integer :responsavel_id
       t.integer :vendedor_id
       t.integer :cadastrador_id
       
