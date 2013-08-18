@@ -1,10 +1,14 @@
 # encoding: utf-8
 class Imovel < ActiveRecord::Base
   has_many :images, :dependent => :destroy
-  belongs_to :corretors
+  # belongs_to :corretors
+  
+  belongs_to :vendedor, :class_name => 'Corretor', :foreign_key => 'vendedor_id'
+  belongs_to :cadastrador, :class_name => 'Corretor', :foreign_key => 'cadastrador_id'
   
   has_many :item_imovels
   has_many :caracteristica_imovels, through: :item_imovels
+  
   belongs_to :tipo_imovel, foreign_key: :tipo_imovel_id
   belongs_to :transacao_imovel, foreign_key: :transacao_imovel_id
   

@@ -12,7 +12,7 @@ class Corretor < ActiveRecord::Base
   accepts_nested_attributes_for :endereco, :allow_destroy => true
   accepts_nested_attributes_for :user, :allow_destroy => true
     
-  attr_accessible :nome, :cpf, :rg, :creci, :telefone1, :telefone2, :user_id, :endereco_attributes, :user_attributes
+  attr_accessible :nome, :cpf, :rg, :creci, :telefone1, :telefone2, :endereco_attributes, :user_attributes
   
   #before_save :conferir_dados
   validate :conferir_dados
