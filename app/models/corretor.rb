@@ -1,5 +1,8 @@
 # encoding: utf-8
 class Corretor < ActiveRecord::Base
+  
+  has_many :imovels
+  
   validates :nome, :cpf, :rg, :creci, :telefone1, presence: true
   
   # teste. Comente estas linhas para finalizar o teste

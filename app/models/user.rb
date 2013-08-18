@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
   usar_como_cpf :cpf
   has_and_belongs_to_many :roles
-  has_many :imovels
   
   belongs_to :corretor, foreign_key: :corretor_id
   
