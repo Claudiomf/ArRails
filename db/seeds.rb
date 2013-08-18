@@ -11,3 +11,18 @@
   # TipoImovel.create(nome: 'Ponto Comercial')
   # TipoImovel.create(nome: 'Terreno')
   
+  # Criar permissões  
+  role1 = Role.new
+  role1.name = 'Admin'
+  role1.save
+  
+  role2 = Role.new
+  role2.name = 'Corretor'
+  role2.save
+  
+  # Criar primeiro usuário
+  user = User.create!(:email=>'admin@admin.com',:username=>'admin',:password=>'admin123.')
+  user.role_ids = 1
+  user.save
+
+  # Criar tipos de imovel

@@ -2,6 +2,7 @@
 class Imovel < ActiveRecord::Base
   has_many :images, :dependent => :destroy
   belongs_to :corretors
+  
   has_many :item_imovels
   has_many :caracteristica_imovels, through: :item_imovels
   belongs_to :tipo_imovel, foreign_key: :tipo_imovel_id
@@ -17,9 +18,10 @@ class Imovel < ActiveRecord::Base
   
   attr_accessible :codigo_referencia, :nome, :localizacao, :descricao, :taxa_condominio, :iptu, 
                   :area, :vagas_garagem, :transacao_imovel_id, 
-                  :tipo_imovel_id, :cadastrado_por_id, :vendedor_id,
-                  :vendido, :ativo, :images_attributes, :quantidade_quartos, :quantidade_suites, :valor, :item_imovel_ids, 
-                  :caracteristica_imovel_ids
+                  :tipo_imovel_id, :vendido, :ativo, :images_attributes, :quantidade_quartos, 
+                  :quantidade_suites, :valor, :item_imovel_ids, :caracteristica_imovel_ids, 
+                  :cadastrador_id, :vendedor_id
+                  
 
   # Metodo chamado depois de salvar o imovel, ele deve atualizar o contador do tipo_imovel                  
   def incrementa_contador_tipo_imovel
