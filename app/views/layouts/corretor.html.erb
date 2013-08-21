@@ -4,16 +4,11 @@
   <title>Ar Imóveis - Admin</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application"%>
-  <% #= javascript_include_tag :defaults,"nested_form" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="background-pagina-principal">
 <!-- Cabecalho -->
 
-<div class="wrapper">
-  <div class="container-fluid">
-    <div class="row-fluid">
-      <div class="span12">
         <div class="navbar navbar-inverse navbar-fixed-top">
           <div class="navbar-inner">
             <div class="container-fluid">
@@ -24,7 +19,8 @@
               </a>
               <%= link_to("AR Imóveis", root_path, :class => "brand") %>
               
-                <% #= image_tag("logo_ar_imoveis.png") %>
+               <!-- <%= image_tag("logo_ar_imoveis.png") %> -->
+               
               <div class="nav-collapse collapse navbar-responsive-collapse">
                 <ul class="nav">
                   <li class="dropdown">
@@ -158,15 +154,13 @@
               
             </div>
           </div>
-          
-        </div>
-      </div>
+         </div>
+
     
-  
+    <div class="container-fluid ">
     <!-- Conteudo -->
     <div class="row-fluid">
-      <div class="span1"></div>
-      <div class="span10">
+      <div class="span10 offset1 box-pagina-principal well">
         <% flash.each do |name, msg| %>
         <div class="alert alert-success">
           <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
@@ -175,21 +169,18 @@
         
         <%= yield %>
       </div>
-      <div class="span1"></div>
     </div>
   </div>
-  <div class="push"></div>
-</div>
-<br />
+
 
  <!-- Footer
     ================================================== -->
-<div class="footer">
+<footer class="footer">
   <div class="container">
     <p class="pull-right"><a href="#">Voltar ao topo</a></p>
     <p>Desenvolvido por <a href="http://www.vadertecnologia.com.br" target="_blank">Vader Tecnologia</a>.</p>
   </div>
-</div>
+</footer>
 
 
 </body>
