@@ -63,7 +63,7 @@ class ImovelsController < ApplicationController
 
     @imovel = Imovel.new(params[:imovel])
     
-    @imovel.attributes = {:cadastrado_por_id => current_user.corretor.id}    
+    @imovel.attributes = {:cadastrador_id => current_user.corretor.id}    
     @imovel.attributes = {:ativo => true}
     
     #@caracteristica_imovel.increment!(:contador)
@@ -157,9 +157,8 @@ class ImovelsController < ApplicationController
     @images = @imovel.images
     @transacao = TransacaoImovel.find(@imovel.transacao_imovel_id) if !@imovel.transacao_imovel_id.nil?
     @tipo_imovel = TipoImovel.find(@imovel.tipo_imovel_id) if !@imovel.tipo_imovel_id.nil?
-    @responsavel = Corretor.find(@imovel.responsavel_id) if !@imovel.responsavel_id.nil?
     @vendedor = Corretor.find(@imovel.vendedor_id) if !@imovel.vendedor_id.nil?
-    @cadastrado_por = Corretor.find(@imovel.cadastrado_por_id) if !@imovel.cadastrado_por_id.nil?
+    @cadastrado_por = Corretor.find(@imovel.cadastrador_id) if !@imovel.cadastrador_id.nil?
     
   end
   
@@ -177,7 +176,6 @@ class ImovelsController < ApplicationController
     
     lista_aux[0] = TransacaoImovel.find(imovel_aux.transacao_imovel_id) if !imovel_aux.transacao_imovel_id.nil?
     lista_aux[1] = TipoImovel.find(imovel_aux.tipo_imovel_id) if !imovel_aux.tipo_imovel_id.nil?
-    lista_aux[2] = Corretor.find(imovel_aux.responsavel_id) if !imovel_aux.responsavel_id.nil?
     
     @hash_informacoes_imoveis[imovel_aux.id] = lista_aux
     

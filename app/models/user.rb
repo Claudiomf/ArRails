@@ -52,10 +52,7 @@ class User < ActiveRecord::Base
   end
   
   def verifica_corretor_associado
-    if (Imovel.count_by_sql "SELECT COUNT(*) FROM imovels i WHERE i.responsavel_id = " +self.corretor.id.to_s) > 0
-      return false
-    end
-    if (Imovel.count_by_sql "SELECT COUNT(*) FROM imovels i WHERE i.cadastrado_por_id = " +corretor.id.to_s) > 0
+    if (Imovel.count_by_sql "SELECT COUNT(*) FROM imovels i WHERE i.cadastrador_id = " +corretor.id.to_s) > 0
       return false
     end
     if (Imovel.count_by_sql "SELECT COUNT(*) FROM imovels i WHERE i.vendedor_id = " +corretor.id.to_s) > 0

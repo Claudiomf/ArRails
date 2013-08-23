@@ -16,7 +16,7 @@ class Imovel < ActiveRecord::Base
   
   validates :tipo_imovel_id, :nome, :localizacao, :transacao_imovel_id, presence: true
   
-  before_save :preencher_codigo_referencia
+  before_save :conferir_dados
   
   after_save :incrementa_contador_tipo_imovel
   
@@ -35,15 +35,6 @@ class Imovel < ActiveRecord::Base
     tipo_imovel.increment!(:contador_tipo_imovel) if !tipo_imovel.nil?
   end
                     
-  # Método que retorna o valor da coluna 'contador_tipo_imovel'
-  def contador_tipo_imovel
-    
-    teste = TipoImovel.where(id: self.tipo_imovel_id).limit(1).pluck(:contador_tipo_imovel)
-    # SELECT people.id FROM people WHERE people.age = 21 LIMIT 5
-    
-    #teste = TipoImovel.find_by_sql "SELECT tipo.contador_tipo_imovel FROM tipo_imovels tipo WHERE tipo.id = "+ tipo_imovel_id.to_s
-    return !teste.nil? ? teste[0] : 0
-  end
   
   # bypass re-entering current password for edit
   def preencher_codigo_referencia
@@ -55,8 +46,23 @@ class Imovel < ActiveRecord::Base
     gerar_codigo_referencia(contador)
   end
   
+  def conferir_dados
+    preencher_codigo_referencia
+  end
   
+  
+  # Todos os métodos auxiliares estão aqui
   private
+  
+  # Método que retorna o valor da coluna 'contador_tipo_imovel'
+  def contador_tipo_imovel
+    
+    teste = TipoImovel.where(id: self.tipo_imovel_id).limit(1).pluck(:contador_tipo_imovel)
+    # SELECT people.id FROM people WHERE people.age = 21 LIMIT 5
+    
+    #teste = TipoImovel.find_by_sql "SELECT tipo.contador_tipo_imovel FROM tipo_imovels tipo WHERE tipo.id = "+ tipo_imovel_id.to_s
+    return !teste.nil? ? teste[0] : 0
+  end
   
   # Metodo para formatar os digitos do codigo de referencia
   def formata_digitos_codigo_referencia(contador)

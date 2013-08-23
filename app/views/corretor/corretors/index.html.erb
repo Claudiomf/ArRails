@@ -31,25 +31,33 @@
     </tr>
   </thead>
   <tbody>
-    <% @corretors.each do |corretor| -%>
-    <tr>
-      <td> <%= corretor.nil? ? "" : corretor.nome %> </td>
-      <td> <%= corretor.user.roles[0].name %> </td>
-      <td> <%= corretor.nil? ? "" : corretor.creci %> </td>
-      <td> <%= corretor.nil? ? "" : corretor.cpf %> </td>
-      <td style="text-align: center;" nowrap><%= l(corretor.created_at, :format => :sample) %></td>
-      <td style="text-align: center;" nowrap>
-        <%= link_to(corretor_corretor_path(corretor), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
-         <i class="icon-search icon-white"></i>
-        <% end %> |
-         <%= link_to(edit_corretor_corretor_path(corretor), :class => "link-icon", :title => "Alterar") do %>
-         <i class="icon-pencil icon-white"></i>
-        <% end %> |
-      <%= link_to(corretor_corretor_path(corretor), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este corretor?")}", :class => "link-icon", :title => "Remover" ) do %>
-         <i class="icon-trash icon-white"></i>
-        <% end %>
+    <% if !@corretors.empty? %>
+      <% @corretors.each do |corretor| -%>
+      <tr>
+        <td> <%= corretor.nil? ? "" : corretor.nome %> </td>
+        <td> <%= corretor.user.roles[0].name %> </td>
+        <td> <%= corretor.nil? ? "" : corretor.creci %> </td>
+        <td> <%= corretor.nil? ? "" : corretor.cpf %> </td>
+        <td style="text-align: center;" nowrap><%= l(corretor.created_at, :format => :sample) %></td>
+        <td style="text-align: center;" nowrap>
+          <%= link_to(corretor_corretor_path(corretor), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
+           <i class="icon-search icon-white"></i>
+          <% end %> |
+           <%= link_to(edit_corretor_corretor_path(corretor), :class => "link-icon", :title => "Alterar") do %>
+           <i class="icon-pencil icon-white"></i>
+          <% end %> |
+        <%= link_to(corretor_corretor_path(corretor), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este corretor?")}", :class => "link-icon", :title => "Remover" ) do %>
+           <i class="icon-trash icon-white"></i>
+          <% end %>
+          </td>
+      </tr>
+      <% end -%>
+    <% else %>
+      <tr>
+        <td colspan="6" style="text-align: center">
+          <font class="text-error" >Não há corretores cadastrados.</font>
         </td>
-    </tr>
-    <% end -%>
+      </tr>
+    <% end %>
   </tbody>
 </table>

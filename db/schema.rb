@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130818193905) do
+ActiveRecord::Schema.define(:version => 20130821190321) do
 
   create_table "caracteristica_imovels", :force => true do |t|
     t.string   "descricao",  :limit => 300
@@ -106,6 +106,23 @@ ActiveRecord::Schema.define(:version => 20130818193905) do
     t.index ["imovel_id"], :name => "fk__item_imovels_imovel_id", :order => {"imovel_id" => :asc}
     t.foreign_key ["caracteristica_imovel_id"], "caracteristica_imovels", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_item_imovels_caracteristica_imovel_id"
     t.foreign_key ["imovel_id"], "imovels", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_item_imovels_imovel_id"
+  end
+
+  create_table "pessoas", :force => true do |t|
+    t.integer  "tipo"
+    t.string   "nome",        :limit => 300
+    t.string   "telefone1",   :limit => 20
+    t.string   "telefone2",   :limit => 20
+    t.string   "email",       :limit => 200
+    t.string   "cpf",         :limit => 30
+    t.string   "rg",          :limit => 30
+    t.string   "sexo",        :limit => 1
+    t.integer  "corretor_id"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.index ["corretor_id"], :name => "fk__pessoas_corretor_id", :order => {"corretor_id" => :asc}
+    t.index ["id", "tipo"], :name => "index_pessoas_on_id_and_tipo", :order => {"id" => :asc, "tipo" => :asc}
+    t.foreign_key ["corretor_id"], "corretors", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_pessoas_corretor_id"
   end
 
   create_table "roles", :force => true do |t|
