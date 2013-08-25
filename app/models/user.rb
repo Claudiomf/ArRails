@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
   def update_with_password(params={}) 
     current_password = params.delete(:current_password)
 
-    if params[:password].blank? 
+    if params[:password].blank?
       params.delete(:password) 
       params.delete(:password_confirmation) if params[:password_confirmation].blank? 
     end 
@@ -52,10 +52,7 @@ class User < ActiveRecord::Base
   end
   
   def verifica_corretor_associado
-    if (Imovel.count_by_sql "SELECT COUNT(*) FROM imovels i WHERE i.responsavel_id = " +self.corretor.id.to_s) > 0
-      return false
-    end
-    if (Imovel.count_by_sql "SELECT COUNT(*) FROM imovels i WHERE i.cadastrado_por_id = " +corretor.id.to_s) > 0
+    if (Imovel.count_by_sql "SELECT COUNT(*) FROM imovels i WHERE i.cadastrador_id = " +corretor.id.to_s) > 0
       return false
     end
     if (Imovel.count_by_sql "SELECT COUNT(*) FROM imovels i WHERE i.vendedor_id = " +corretor.id.to_s) > 0

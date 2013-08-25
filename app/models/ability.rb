@@ -7,7 +7,7 @@ class Ability
     if user.role? :admin
       can :manage, :all
     elsif user.role? :corretor
-      can :create, Imovel #, :ativo => true, :cadastrado_por_id => user.id
+      can :create, Imovel #, :ativo => true, :cadastrador_id => user.id
       can :read, Imovel
     else
       can :read, :all
