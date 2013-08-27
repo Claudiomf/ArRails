@@ -26,3 +26,22 @@
   user.save
 
   # Criar tipos de imovel
+  tipo = TipoImovel.create!(:nome => 'Apartamento')
+  tipo.save
+  
+  tipo2 = TipoImovel.create!(:nome => 'Casa')
+  tipo2.save
+  
+  tipo3 = TipoImovel.create!(:nome => 'Ponto Comercial')
+  tipo3.save
+  
+  tipo4 = TipoImovel.create!(:nome => 'Terreno')
+  tipo4.save
+  
+  # Criar transacao de imovel
+  transacao1 = TransacaoImovel.create!(:descricao => 'Aluguel')
+  transacao1.save
+  
+  transacao2 = TransacaoImovel.create!(:descricao => 'Venda')
+  transacao2.save
+  

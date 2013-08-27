@@ -21,8 +21,8 @@ class CreateImovels < ActiveRecord::Migration
       t.belongs_to :tipo_imovel
       
       # Administracao
-      t.integer :vendedor_id, :references => "corretors"
-      t.integer :cadastrador_id, :references => "corretors"
+      t.integer :vendedor_id, :references => "pessoas"
+      t.integer :cadastrador_id, :references => "pessoas"
       
       t.boolean :vendido
       t.boolean :ativo

@@ -30,8 +30,10 @@ class Corretor::CorretorsController < Corretor::CorretorController
   # GET /users/new.json
   def new
     @corretor = Corretor.new
-    @corretor.build_user
-    @corretor.build_endereco
+    @corretor.build_pessoa_fisica
+#    @pessoa_fisica = PessoaFisica.new
+ #   @pessoa_fisica.build_user
+#    @corretor.pessoa_fisica = PessoaFisica.new
     
     respond_to do |format|
       format.html # new.html.erb

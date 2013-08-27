@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   usar_como_cpf :cpf
   has_and_belongs_to_many :roles
   
-  belongs_to :corretor, foreign_key: :corretor_id
+  belongs_to :pessoa_fisica, foreign_key: :pessoa_id
   
   # Teste, descomente estas linhas pra finalizar o teste
   # belongs_to :corretor, dependent: :destroy
