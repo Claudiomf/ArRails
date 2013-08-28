@@ -49,15 +49,15 @@ ActiveRecord::Schema.define(:version => 20130827001024) do
   end
 
   create_table "enderecos", :force => true do |t|
-    t.string   "logradouro", :limit => 400
-    t.string   "bairro",     :limit => 100
-    t.string   "cidade",     :limit => 120
-    t.string   "estado",     :limit => 120
-    t.integer  "pessoa_id"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
-    t.index ["pessoa_id"], :name => "fk__enderecos_pessoa_id", :order => {"pessoa_id" => :asc}
-    t.foreign_key ["pessoa_id"], "pessoas", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_enderecos_pessoa_id"
+    t.string   "logradouro",  :limit => 400
+    t.string   "bairro",      :limit => 100
+    t.string   "cidade",      :limit => 120
+    t.string   "estado",      :limit => 120
+    t.integer  "corretor_id"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.index ["corretor_id"], :name => "fk__enderecos_corretor_id", :order => {"corretor_id" => :asc}
+    t.foreign_key ["corretor_id"], "pessoas", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_enderecos_corretor_id"
   end
 
   create_table "tipo_imovels", :force => true do |t|
@@ -143,13 +143,13 @@ ActiveRecord::Schema.define(:version => 20130827001024) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "username",               :limit => 80
-    t.integer  "pessoa_id"
+    t.integer  "corretor_id"
     t.datetime "created_at",                                           :null => false
     t.datetime "updated_at",                                           :null => false
-    t.index ["pessoa_id"], :name => "fk__users_pessoa_id", :order => {"pessoa_id" => :asc}
+    t.index ["corretor_id"], :name => "fk__users_corretor_id", :order => {"corretor_id" => :asc}
     t.index ["email"], :name => "index_users_on_email", :unique => true, :order => {"email" => :asc}
     t.index ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true, :order => {"reset_password_token" => :asc}
-    t.foreign_key ["pessoa_id"], "pessoas", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_users_pessoa_id"
+    t.foreign_key ["corretor_id"], "pessoas", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_users_corretor_id"
   end
 
   create_table "roles_users", :id => false, :force => true do |t|

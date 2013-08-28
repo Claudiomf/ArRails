@@ -50,67 +50,65 @@
 
 <legend>Informações Pessoais</legend>
 
-<%= f.fields_for :pessoa_fisica do |fc| %>
 
-  <%=fc.label :nome, t("activerecord.attributes.corretor.nome", :default => "Nome Completo"), :class => 'control-label obrigatorio'  %>
-  <%=fc.text_field :nome, :class => 'text_field input-xlarge'  %>
-  
-  <%=f.label :creci, t("activerecord.attributes.corretor.creci", :default => "CRECI"), :class => 'control-label obrigatorio'  %>
-  <%=f.text_field :creci, :class => 'text_field input-medium', :onkeyup => "formatarCRECI(this, event);" %>
-  
-  <%= fc.label :rg, t("activerecord.attributes.corretor.rg", :default => "RG"), :class => 'control-label obrigatorio' %>
-  <%= fc.text_field :rg, :class => 'text_field input-medium', :maxlength => "20" %>
-  
-  <%= fc.label :cpf, t("activerecord.attributes.corretor.cpf", :default => "CPF"), :class => 'control-label obrigatorio' %>
-  <%= fc.text_field :cpf, :class => 'text_field input-medium', :data => { :mask => "999.999.999-99" } %>
-  
-  <%= fc.label :telefone1, t("activerecord.attributes.corretor.telefone1", :default => "Telefone"), :class => 'control-label obrigatorio' %>
-  <%= fc.text_field :telefone1, :class => 'text_field ', :data => { :mask => "(99) 9999-9999" } %>
-  
-  <%= fc.label :telefone2, t("activerecord.attributes.corretor.telefone2", :default => "Celular"), :class => 'control-label' %>
-  <%= fc.text_field :telefone2, :class => 'text_field', :data => { :mask => "(99) 9999-9999" } %>
+<%=f.label :nome, t("activerecord.attributes.corretor.nome", :default => "Nome Completo"), :class => 'control-label obrigatorio'  %>
+<%=f.text_field :nome, :class => 'text_field input-xlarge'  %>
 
-  <%= fc.fields_for :endereco do |fb| %>
-    <%= fb.label :logradouro, t("activerecord.attributes.endereco.logradouro", :default => "Logradouro"), :class => 'control-label obrigatorio' %>
-    <%= fb.text_field :logradouro, :class => 'text_field input-xxlarge'%> <span class="help-inline">Informe a rua, o número, e o complemento.</span>
-    
-    <%= fb.label :bairro, t("activerecord.attributes.endereco.bairro", :default => "Bairro"), :class => 'control-label obrigatorio' %>
-    <%= fb.text_field :bairro, :class => 'text_field input-xsmall'%>
-    
-    <%= fb.label :cidade, t("activerecord.attributes.endereco.cidade", :default => "Cidade"), :class => 'control-label obrigatorio' %>
-    <%= fb.text_field :cidade, :class => 'text_field input-xsmall'%>  
-  <% end %>
+<%=f.label :creci, t("activerecord.attributes.corretor.creci", :default => "CRECI"), :class => 'control-label obrigatorio'  %>
+<%=f.text_field :creci, :class => 'text_field input-medium', :onkeyup => "formatarCRECI(this, event);" %>
 
-  <legend>Informações Cadastrais</legend>
+<%= f.label :rg, t("activerecord.attributes.corretor.rg", :default => "RG"), :class => 'control-label obrigatorio' %>
+<%= f.text_field :rg, :class => 'text_field input-medium', :maxlength => "20" %>
+
+<%= f.label :cpf, t("activerecord.attributes.corretor.cpf", :default => "CPF"), :class => 'control-label obrigatorio' %>
+<%= f.text_field :cpf, :class => 'text_field input-medium', :data => { :mask => "999.999.999-99" } %>
+
+<%= f.label :telefone1, t("activerecord.attributes.corretor.telefone1", :default => "Telefone"), :class => 'control-label obrigatorio' %>
+<%= f.text_field :telefone1, :class => 'text_field ', :data => { :mask => "(99) 9999-9999" } %>
+
+<%= f.label :telefone2, t("activerecord.attributes.corretor.telefone2", :default => "Celular"), :class => 'control-label' %>
+<%= f.text_field :telefone2, :class => 'text_field', :data => { :mask => "(99) 9999-9999" } %>
+
+<%= f.fields_for :endereco do |fb| %>
+  <%= fb.label :logradouro, t("activerecord.attributes.endereco.logradouro", :default => "Logradouro"), :class => 'control-label obrigatorio' %>
+  <%= fb.text_field :logradouro, :class => 'text_field input-xxlarge'%> <span class="help-inline">Informe a rua, o número, e o complemento.</span>
   
-  <%= fc.fields_for :user do |fa| %>
+  <%= fb.label :bairro, t("activerecord.attributes.endereco.bairro", :default => "Bairro"), :class => 'control-label obrigatorio' %>
+  <%= fb.text_field :bairro, :class => 'text_field input-xsmall'%>
   
-    <%= fa.label :username, t("activerecord.attributes.user.username", :default => "Username"), :class => 'control-label obrigatorio' %>
-    <%= fa.text_field :username, :class => 'text_field'%>
-    
-    <%= fa.label :email, t("activerecord.attributes.user.email", :default => "Email"), :class => 'control-label obrigatorio' %>
-    <%= fa.text_field :email, :class => 'text_field' %>
-    
-    <%= fa.label :password, t("activerecord.attributes.user.password", :default => "Senha"), :class => 'control-label obrigatorio' %>
-    <%= fa.password_field :password, :class => 'password_field' %>
-    <span class="help-inline">Escolha uma senha de no mínimo 6 caracteres</span>
-  
-    <%= fa.label :Password, t("activerecord.attributes.user.password_confirmation", :default => "Confirmar senha"), :class => 'control-label obrigatorio' %>
-    <%= fa.password_field :password_confirmation, :class => 'password_field' %>
-  
-  
-    <br>
-    <br>
-    <legend class="obrigatorio">Permissões</legend>
-    <% for role in Role.find(:all) %>
-      <div class="controls">
-         <%= radio_button_tag "corretor[user_attributes][role_ids]", role.id, @corretor.user.roles.include?(role) %><%= fa.label role.name , :class => 'radio inline' %>
-      </div>
-    <% end %>  
-  
-  <% end %>
-  
+  <%= fb.label :cidade, t("activerecord.attributes.endereco.cidade", :default => "Cidade"), :class => 'control-label obrigatorio' %>
+  <%= fb.text_field :cidade, :class => 'text_field input-xsmall'%>  
 <% end %>
+
+<legend>Informações Cadastrais</legend>
+  
+<%= f.fields_for :user do |fa| %>
+
+  <%= fa.label :username, t("activerecord.attributes.user.username", :default => "Username"), :class => 'control-label obrigatorio' %>
+  <%= fa.text_field :username, :class => 'text_field'%>
+  
+  <%= fa.label :email, t("activerecord.attributes.user.email", :default => "Email"), :class => 'control-label obrigatorio' %>
+  <%= fa.text_field :email, :class => 'text_field' %>
+  
+  <%= fa.label :password, t("activerecord.attributes.user.password", :default => "Senha"), :class => 'control-label obrigatorio' %>
+  <%= fa.password_field :password, :class => 'password_field' %>
+  <span class="help-inline">Escolha uma senha de no mínimo 6 caracteres</span>
+
+  <%= fa.label :Password, t("activerecord.attributes.user.password_confirmation", :default => "Confirmar senha"), :class => 'control-label obrigatorio' %>
+  <%= fa.password_field :password_confirmation, :class => 'password_field' %>
+
+
+  <br>
+  <br>
+  <legend class="obrigatorio">Permissões</legend>
+  <% for role in Role.find(:all) %>
+    <div class="controls">
+       <%= radio_button_tag "corretor[user_attributes][role_ids]", role.id, @corretor.user.roles.include?(role) %><%= fa.label role.name , :class => 'radio inline' %>
+    </div>
+  <% end %>  
+
+<% end %>
+  
 
 
 

@@ -21,8 +21,10 @@ class DeviseCreateUsers < ActiveRecord::Migration
       
       #
       t.string :username, limit: 80
+      
       # Foreign key
-      t.integer :pessoa_id
+      #t.integer :pessoa_id
+      t.integer :corretor_id, :references => "pessoas"
 
       ## Confirmable
       # t.string   :confirmation_token

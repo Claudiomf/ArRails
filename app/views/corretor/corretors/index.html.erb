@@ -34,7 +34,7 @@
     <% @corretors.each do |corretor| -%>
     <tr>
       <td> <%= corretor.nil? ? "" : corretor.nome %> </td>
-      <td> <%= corretor.user.roles[0].name %> </td>
+      <td> <%= corretor.user.nil? ? "Não atribuída" : corretor.user.roles[0].name %> </td>
       <td> <%= corretor.nil? ? "" : corretor.creci %> </td>
       <td> <%= corretor.nil? ? "" : corretor.cpf %> </td>
       <td style="text-align: center;" nowrap><%= l(corretor.created_at, :format => :sample) %></td>
