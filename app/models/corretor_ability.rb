@@ -5,4 +5,10 @@ class CorretorAbility
       can :manage, :all
     end
   end
+  
+  def initialize(corretor)
+    if user.role? :admin
+      can :manage, :all
+    end
+  end
 end

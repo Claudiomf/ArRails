@@ -3,7 +3,7 @@ ArRails::Application.routes.draw do
   resources :images
   resources :caracteristica_imovels
   
-  match '/corretor' => 'corretor/users#index', :as => :user_root
+  #match '/corretor/corretors' => 'corretor/corretors/users#index', :as => :user_root
 
   
   root :to => "home#index"
