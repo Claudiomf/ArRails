@@ -1,7 +1,13 @@
 # encoding: utf-8
 class Imovel < ActiveRecord::Base
+  
+  ADMIN_ROOT_ID = 1
+  
   has_many :images, :dependent => :destroy
   # belongs_to :corretors
+  
+  # belongs_to :vendedor, :class_name => 'Corretor', :foreign_key => 'vendedor_id'
+  # belongs_to :cadastrador, :class_name => 'Corretor', :foreign_key => 'cadastrador_id'
   
   belongs_to :vendedor, :class_name => 'Corretor', :foreign_key => 'vendedor_id'
   belongs_to :cadastrador, :class_name => 'Corretor', :foreign_key => 'cadastrador_id'

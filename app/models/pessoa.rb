@@ -1,17 +1,10 @@
 class Pessoa < ActiveRecord::Base
-  # attr_accessor :nome
-  
-  has_one :endereco
-  belongs_to :corretor, foreign_key: :corretor_id
-    
-  attr_accessible :nome
-  
-  #, :endereco_attributes
-  
-  #accepts_nested_attributes_for :endereco, :allow_destroy => true
-  
-  # Tipos de Pessoa
+  # tipos de pessoa
   JURIDICA = 1
-  FISICA = 2
+  FISICA   = 2
   
+  has_one :endereco, dependent: :destroy
+  accepts_nested_attributes_for :endereco, :allow_destroy => true
+  
+  attr_accessible :nome, :telefone1, :telefone2, :endereco_attributes
 end

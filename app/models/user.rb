@@ -2,17 +2,8 @@ class User < ActiveRecord::Base
   usar_como_cpf :cpf
   has_and_belongs_to_many :roles
   
-  belongs_to :corretor, foreign_key: :corretor_id
-  
-  # Teste, descomente estas linhas pra finalizar o teste
-  # belongs_to :corretor, dependent: :destroy
-  
-  # Fim do teste, comente estas linhas
-  #has_one :corretor
-  #has_one :endereco, through: :corretor
-  
-  #accepts_nested_attributes_for :corretor, :allow_destroy => true
-  #accept_nested_attributes_for :endereco, :allow_destroy => true
+  #belongs_to :pessoa_fisica, foreign_key: :pessoa_id
+  belongs_to :corretor, :class_name => 'Corretor', :foreign_key => 'corretor_id'
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

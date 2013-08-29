@@ -40,6 +40,11 @@ class ImovelsController < ApplicationController
   # GET /imovels/new
   # GET /imovels/new.json
   def new
+    
+    ## Não deixa cadastrar e manda a mensagem que precisa ser um corretor. O root não pode cadastrar imoveis
+    if current_user.id == Imovel::ADMIN_ROOT_ID
+      return
+    end
     @imovel = Imovel.new
     @imovel.images.build
     
@@ -63,7 +68,7 @@ class ImovelsController < ApplicationController
 
     @imovel = Imovel.new(params[:imovel])
     
-    @imovel.attributes = {:cadastrador_id => current_user.corretor.id}    
+    @imovel.attributes = {:cadastrador_id => current_user.corretor.id } if !current_user.corretor.nil?     
     @imovel.attributes = {:ativo => true}
     
     #@caracteristica_imovel.increment!(:contador)
@@ -73,11 +78,10 @@ class ImovelsController < ApplicationController
     end
     
     # arranjo temporario porque não tá cadastrando com nome quando é terreno
-    if @imovel.tipo_imovel_id==4
+    if @imovel.tipo_imovel_id == TipoImovel::TERRENO
       @imovel.attributes = {:nome => "TERRENO LOCALIZADO: "+@imovel.localizacao}
-    end
-    
-    if @imovel.tipo_imovel_id==4
+      
+      # Zera os atributos abaixo
       @imovel.attributes = {:quartos => '0'}
       @imovel.attributes = {:suites => '0'}
       @imovel.attributes = {:vagas => '0'}
@@ -176,6 +180,7 @@ class ImovelsController < ApplicationController
     
     lista_aux[0] = TransacaoImovel.find(imovel_aux.transacao_imovel_id) if !imovel_aux.transacao_imovel_id.nil?
     lista_aux[1] = TipoImovel.find(imovel_aux.tipo_imovel_id) if !imovel_aux.tipo_imovel_id.nil?
+    lista_aux[2] = Corretor.find(@imovel.cadastrador_id) if !@imovel.cadastrador_id.nil?
     
     @hash_informacoes_imoveis[imovel_aux.id] = lista_aux
     
