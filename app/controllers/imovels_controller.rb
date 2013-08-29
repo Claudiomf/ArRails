@@ -180,7 +180,7 @@ class ImovelsController < ApplicationController
     
     lista_aux[0] = TransacaoImovel.find(imovel_aux.transacao_imovel_id) if !imovel_aux.transacao_imovel_id.nil?
     lista_aux[1] = TipoImovel.find(imovel_aux.tipo_imovel_id) if !imovel_aux.tipo_imovel_id.nil?
-    lista_aux[2] = Corretor.find(@imovel.cadastrador_id) if !@imovel.cadastrador_id.nil?
+    # lista_aux[2] = Corretor.find(@imovel.cadastrador_id) if !@imovel.cadastrador_id.nil?
     
     @hash_informacoes_imoveis[imovel_aux.id] = lista_aux
     
