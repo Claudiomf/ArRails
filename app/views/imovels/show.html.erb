@@ -154,7 +154,7 @@
   <tr>
     <th>Cadastrador por:</th>
     <td>
-        <%= @cadastrado_por.nome %>
+        <%= @cadastrado_por.nome if !@cadastrado_por.nil? %>
     </td>
     <th></th>
     <td>

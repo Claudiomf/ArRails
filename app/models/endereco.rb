@@ -1,9 +1,9 @@
 class Endereco < ActiveRecord::Base
 
-  belongs_to :corretor, foreign_key: :corretor_id
-
+  belongs_to :pessoa, foreign_key: :pessoa_id
+  
   validates :logradouro, :bairro, :cidade, presence: true
 
-  attr_accessible :logradouro, :bairro, :cidade, :estado, :corretor_id
+  attr_accessible :logradouro, :bairro, :cidade, :pessoa_id
 
 end

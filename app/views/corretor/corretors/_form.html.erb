@@ -50,6 +50,7 @@
 
 <legend>Informações Pessoais</legend>
 
+
 <%=f.label :nome, t("activerecord.attributes.corretor.nome", :default => "Nome Completo"), :class => 'control-label obrigatorio'  %>
 <%=f.text_field :nome, :class => 'text_field input-xlarge'  %>
 
@@ -78,11 +79,9 @@
   <%= fb.label :cidade, t("activerecord.attributes.endereco.cidade", :default => "Cidade"), :class => 'control-label obrigatorio' %>
   <%= fb.text_field :cidade, :class => 'text_field input-xsmall'%>
 <% end %>
-  
-
 
 <legend>Informações Cadastrais</legend>
-
+  
 <%= f.fields_for :user do |fa| %>
 
   <%= fa.label :username, t("activerecord.attributes.user.username", :default => "Username"), :class => 'control-label obrigatorio' %>
@@ -109,6 +108,9 @@
   <% end %>  
 
 <% end %>
+  
+
+
 
 <br>
 <div class="form-actions-white">
