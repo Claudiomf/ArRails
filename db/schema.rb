@@ -20,17 +20,6 @@ ActiveRecord::Schema.define(:version => 20130827001024) do
     t.datetime "updated_at",                :null => false
   end
 
-  create_table "corretors", :force => true do |t|
-    t.string   "nome",       :limit => 300
-    t.string   "cpf",        :limit => 30
-    t.string   "rg",         :limit => 30
-    t.string   "creci",      :limit => 10
-    t.string   "telefone1",  :limit => 20
-    t.string   "telefone2",  :limit => 20
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
-  end
-
   create_table "pessoas", :force => true do |t|
     t.integer  "tipo"
     t.string   "nome",               :limit => 300
@@ -49,15 +38,15 @@ ActiveRecord::Schema.define(:version => 20130827001024) do
   end
 
   create_table "enderecos", :force => true do |t|
-    t.string   "logradouro",  :limit => 400
-    t.string   "bairro",      :limit => 100
-    t.string   "cidade",      :limit => 120
-    t.string   "estado",      :limit => 120
-    t.integer  "corretor_id"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
-    t.index ["corretor_id"], :name => "fk__enderecos_corretor_id", :order => {"corretor_id" => :asc}
-    t.foreign_key ["corretor_id"], "pessoas", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_enderecos_corretor_id"
+    t.string   "logradouro", :limit => 400
+    t.string   "bairro",     :limit => 100
+    t.string   "cidade",     :limit => 120
+    t.string   "estado",     :limit => 120
+    t.integer  "pessoa_id"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.index ["pessoa_id"], :name => "fk__enderecos_pessoa_id", :order => {"pessoa_id" => :asc}
+    t.foreign_key ["pessoa_id"], "pessoas", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_enderecos_pessoa_id"
   end
 
   create_table "tipo_imovels", :force => true do |t|

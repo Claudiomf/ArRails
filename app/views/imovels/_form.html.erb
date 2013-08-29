@@ -70,9 +70,6 @@ function mostraCampoVendedor(){
           <a href="#caracteristicas">Características</a> <span class="divider">/</span>
         </li>
         <li>
-          <a href="#administracao">Administração</a> <span class="divider">/</span>
-        </li>
-        <li>
           <a href="#imagens">Imagens</a> <span class="divider">/</span>
         </li>
       </ul>
@@ -194,33 +191,26 @@ function mostraCampoVendedor(){
 <br>
 <div id="divCaracteristicas">
   <legend>Características<a name="caracteristicas"></a></legend>
-  <table width="80%">
-  <% CaracteristicaImovel.order(:descricao).each_with_index do |c,i| %>
-    <% if i%3 == 0 %>
-      <% if i != 0 %> 
-        </tr>
-      <% end %>
-      
-    <tr>
-      <td><%= check_box_tag'imovel[caracteristica_imovel_ids][]', c.id, @imovel.caracteristica_imovels.include?(c), class: 'checkbox inline' %> <%= c.descricao %></td>
-    <% else %>
-    <td><%= check_box_tag'imovel[caracteristica_imovel_ids][]', c.id, @imovel.caracteristica_imovels.include?(c), class: 'checkbox inline' %> <%= c.descricao %></td>
+    <% if CaracteristicaImovel.all.length == 0 %>
+      <font class="text-error" >Não há características cadastradas para imóveis.</font>
     <% end %>
-  <% end %>
-  </table>
+    <table width="80%">
+    <% CaracteristicaImovel.order(:descricao).each_with_index do |c,i| %>
+      <% if i%3 == 0 %>
+        <% if i != 0 %> 
+          </tr>
+        <% end %>
+        
+      <tr>
+        <td><%= check_box_tag'imovel[caracteristica_imovel_ids][]', c.id, @imovel.caracteristica_imovels.include?(c), class: 'checkbox inline' %> <%= c.descricao %></td>
+      <% else %>
+      <td><%= check_box_tag'imovel[caracteristica_imovel_ids][]', c.id, @imovel.caracteristica_imovels.include?(c), class: 'checkbox inline' %> <%= c.descricao %></td>
+      <% end %>
+    <% end %>
+    </table>
   <br>
 </div>
 <br>
-
-<a href="#" class="link-icon pull-right" id="aDetalhes"><i class="icon-arrow-up link-icon"></i> Topo do formulário</a>
-<br>
-<legend>Administração<a name="administracao"></a></legend>
-<div class="control-group">
-  <label class="control-label">Corretor responsável</label>
-  <div class="controls">
-    
-  </div>
-</div>
 
 <br />
 <a href="#" class="link-icon pull-right"><i class="icon-arrow-up link-icon"></i> Topo do formulário</a>  

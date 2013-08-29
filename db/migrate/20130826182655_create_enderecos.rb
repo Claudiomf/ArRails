@@ -7,8 +7,8 @@ class CreateEnderecos < ActiveRecord::Migration
       t.string :estado, limit: 120
       
       # Foreign key
-      #t.integer :pessoa_id
-      t.integer :corretor_id, :references => "pessoas"
+      t.integer :pessoa_id
+      # t.integer :corretor_id, :references => "pessoas"
 
       t.timestamps
     end
