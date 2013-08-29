@@ -81,7 +81,7 @@ function mostraCampoVendedor(){
   </div>
   <div class="control-group">
     <div class="controls" style="display: none;" id="idVendedor">
-      <%= select("imovel", "vendedor_id", User.all.collect {|p| [ p.corretor.nome, p.corretor.id ] } , {include_blank: '-- Selecione o corretor responsável pela venda --'}, {class: "span5"}) %>
+      <%= select("imovel", "vendedor_id", Corretor.all.collect {|p| [ p.nome, p.id ] } , {include_blank: '-- Selecione o corretor responsável pela venda --'}, {class: "span5"}) %>
     </div>
   </div>
 <% end %>
