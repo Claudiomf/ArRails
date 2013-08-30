@@ -11,7 +11,7 @@ class PessoaFisica < Pessoa
   #accepts_nested_attributes_for :endereco, :allow_destroy => true
   #accepts_nested_attributes_for :user, :allow_destroy => true
   
-  #validates :cpf, :rg, :telefone1, presence: true
+  validates :cpf, :rg, presence: true
   
   attr_accessible :cpf, :rg, :sexo
   

@@ -6,5 +6,7 @@ class Pessoa < ActiveRecord::Base
   has_one :endereco, dependent: :destroy
   accepts_nested_attributes_for :endereco, :allow_destroy => true
   
+  validates :nome, :telefone1, presence: true
+  
   attr_accessible :nome, :telefone1, :telefone2, :endereco_attributes
 end

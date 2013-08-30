@@ -9,10 +9,12 @@ class Corretor < PessoaFisica
   
   accepts_nested_attributes_for :user, :allow_destroy => true
   
+  validates :creci, presence: true
+  
   attr_accessible :creci, :user_attributes
 
   #before_save :conferir_dados
-  #validate :conferir_dados
+  validate :conferir_dados
   
   # Usado para preencher o número creci com 5 digitos.
   def conferir_dados

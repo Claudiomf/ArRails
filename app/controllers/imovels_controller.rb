@@ -115,7 +115,7 @@ class ImovelsController < ApplicationController
     end
     
     # arranjo temporario porque não tá cadastrando com nome quando é terreno
-    if @imovel.tipo_imovel_id==4
+    if @imovel.tipo_imovel_id == TipoImovel::TERRENO
       @imovel.attributes = {:nome => "TERRENO LOCALIZADO: "+@imovel.localizacao}
     end
  
