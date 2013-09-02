@@ -6,10 +6,4 @@ pt-BR:
   time:
       formats:
         sample: '%d/%m/%Y'
-  activerecord:
-    errors:
-      models:
-        caracteristica_imovel:
-          attributes:
-            descricao:
-              blank: "uuu"
+  

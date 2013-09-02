@@ -20,7 +20,12 @@ class Imovel < ActiveRecord::Base
   
   accepts_nested_attributes_for :images, :reject_if => lambda { |a| a[:image].blank? }, :allow_destroy => true
   
-  validates :tipo_imovel_id, :nome, :localizacao, :transacao_imovel_id, presence: true
+  # validates :tipo_imovel_id, :nome, :localizacao, :transacao_imovel_id, presence: true
+  
+  validates :tipo_imovel_id, :presence => { :message => "Tipo de Imóvel não pode ficar em branco." }
+  validates :nome, :presence => { :message => "Nome não pode ficar em branco." }
+  validates :localizacao, :presence => { :message => "Localização não pode ficar em branco." }
+  validates :transacao_imovel_id, :presence => { :message => "Transação do imóvel não pode ficar em branco." }
   
   before_save :conferir_dados
   

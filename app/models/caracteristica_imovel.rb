@@ -5,7 +5,7 @@ class CaracteristicaImovel < ActiveRecord::Base
   
   validates :descricao, length: { maximum: 300, too_long: "%{count} é o máximo de caracteres permitidos." }
   
-  validates :descricao, uniqueness: {message: "já foi cadastrada."}, presence: {message: "precisa ser preenchida."}
+  validates :descricao, uniqueness: {message: "já foi cadastrada."}, presence: {message: "Descrição não pode ficar em branco."}
   
   attr_accessible :descricao, :contador
   
