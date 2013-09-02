@@ -1,8 +1,16 @@
 
 
 <% if user_signed_in? %>
-  <h1>Painel de Controle</h1>
-	<p>Find me in app/views/home/index.html.erb</p>
+	<%= link_to(corretor_users_path) do %>
+           <i class="icon-user icon-white"></i> <%= current_user.email %>
+    <% end %>
+   	|
+   	<%= link_to(destroy_user_session_path, :method=>'delete') do %>
+         <i class="icon-off"></i> Sair
+	<% end %>
+  
+  	<h1>HOME PAGE</h1>
+  
 <% else%>
   <h1>Login</h1>
   <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :class => "form-horizontal" ) do |f| -%>

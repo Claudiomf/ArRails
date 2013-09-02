@@ -1,6 +1,6 @@
 # encoding: utf-8
 class Corretor::CorretorsController < Corretor::CorretorController
-  
+  load_and_authorize_resource
   # GET /users
   # GET /users.json
   def index
