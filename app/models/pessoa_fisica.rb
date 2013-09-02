@@ -1,3 +1,4 @@
+# encoding: utf-8
 class PessoaFisica < Pessoa
 
   CORRETOR = 3
@@ -11,7 +12,10 @@ class PessoaFisica < Pessoa
   #accepts_nested_attributes_for :endereco, :allow_destroy => true
   #accepts_nested_attributes_for :user, :allow_destroy => true
   
-  validates :cpf, :rg, presence: true
+  #validates :cpf, :rg, presence: true
+  
+  validates :cpf, :presence => { :message => "CPF não pode ficar em branco." }
+  validates :rg, :presence => { :message => "RG não pode ficar em branco." }
   
   attr_accessible :cpf, :rg, :sexo
   

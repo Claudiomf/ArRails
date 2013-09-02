@@ -188,7 +188,7 @@ DEPENDENCIES
   less-rails
   nested_form
   pg
-  rails (= 3.2.1)
+  rails (~> 3.2.1)
   ransack
   rmagick
   sass-rails (~> 3.2.3)

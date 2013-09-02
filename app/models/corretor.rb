@@ -9,7 +9,7 @@ class Corretor < PessoaFisica
   
   accepts_nested_attributes_for :user, :allow_destroy => true
   
-  validates :creci, presence: true
+  validates :creci, :presence => { :message => "CRECI não pode ficar em branco." }
   
   attr_accessible :creci, :user_attributes
 
@@ -21,7 +21,7 @@ class Corretor < PessoaFisica
     
     # Se o número creci for menor que 6, ele está incompleto
     #{ message: "ja foi cadastrada."}
-    errors[:base] = "O CRECI: "+creci.to_s+ " não é válido." if creci.length != 6
+    errors[:base] = "O CRECI "+creci.to_s+ " não é válido." if creci.length != 6
     return creci.length == 6
     #if creci.length <= 6
       #self.creci = "0"+creci      
