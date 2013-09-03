@@ -1,5 +1,5 @@
 # encoding: utf-8
-class ImovelsController < ApplicationController
+class Administrativo::ImovelsController < Administrativo::CorretorController
   load_and_authorize_resource
   
   # GET /imovels

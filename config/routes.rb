@@ -1,5 +1,4 @@
 ArRails::Application.routes.draw do
-  resources :imovels, :path => "imoveis"
   resources :images
   resources :caracteristica_imovels
   
@@ -17,6 +16,7 @@ ArRails::Application.routes.draw do
     resources :users
     resources :corretors
     resources :mensagems
+    resources :imovels, :path => "imoveis"
     #resources :painel_controle
   end
 
