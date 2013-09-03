@@ -1,4 +1,4 @@
-class Corretor::UsersController < Corretor::CorretorController
+class Administrativo::UsersController < Administrativo::CorretorController
   #load_and_authorize_resource
   # GET /users
   # GET /users.json

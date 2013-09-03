@@ -1,5 +1,5 @@
 # encoding: utf-8
-class Corretor::CorretorsController < Corretor::CorretorController
+class Administrativo::CorretorsController < Administrativo::CorretorController
   load_and_authorize_resource
   # GET /users
   # GET /users.json
@@ -58,7 +58,7 @@ class Corretor::CorretorsController < Corretor::CorretorController
     respond_to do |format|
       if @corretor.save
         flash[:notice] = flash[:notice].to_a.concat @corretor.errors.full_messages
-        format.html { redirect_to corretor_corretors_path, :notice => 'O corretor foi cadastrado com sucesso.' }
+        format.html { redirect_to administrativo_corretors_path, :notice => 'O corretor foi cadastrado com sucesso.' }
         format.json { render :json => @corretor, :status => :created, :location => @corretor }
       else
         # Tirado pois as mensagens estão sendo exibidas usando o padrao vistO NAS PAGINAS HTML.ERB
@@ -77,7 +77,7 @@ class Corretor::CorretorsController < Corretor::CorretorController
     
     respond_to do |format|
       if @corretor.update_attributes(params[:corretor])
-        format.html { redirect_to corretor_corretors_path, :notice => 'O corretor foi atualizado com sucesso.' }
+        format.html { redirect_to administrativo_corretors_path, :notice => 'O corretor foi atualizado com sucesso.' }
         format.json { head :ok }
       else
         format.html { render :action => "edit" }
