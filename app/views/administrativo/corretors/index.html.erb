@@ -5,14 +5,14 @@
   </dd>
 </dl>
 <br>
-<%= search_form_for [:corretor, @search], :class => "form-search" do |f| %>
+<%= search_form_for [:administrativo, @search], :class => "form-search" do |f| %>
   <div class="input-append">
     <%#= f.text_field :username_or_cpf_cont, :class => "input-medium search-query", :placeholder => "Digite o nome ou CPF", :style=> 'width: 200px'; %>
     <%= f.submit "Buscar", :class => "btn btn-info" %>
   </div>
 <% end %>
 <div class="well well-small" style="text-align: center;">
-  <i class="icon-search"></i> Visualizar | <i class="icon-pencil"></i> Alterar | <i class="icon-trash"></i> Remover |<%= link_to(new_corretor_corretor_path, :class => "btn btn-link link-icon") do %><i class="icon-plus-sign"></i> Cadastrar Corretor <% end %>
+  <i class="icon-search"></i> Visualizar | <i class="icon-pencil"></i> Alterar | <i class="icon-trash"></i> Remover |<%= link_to(new_administrativo_corretor_path, :class => "btn btn-link link-icon") do %><i class="icon-plus-sign"></i> Cadastrar Corretor <% end %>
 </div>
 <table class="table table-bordered">
   <thead>
@@ -40,13 +40,13 @@
         <td> <%= corretor.nil? ? "" : corretor.cpf %> </td>
         <td style="text-align: center;" nowrap><%= l(corretor.created_at, :format => :sample) %></td>
         <td style="text-align: center;" nowrap>
-        <%= link_to(corretor_corretor_path(corretor), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
+        <%= link_to(administrativo_corretor_path(corretor), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
          <i class="icon-search icon-white"></i>
         <% end %> |
-        <%= link_to(edit_corretor_corretor_path(corretor), :class => "link-icon", :title => "Alterar") do %>
+        <%= link_to(edit_administrativo_corretor_path(corretor), :class => "link-icon", :title => "Alterar") do %>
          <i class="icon-pencil icon-white"></i>
         <% end %> |
-        <%= link_to(corretor_corretor_path(corretor), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este corretor?")}", :class => "link-icon", :title => "Remover" ) do %>
+        <%= link_to(administrativo_corretor_path(corretor), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este corretor?")}", :class => "link-icon", :title => "Remover" ) do %>
          <i class="icon-trash icon-white"></i>
         <% end %>
         </td>

@@ -1,4 +1,4 @@
-class Corretor::CorretorController < ApplicationController
+class Administrativo::CorretorController < ApplicationController
   layout "corretor"
   
   #before_filter :authenticate_user!

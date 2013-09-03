@@ -1,0 +1,45 @@
+<h1>Mensagens</h1>
+
+<dl>
+  <dd>
+    Nesta página, o administrador pode visualizar todas as mensagens enviadas.
+  </dd>
+</dl>
+<br>
+
+<div class="well well-small" style="text-align: center;">
+  <i class="iconic-eye"></i> Visualizar Mensagem
+</div>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th class="rotulo">Remetente</th>
+      <th class="rotulo" style="text-align: center; width: 20%">Data de Cadastro</th>
+      <th class="rotulo" style="text-align: center; width: 20%"></th>
+      <th class="rotulo"></th>
+    </tr>    
+  </thead>
+  <tbody>
+    <% if !@mensagems.empty? %>
+      <% @mensagems.each do |mensagem| %>
+        <tr>
+          <td><%= mensagem.remetente %></td>
+          <td><%= mensagem.assunto_mensagem %></td>
+          <td><%= mensagem.corpo_mensagem %></td>
+          <td style="text-align: center;">
+            <%= link_to(administrativo_mensagem_path(mensagem), :class => "link-icon", :title => "Visualizar Mensagem", :alt => "Visualizar Mensagem") do %>
+             <i class="iconic-eye icon-white"></i>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="4" style="text-align: center">
+          <font class="text-error" >Não há mensagens cadastradas.</font>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

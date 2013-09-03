@@ -1,2 +1,0 @@
-class MensagemsController < ApplicationController
-end

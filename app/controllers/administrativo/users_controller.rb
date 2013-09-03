@@ -57,7 +57,7 @@ class Administrativo::UsersController < Administrativo::CorretorController
     respond_to do |format|
       if @user.save
         flash[:notice] = flash[:notice].to_a.concat @user.errors.full_messages
-        format.html { redirect_to corretor_users_path, :notice => 'O corretor foi cadastrado com sucesso.' }
+        format.html { redirect_to administrativo_users_path, :notice => 'O corretor foi cadastrado com sucesso.' }
         format.json { render :json => @user, :status => :created, :location => @user }
       else
         # Tirado pois as mensagens estão sendo exibidas usando o padrao vistO NAS PAGINAS HTML.ERB
@@ -87,7 +87,7 @@ class Administrativo::UsersController < Administrativo::CorretorController
  
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to corretor_users_path, :notice => 'O corretor foi atualizado com sucesso.' }
+        format.html { redirect_to administrativo_users_path, :notice => 'O corretor foi atualizado com sucesso.' }
         format.json { head :ok }
       else
         format.html { render :action => "edit" }

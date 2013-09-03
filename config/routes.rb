@@ -10,12 +10,13 @@ ArRails::Application.routes.draw do
   
   devise_for :users, :path_names => {:sign_in => "login", :sign_out => "logout"}, :path => "usr", :skip => [:registrations] 
   
-  match "/corretor" => 'corretor/corretors#index', :as => :user_root
+  match "/administrativo" => 'administrativo/mensagems#index', :as => :user_root
   
-  namespace :corretor do
+  namespace :administrativo do
     match '/' => 'users#index'
     resources :users
     resources :corretors
+    resources :mensagems
     #resources :painel_controle
   end
 
