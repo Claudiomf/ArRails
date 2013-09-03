@@ -188,8 +188,8 @@
     <button class="btn btn-info disabled" type="submit">Alterar</button>
     <button class="btn disabled" type="submit">Remover</button>
   <% else %>
-    <%= link_to 'Alterar', edit_imovel_path(@imovel), :class => "btn btn-info" %>
-    <%= link_to "Remover", imovels_path(@imovel), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse imovel?")}", :class => 'btn' %>
+    <%= link_to 'Alterar', edit_administrativo_imovel_path(@imovel), :class => "btn btn-info" %>
+    <%= link_to "Remover", administrativo_imovels_path(@imovel), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse imovel?")}", :class => 'btn' %>
   <% end %>
   -->
 </div>

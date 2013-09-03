@@ -45,7 +45,7 @@ function mostraCampoVendedor(){
 </div> 
 
 <fieldset>
-<%= nested_form_for(@imovel, :html => {:multipart => true}) do |f| %>
+<%= nested_form_for([:administrativo, @imovel], :html => {:multipart => true}) do |f| %>
 
   <% if @imovel.errors.any? %>
   <div class="alert alert-error">

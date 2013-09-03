@@ -96,7 +96,7 @@ class Administrativo::ImovelsController < Administrativo::CorretorController
     
     respond_to do |format|
       if @imovel.save
-        format.html { redirect_to @imovel, notice: 'Imóvel foi cadastrado com sucesso.' }
+        format.html { redirect_to administrativo_imovels_path, notice: 'Imóvel foi cadastrado com sucesso.' }
         format.json { render json: @imovel, status: :created, location: @imovel }
       else
         format.html { render action: "new" }
@@ -121,7 +121,7 @@ class Administrativo::ImovelsController < Administrativo::CorretorController
  
     respond_to do |format|
       if @imovel.update_attributes(params[:imovel])
-        format.html { redirect_to @imovel, notice: 'Imóvel atualizado com sucesso.' }
+        format.html { redirect_to administrativo_imovels_path, notice: 'Imóvel atualizado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -135,14 +135,14 @@ class Administrativo::ImovelsController < Administrativo::CorretorController
   # Método para remover um imovel, mas ele não remove realmente, apenas seta o imovel para inativo mantendo seu registro no banco.
   def destroy
     @imovel = Imovel.find(params[:id])
-    #@imovel.destroy
+    # @imovel.destroy
     
     
     #@imovel.attributes = {:ativo => false}
 
     respond_to do |format|
       if @imovel.update_attributes(params[:imovel])
-        format.html { redirect_to imovels_url, notice: 'Imóvel removido com sucesso.'  }
+        format.html { redirect_to administrativo_imovels_url, notice: 'Imóvel removido com sucesso.'  }
         format.json { head :no_content }
       else
         format.html { render action: "destroy" }

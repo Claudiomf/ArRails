@@ -14,7 +14,7 @@
 </form>
 
 <div class="well well-small" style="text-align: center;">
-  <i class="icon-search"></i> Visualizar | <i class="icon-pencil"></i> Alterar | <i class="icon-trash"></i> Remover |<%= link_to(new_imovel_path, :class => "btn btn-link link-icon") do %><i class="icon-plus-sign"></i> Cadastrar Imóvel <% end %>
+  <i class="icon-search"></i> Visualizar | <i class="icon-pencil"></i> Alterar | <i class="icon-trash"></i> Remover |<%= link_to(new_administrativo_imovel_path, :class => "btn btn-link link-icon") do %><i class="icon-plus-sign"></i> Cadastrar Imóvel <% end %>
 </div>
 
 <table class="table table-bordered">
@@ -36,17 +36,17 @@
           
           
           <td style="text-align: center;" width="15%" valign="middle;" rowspan="2">
-            <%= link_to(imovel, :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
+            <%= link_to(administrativo_imovel_path(imovel), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
              <i class="icon-search icon-white"></i>
             <% end %> |
             <% if !imovel.vendido? %>
-              <%= link_to(edit_imovel_path(imovel), :class => "link-icon", :title => "Alterar") do %>
+              <%= link_to(edit_administrativo_imovel_path(imovel), :class => "link-icon", :title => "Alterar") do %>
                <i class="icon-pencil icon-white"></i>
               <% end %> |
             <% else %>
               <i class="icon-pencil icon-white"></i> |
             <% end %>
-            <%= link_to(imovel, :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este imóvel?")}", :class => "link-icon", :title => "Remover" ) do %>
+            <%= link_to(administrativo_imovel_path(imovel), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este imóvel?")}", :class => "link-icon", :title => "Remover" ) do %>
              <i class="icon-trash icon-white"></i>
             <% end %>
         </tr>
