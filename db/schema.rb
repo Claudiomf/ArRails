@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130827001024) do
+ActiveRecord::Schema.define(:version => 20130903021342) do
 
   create_table "caracteristica_imovels", :force => true do |t|
     t.string   "descricao",  :limit => 300
@@ -114,6 +114,26 @@ ActiveRecord::Schema.define(:version => 20130827001024) do
     t.foreign_key ["imovel_id"], "imovels", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_item_imovels_imovel_id"
   end
 
+  create_table "mensagems", :force => true do |t|
+    t.string   "remetente"
+    t.string   "email"
+    t.string   "telefone"
+    t.string   "assunto_mensagem"
+    t.string   "corpo_mensagem"
+    t.boolean  "lida"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "mensagems_corretors", :id => false, :force => true do |t|
+    t.integer "mensagem_id"
+    t.integer "corretor_id"
+    t.index ["corretor_id"], :name => "fk__mensagems_corretors_corretor_id", :order => {"corretor_id" => :asc}
+    t.index ["mensagem_id"], :name => "fk__mensagems_corretors_mensagem_id", :order => {"mensagem_id" => :asc}
+    t.foreign_key ["corretor_id"], "pessoas", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_mensagems_corretors_corretor_id"
+    t.foreign_key ["mensagem_id"], "mensagems", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_mensagems_corretors_mensagem_id"
+  end
+
   create_table "roles", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -148,6 +168,12 @@ ActiveRecord::Schema.define(:version => 20130827001024) do
     t.index ["user_id"], :name => "fk__roles_users_user_id", :order => {"user_id" => :asc}
     t.foreign_key ["role_id"], "roles", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_roles_users_role_id"
     t.foreign_key ["user_id"], "users", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_roles_users_user_id"
+  end
+
+  create_table "tipo_mensagems", :force => true do |t|
+    t.string   "descricao",  :limit => 60
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
   end
 
 end

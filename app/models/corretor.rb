@@ -7,6 +7,8 @@ class Corretor < PessoaFisica
   #has_one :pessoa_fisica, dependent: :destroy
   has_one :user, dependent: :destroy
   
+  has_and_belongs_to_many :mensagems
+  
   accepts_nested_attributes_for :user, :allow_destroy => true
   
   validates :creci, :presence => { :message => "CRECI não pode ficar em branco." }

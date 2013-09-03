@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
@@ -44,4 +46,20 @@
   
   transacao2 = TransacaoImovel.create!(:descricao => 'Venda')
   transacao2.save
+  
+  # Criar tipos de mensagem
+  tipo_mensagem1 = TipoMensagem.create!(:descricao => 'Atendimento')
+  tipo_mensagem1.save
+  
+  tipo_mensagem2 = TipoMensagem.create!(:descricao => 'Encomenda de Imóvel')
+  tipo_mensagem2.save
+  
+  tipo_mensagem3 = TipoMensagem.create!(:descricao => 'Anúncio de Imóvel')
+  tipo_mensagem3.save
+  
+  tipo_mensagem4 = TipoMensagem.create!(:descricao => 'Solicitação de Cadastro de Imóvel')
+  tipo_mensagem4.save
+  
+  tipo_mensagem5 = TipoMensagem.create!(:descricao => 'Outro')
+  tipo_mensagem5.save
   
