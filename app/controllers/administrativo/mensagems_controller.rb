@@ -30,4 +30,8 @@ class Administrativo::MensagemsController < Administrativo::CorretorController
     end
   end
   
+  def apagar_mensagens
+    
+  end
+  
 end

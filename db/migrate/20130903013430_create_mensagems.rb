@@ -10,7 +10,7 @@ class CreateMensagems < ActiveRecord::Migration
       t.string :telefone
       
       t.string :assunto_mensagem
-      t.string :corpo_mensagem
+      t.text :corpo_mensagem
       
       t.boolean :lida, :null => false, :default => 'false'
       

@@ -11,9 +11,11 @@
   <i class="iconic-comment"></i> Mensagem não lida | <i class="iconic-comment-stroke"></i> Mensagem lida | <i class="iconic-eye"></i> Visualizar Mensagem
 </div>
 
+   <%= link_to 'Apagar', new_administrativo_corretor_path %>: mandar para a action para percorrer a lista de mensagens e excluí-las.
 <table class="table table-bordered">
   <thead>
     <tr>
+      <th class="rotulo" style="width: 4%"></th>
       <th class="rotulo" style="width: 4%"></th>
       <th class="rotulo">Remetente</th>
       <th class="rotulo" style="text-align: left;">Assunto</th>
@@ -26,6 +28,7 @@
     <% if !@mensagems.empty? %>
       <% @mensagems.each do |mensagem| %>
         <tr class=<%= mensagem.lida? ? '' : 'success' %> >
+          <td style="width: 4%; text-align: center;"><input type="checkbox" name="option1" value="Milk"></td>
           <td style="text-align: center;"><i class=<%= mensagem.lida? ? 'iconic-comment-stroke' : 'iconic-comment' %> title="Mensagem <%= mensagem.lida? ? 'lida' : 'não lida' %>" alt="Mensagem <%= mensagem.lida? ? 'lida' : 'não lida' %>"></i> </td>
           <td style="width: 20%" nowrap><%= mensagem.remetente %></td>
           <td><%= mensagem.assunto_mensagem %></td>
