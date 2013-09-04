@@ -40,10 +40,14 @@ class Imovel < ActiveRecord::Base
 
   # Metodo chamado depois de salvar o imovel, ele deve atualizar o contador do tipo_imovel                  
   def incrementa_contador_tipo_imovel
-    # Traz o imovel cujo id é igual ao do campo tipo_imovel_id do imovel    
-    tipo_imovel =  TipoImovel.find(tipo_imovel_id)
     
-    tipo_imovel.increment!(:contador_tipo_imovel) if !tipo_imovel.nil?
+    # So incrementa o contador do tipo de imovel se for no cadastro.
+    if self.id.nil?
+      # Traz o imovel cujo id é igual ao do campo tipo_imovel_id do imovel    
+      tipo_imovel =  TipoImovel.find(tipo_imovel_id)
+      
+      tipo_imovel.increment!(:contador_tipo_imovel) if !tipo_imovel.nil?      
+    end
   end
                     
   
@@ -58,7 +62,10 @@ class Imovel < ActiveRecord::Base
   end
   
   def conferir_dados
-    preencher_codigo_referencia
+    # So calcula o codigo de referencia se for no cadastro
+    if self.id.nil?
+      preencher_codigo_referencia      
+    end
   end
   
   
