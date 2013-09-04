@@ -15,8 +15,9 @@
   <thead>
     <tr>
       <th class="rotulo">Remetente</th>
+      <th class="rotulo">Tipo</th>
+      <th class="rotulo" style="text-align: left; width: 20%">Assunto</th>
       <th class="rotulo" style="text-align: center; width: 20%">Data de Cadastro</th>
-      <th class="rotulo" style="text-align: center; width: 20%"></th>
       <th class="rotulo"></th>
     </tr>    
   </thead>
@@ -25,6 +26,7 @@
       <% @mensagems.each do |mensagem| %>
         <tr>
           <td><%= mensagem.remetente %></td>
+          <td><%= mensagem.tipo_mensagem.descricao %></td>
           <td><%= mensagem.assunto_mensagem %></td>
           <td><%= mensagem.corpo_mensagem %></td>
           <td style="text-align: center;">

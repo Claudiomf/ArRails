@@ -114,7 +114,14 @@ ActiveRecord::Schema.define(:version => 20130903021342) do
     t.foreign_key ["imovel_id"], "imovels", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_item_imovels_imovel_id"
   end
 
+  create_table "tipo_mensagems", :force => true do |t|
+    t.string   "descricao",  :limit => 60
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
   create_table "mensagems", :force => true do |t|
+    t.integer  "tipo_mensagem_id"
     t.string   "remetente"
     t.string   "email"
     t.string   "telefone"
@@ -123,6 +130,8 @@ ActiveRecord::Schema.define(:version => 20130903021342) do
     t.boolean  "lida"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.index ["tipo_mensagem_id"], :name => "fk__mensagems_tipo_mensagem_id", :order => {"tipo_mensagem_id" => :asc}
+    t.foreign_key ["tipo_mensagem_id"], "tipo_mensagems", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_mensagems_tipo_mensagem_id"
   end
 
   create_table "mensagems_corretors", :id => false, :force => true do |t|
@@ -168,12 +177,6 @@ ActiveRecord::Schema.define(:version => 20130903021342) do
     t.index ["user_id"], :name => "fk__roles_users_user_id", :order => {"user_id" => :asc}
     t.foreign_key ["role_id"], "roles", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_roles_users_role_id"
     t.foreign_key ["user_id"], "users", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_roles_users_user_id"
-  end
-
-  create_table "tipo_mensagems", :force => true do |t|
-    t.string   "descricao",  :limit => 60
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
   end
 
 end
