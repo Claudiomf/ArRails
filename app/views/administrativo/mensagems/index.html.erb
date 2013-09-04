@@ -8,25 +8,29 @@
 <br>
 
 <div class="well well-small" style="text-align: center;">
-  <i class="iconic-eye"></i> Visualizar Mensagem
+  <i class="iconic-comment"></i> Mensagem não lida | <i class="iconic-comment-stroke"></i> Mensagem lida | <i class="iconic-eye"></i> Visualizar Mensagem
 </div>
 
 <table class="table table-bordered">
   <thead>
     <tr>
+      <th class="rotulo" style="width: 4%"></th>
       <th class="rotulo">Remetente</th>
-      <th class="rotulo" style="text-align: center; width: 20%">Data de Cadastro</th>
-      <th class="rotulo" style="text-align: center; width: 20%"></th>
-      <th class="rotulo"></th>
+      <th class="rotulo" style="text-align: left;">Assunto</th>
+      <th class="rotulo">Tipo</th>
+      <th class="rotulo" style="text-align: center;" nowrap>Data de Cadastro</th>
+      <th class="rotulo" style="width: 8%"></th>
     </tr>    
   </thead>
   <tbody>
     <% if !@mensagems.empty? %>
       <% @mensagems.each do |mensagem| %>
-        <tr>
-          <td><%= mensagem.remetente %></td>
+        <tr class=<%= mensagem.lida? ? '' : 'success' %> >
+          <td style="text-align: center;"><i class=<%= mensagem.lida? ? 'iconic-comment-stroke' : 'iconic-comment' %> title="Mensagem <%= mensagem.lida? ? 'lida' : 'não lida' %>" alt="Mensagem <%= mensagem.lida? ? 'lida' : 'não lida' %>"></i> </td>
+          <td style="width: 20%" nowrap><%= mensagem.remetente %></td>
           <td><%= mensagem.assunto_mensagem %></td>
-          <td><%= mensagem.corpo_mensagem %></td>
+          <td style="width: 4%;" nowrap><%= mensagem.tipo_mensagem.descricao %></td>
+          <td style="width: 5%; text-align: center;" nowrap><%= l(mensagem.created_at, :format => :sample) %></td>
           <td style="text-align: center;">
             <%= link_to(administrativo_mensagem_path(mensagem), :class => "link-icon", :title => "Visualizar Mensagem", :alt => "Visualizar Mensagem") do %>
              <i class="iconic-eye icon-white"></i>
@@ -36,7 +40,7 @@
       <% end %>
     <% else %>
       <tr>
-        <td colspan="4" style="text-align: center">
+        <td colspan="5" style="text-align: center">
           <font class="text-error" >Não há mensagens cadastradas.</font>
         </td>
       </tr>

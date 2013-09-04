@@ -8,4 +8,15 @@ class Mensagem < ActiveRecord::Base
   
   attr_accessible :tipo_mensagem_id, :remetente, :email, :celular, :assunto_mensagem,
                   :corpo_mensagem, :lida, :visualizada_por_ids
+                  
+  def visualizou(corretor)
+    if self.corretors.empty? or corretors.where('corretor_id = '+ corretor.id.to_s).empty?
+      self.visualizou_mensagem(corretor)
+    end
+  end
+  
+  # Método que acrescenta o corretor que está visualizando a imagem à lista de quem visualizou.
+  def visualizou_mensagem(corretor)
+    self.corretors<<(corretor)
+  end
 end

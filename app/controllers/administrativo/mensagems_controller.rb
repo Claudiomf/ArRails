@@ -6,20 +6,22 @@ class Administrativo::MensagemsController < Administrativo::CorretorController
     
     respond_to do |format|
       format.html # index.html.erb
-      #format.json { render :json => @corretors }
+      format.json { render :json => @mensagems }
     end
   end
   
   def show
     
-    # Verificar se o corretor logado já visualizou a mensagem, se não coloca ele na lista
-    # de quem visualizou na tabela mensagems_corretors
-    
     #Popular objeto mensagem
     @mensagem = Mensagem.find(params[:id])
     
+    # Verificar se o corretor logado já visualizou a mensagem, se não coloca ele na lista
+    # de quem visualizou na tabela mensagems_corretors
+    @mensagem.visualizou(current_user.corretor)
+    
     if !@mensagem.lida
-      @mensagem.attributes = {:lida => 'true'}
+      @mensagem.update_attributes :lida => 'true'
+      #@mensagem.attributes = {:lida => 'true'}
     end
     
     respond_to do |format|
