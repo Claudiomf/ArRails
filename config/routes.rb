@@ -15,6 +15,9 @@ ArRails::Application.routes.draw do
     match '/' => 'users#index'
     resources :users
     resources :corretors
+    
+    match '/apagar_mensagens' => 'mensagems#apagar_mensagens'
+    
     resources :mensagems
     resources :imovels, :path => "imoveis"
     #resources :painel_controle

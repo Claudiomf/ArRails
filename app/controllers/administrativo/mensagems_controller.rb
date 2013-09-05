@@ -32,8 +32,9 @@ class Administrativo::MensagemsController < Administrativo::CorretorController
     end
   end
   
+  # Acao que apaga um conjunto de mensagens da tela inicial que são selecionadas através de um checkbox
   def apagar_mensagens
-    
+        
   end
   
 end
