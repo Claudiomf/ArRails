@@ -1,0 +1,47 @@
+<h2 class="h2-pages">Visualização da mensagem</h2>
+
+<div style="padding: 12px;">
+  <% size = @mensagem.corretors.length %>
+    <% @mensagem.corretors.each_with_index do |corretor, i| %>
+    <font class="muted">
+      <% if size > 1 %>
+        <% case i %>
+          <% when (size-2) %>
+            <!-- Penultimo elemento da lista -->
+            <strong><em><%= corretor.nome %></em></strong>
+          <% when (size-1) %>
+            <!-- Ultimo elemento da lista -->
+            e <strong><em><%= corretor.nome %></em></strong> visualizaram esta mensagem.
+          <% else %>
+            <strong><em><%= corretor.nome %></em></strong>, 
+          <% end %>
+      <% else %>
+          <strong><em><%= corretor.nome %></em></strong> visualizou esta mensagem.
+      <% end %>
+    </font>
+    <% end %>
+</div>
+
+<table class="table table-visualizacao">
+  <tbody>
+    <tr>
+    <td><h5><strong>Assunto:</strong> <%= @mensagem.assunto_mensagem %></h5></td>
+  </tr>
+  <tr>
+    <td><strong>Remetente:</strong> <%= @mensagem.remetente %></td>
+  </tr>
+  <tr>
+    <td><strong>Email:</strong> <%= @mensagem.email %></td>
+  </tr>
+  <tr>
+    <td><strong>Telefone:</strong> <%= @mensagem.telefone %></td>
+  </tr>
+  <tr>
+    <td><strong>Mensagem:</strong> <%= @mensagem.corpo_mensagem %></td>
+  </tr>
+  </tbody>
+</table>
+<div class="form-actions-white">
+  <%= link_to "Voltar", administrativo_mensagems_path, :class => 'btn'  %>
+  <%= link_to "Remover", administrativo_corretor_path(@corretor), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse corretor ?")}", :class => 'btn' %>
+</div>

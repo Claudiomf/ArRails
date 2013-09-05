@@ -7,7 +7,7 @@ class TipoMensagem < ActiveRecord::Base
   SOLICITACAO_CADASTRO_IMOVEL = 4
   OUTRO = 5
   
-  has_many :mensagem
+  has_many :mensagems
   
   attr_accessible :descricao
 end
