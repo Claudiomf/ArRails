@@ -8,7 +8,10 @@ class Administrativo::ImovelsController < Administrativo::CorretorController
     #@imovels = Imovel.all
    
    #Traz apenas os imoveis ativos
-   @imovels = Imovel.all.select { |i| i.ativo == true }
+   # Isso vai no controller do cliente. Só os ativos aparecem
+   #@imovels = Imovel.all.select { |i| i.ativo == true }
+   
+   @imovels = Imovel.paginate :page => params[:page], :order => 'created_at DESC', :per_page => 10
    
   # Mapa para guardar os valores das transacoes associadas a cada imovel.
   # key: imovel_id, value: lista com [0]:transacao, [1]: tipos, [2] responsavel

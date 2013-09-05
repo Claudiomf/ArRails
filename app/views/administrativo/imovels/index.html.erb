@@ -85,7 +85,7 @@
       <% end %>
       <% else %>
       <tr>
-        <td colspan="3" style="text-align: center">
+        <td colspan="4" style="text-align: center">
           <font class="text-error" >Não há imóveis cadastrados.</font>
         </td>
       </tr>
@@ -94,5 +94,6 @@
 
 </table>
 
+<%= will_paginate @imovels, :class => 'pagination pagination-centered' %>
 <br />
 

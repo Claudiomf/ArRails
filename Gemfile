@@ -46,6 +46,10 @@ gem 'brazilian-rails'
 gem 'carrierwave'
 gem 'rmagick'
 
+# Para a paginacao
+#gem 'will_paginate', :git => "git://github.com/mislav/will_paginate.git"
+gem "will_paginate", "~> 3.0.pre2"
+
 gem "schema_plus"
 
 # para modelos aninhados

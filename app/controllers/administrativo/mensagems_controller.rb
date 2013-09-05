@@ -2,7 +2,9 @@
 class Administrativo::MensagemsController < Administrativo::CorretorController
   def index
     
-    @mensagems = Mensagem.order('created_at')
+    #@mensagems = Mensagem.order('created_at')
+    #@mensagems = Mensagem.paginate :all, :page => params[:page], :per_page => 2
+    @mensagems = Mensagem.paginate :page => params[:page], :order => 'created_at DESC', :per_page => 15
     
     respond_to do |format|
       format.html # index.html.erb

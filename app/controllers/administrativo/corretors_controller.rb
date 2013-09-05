@@ -7,6 +7,8 @@ class Administrativo::CorretorsController < Administrativo::CorretorController
     @search = Corretor.search(params[:q])
     @corretors = @search.result
     
+    @corretors = Corretor.paginate :page => params[:page], :order => 'created_at DESC', :per_page => 10
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @corretors }
