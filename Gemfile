@@ -53,6 +53,9 @@ gem 'nested_form'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
+# Fog is used to support Amazon S3.
+gem "fog", "~> 1.3.1"
+
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
