@@ -135,19 +135,14 @@ class Administrativo::ImovelsController < Administrativo::CorretorController
   # Método para remover um imovel, mas ele não remove realmente, apenas seta o imovel para inativo mantendo seu registro no banco.
   def destroy
     @imovel = Imovel.find(params[:id])
-    # @imovel.destroy
+    @imovel.destroy
     
     
     #@imovel.attributes = {:ativo => false}
 
     respond_to do |format|
-      if @imovel.update_attributes(params[:imovel])
-        format.html { redirect_to administrativo_imovels_url, notice: 'Imóvel removido com sucesso.'  }
-        format.json { head :no_content }
-      else
-        format.html { render action: "destroy" }
-        format.json { render json: @imovel.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to administrativo_imovels_url, :notice => 'O imóvel foi removido com sucesso.' }
+      format.json { head :ok }
     end
   end
   

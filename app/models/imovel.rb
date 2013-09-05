@@ -42,12 +42,10 @@ class Imovel < ActiveRecord::Base
   def incrementa_contador_tipo_imovel
     
     # So incrementa o contador do tipo de imovel se for no cadastro.
-    if self.id.nil?
-      # Traz o imovel cujo id é igual ao do campo tipo_imovel_id do imovel    
-      tipo_imovel =  TipoImovel.find(tipo_imovel_id)
-      
-      tipo_imovel.increment!(:contador_tipo_imovel) if !tipo_imovel.nil?      
-    end
+    # Traz o imovel cujo id é igual ao do campo tipo_imovel_id do imovel    
+    tipo_imovel =  TipoImovel.find(tipo_imovel_id)
+    
+    tipo_imovel.increment!(:contador_tipo_imovel) if !tipo_imovel.nil?      
   end
                     
   

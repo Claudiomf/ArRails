@@ -93,7 +93,7 @@ class Administrativo::CorretorsController < Administrativo::CorretorController
     @corretor.destroy
 
     respond_to do |format|
-      format.html { redirect_to corretor_corretors_url, :notice => 'O corretor foi removido com sucesso.' }
+      format.html { redirect_to administrativo_corretors_url, :notice => 'O corretor foi removido com sucesso.' }
       format.json { head :ok }
     end
   end
