@@ -19,7 +19,6 @@
               </a>
               <%= link_to("AR Imóveis", root_path, :class => "brand") %>
               
-               <!-- <%= image_tag("logo_ar_imoveis.png") %> -->
                
               <div class="nav-collapse collapse navbar-responsive-collapse">
                 <ul class="nav">
@@ -113,31 +112,6 @@
                       </ul>
                     </li>
                   <% else%>
-                      <!-- Login Modal -->
-                      <!--
-                      <li>
-                        #<a href="#myModal" role="button" class="link" data-toggle="modal"><i class="iconic-key-stroke"></i> Login</a>
-                        
-                        <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  
-                            <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                              <h2 id="myModalLabel">Login</h2>
-                            </div>
-                            <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :class => "form-horizontal" ) do |f| -%>
-                            <div class="modal-body">
-                              
-                                <%= render :partial => "devise/sessions/new", :locals => {:f => f} %>
-                            </div>
-                            <div class="modal-footer">
-                              <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>    
-                                <%= f.submit "Entrar", :class => "btn btn-primary" %>
-                              
-                            </div>
-                            <% end -%>
-                            
-                        </div>
-                      -->
                       </li>
                       <li class="dropdown" id="menuLogin">
                       <a class="dropdown-toggle" href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="200" data-close-others="true" id="navLogin"><i class="iconic-key-stroke"></i> Login<strong class="caret"></strong></a>
