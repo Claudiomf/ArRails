@@ -1,37 +1,4 @@
 <script type="text/javascript">
-  var oTable;
-   
-  $(document).ready(function() {
-      $('#form').submit( function() {
-          var sData = oTable.$('input').serialize();
-          alert( "The following data would have been submitted to the server: \n\n"+sData );
-          return false;
-      } );
-       
-      oTable = $('#example').dataTable();
-  } );
-  
-  $(document).ready(function(){
-    oTable2 = $('#example').dataTable({
-      "bPaginate": true,
-    "bJQueryUI": false,
-    "sPaginationType": "full_numbers",
-    "oLanguage": {
-      "sZeroRecords": "Nenhum registro encontrado",
-      "sInfo": "Mostrando _START_ / _END_ de _TOTAL_ registro(s)",
-      "sInfoEmpty": "Mostrando 0 / 0 de 0 registros",
-      "oPaginate": { "sFirst": "Início", "sPrevious": "Anterior", "sNext": "Próximo", "sLast": "Último" }
-      }
-    });
-    
-  });
-  
-  function liberar_botao2(botao, checkbox) {
-     if (checkbox.checked)
-      botao.disabled = false;
-     else if (!checkbox.checked)
-      botao.disabled = true;
-  }
   
   //Variavel que conta a quantidade de checkbox marcados
   var COUNT_CHECKBOX = 0;

@@ -12,6 +12,4 @@
  *= require bootstrap_and_overrides
  *= require jasny-bootstrap
  *= require_tree .
- *= require dataTables/src/demo_table_jui
- *= require dataTables/jquery.dataTables
 */
