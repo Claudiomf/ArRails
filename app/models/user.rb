@@ -13,12 +13,15 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable#
          #, :validatable
          
-  validates :username, presence: true
+  validates :username, presence: true, :uniqueness => { :case_sensitive => false  }
   validates :email, presence: true
   validates :password, presence: true
 
+  # Virtual attribute for authenticating by either username or email
+  # This is in addition to a real persisted field like 'username'
+  attr_accessor :login
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :role_ids 
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :role_ids, :login
 
   before_save :setup_role
   
@@ -54,6 +57,16 @@ class User < ActiveRecord::Base
     end
     if (Imovel.count_by_sql "SELECT COUNT(*) FROM imovels i WHERE i.vendedor_id = " +corretor.id.to_s) > 0
       return false
+    end
+  end
+  
+  
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+        where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+    else
+        where(conditions).first
     end
   end
 end
