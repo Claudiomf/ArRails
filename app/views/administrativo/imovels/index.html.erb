@@ -14,9 +14,14 @@
 </form>
 
 <div class="well well-small" style="text-align: center;">
-  <i class="icon-search"></i> Visualizar | <i class="icon-pencil"></i> Alterar | <i class="icon-trash"></i> Remover |<%= link_to(new_administrativo_imovel_path, :class => "btn btn-link link-icon") do %><i class="icon-plus-sign"></i> Cadastrar Imóvel <% end %>
+  <i class="icon-search"></i> Visualizar | <i class="icon-pencil"></i> Alterar | <i class="icon-trash"></i> Remover
 </div>
 
+<div>
+  <%= link_to(new_administrativo_imovel_path, :class => "btn btn-success") do %><i class="icon-plus"></i> Cadastrar Imóvel <% end %>
+</div>
+
+<br>
 <table class="table table-bordered">
   <thead>
     <tr>

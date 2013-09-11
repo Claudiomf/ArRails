@@ -1,3 +1,54 @@
+<script type="text/javascript">
+  var oTable;
+   
+  $(document).ready(function() {
+      $('#form').submit( function() {
+          var sData = oTable.$('input').serialize();
+          alert( "The following data would have been submitted to the server: \n\n"+sData );
+          return false;
+      } );
+       
+      oTable = $('#example').dataTable();
+  } );
+  
+  $(document).ready(function(){
+    oTable2 = $('#example').dataTable({
+      "bPaginate": true,
+    "bJQueryUI": false,
+    "sPaginationType": "full_numbers",
+    "oLanguage": {
+      "sZeroRecords": "Nenhum registro encontrado",
+      "sInfo": "Mostrando _START_ / _END_ de _TOTAL_ registro(s)",
+      "sInfoEmpty": "Mostrando 0 / 0 de 0 registros",
+      "oPaginate": { "sFirst": "Início", "sPrevious": "Anterior", "sNext": "Próximo", "sLast": "Último" }
+      }
+    });
+    
+  });
+  
+  function liberar_botao2(botao, checkbox) {
+     if (checkbox.checked)
+      botao.disabled = false;
+     else if (!checkbox.checked)
+      botao.disabled = true;
+  }
+  
+  //Variavel que conta a quantidade de checkbox marcados
+  var COUNT_CHECKBOX = 0;
+  
+  function liberar_botao_excluir(botao, checkbox) {
+    if(checkbox.checked)
+      COUNT_CHECKBOX++;
+    else
+      COUNT_CHECKBOX--;
+    
+    if(COUNT_CHECKBOX>0)
+      botao.disabled = false;
+    else
+      botao.disabled = true;
+  }
+</script>
+
 <h1>Mensagens</h1>
 
 <dl>
@@ -8,53 +59,58 @@
 <br>
 
 <div class="well well-small" style="text-align: center;">
-  <i class="iconic-comment"></i> Mensagem não lida | <i class="iconic-comment-stroke"></i> Mensagem lida | <i class="iconic-eye"></i> Visualizar Mensagem
+  <i class="iconic-comment"></i> Mensagem não lida | <i class="iconic-comment-stroke"></i> Mensagem lida
 </div>
 
-<table width="100%">
-  <tr>
-    <td width="40px"></td>    
-    <td style="border: 2px; float: right"><%= link_to "Excluir mensagens", administrativo_apagar_mensagens_path, :class => 'btn btn-danger disabled' %></td>
-  </tr>
-  <tr>
-    <th colspan="2" style="height: 6px;"></th>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th class="rotulo" style="width: 4%"></th>
-            <th class="rotulo" style="width: 4%"></th>
-            <th class="rotulo">Remetente</th>
-            <th class="rotulo" style="text-align: left;">Assunto</th>
-            <th class="rotulo">Tipo</th>
-            <th class="rotulo" style="text-align: center;" nowrap>Data de Cadastro</th>
-          </tr>    
-        </thead>
-        <tbody data-provides="rowlink">
-          <% if !@mensagems.empty? %>
-            <% @mensagems.each do |mensagem| %>
-              <tr class=<%= mensagem.lida? ? '' : 'success' %>>
-                <td style="width: 4%; text-align: center;" class="nolink"><input type="checkbox" name="option1" value="Milk"></td>
-                <td style="text-align: center;"><i class=<%= mensagem.lida? ? 'iconic-comment-stroke' : 'iconic-comment' %> title="Mensagem <%= mensagem.lida? ? 'lida' : 'não lida' %>" alt="Mensagem <%= mensagem.lida? ? 'lida' : 'não lida' %>"></i> </td>
-                <td style="width: 20%" nowrap><%= mensagem.remetente %></td>
-                <td><%= mensagem.assunto_mensagem %> <%= link_to "", administrativo_mensagem_path(mensagem) %></td>
-                <td style="width: 4%;" nowrap><%= mensagem.tipo_mensagem.descricao %></td>
-                <td style="width: 5%; text-align: center;" nowrap><%= l(mensagem.created_at, :format => :sample) %></td>
+<%= form_tag({controller: "mensagems", action: "apagar_mensagens"}, :html => { :class => :form, :id => "form" }) do |f| -%>
+  <table width="100%">
+    <tr>
+      <td width="40px"></td>    
+      <td style="border: 2px; float: right"><button class="btn btn-danger" type="submit" name="botao_excluir" disabled>Excluir mensagens</button></td>
+    </tr>
+    <tr>
+      <th colspan="2" style="height: 6px;"></th>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <table class="table table-bordered" id="lista_mensagens">
+          <thead>
+            <tr>
+              <th class="rotulo" style="width: 4%"></th>
+              <th class="rotulo" style="width: 4%"></th>
+              <th class="rotulo">Remetente</th>
+              <th class="rotulo" style="text-align: left;">Assunto</th>
+              <th class="rotulo">Tipo</th>
+              <th class="rotulo" style="text-align: center;" nowrap>Data de Cadastro</th>
+            </tr>    
+          </thead>
+          <tbody data-provides="rowlink">
+            <% if !@mensagems.empty? %>
+              <% @mensagems.each do |mensagem| %>
+                <tr class=<%= mensagem.lida? ? '' : 'success' %>>
+                  <td style="width: 4%; text-align: center;" class="nolink">
+                    <%= check_box_tag("mensagem_ids[]", mensagem.id, false, :onclick => "liberar_botao_excluir(botao_excluir, this);") %>
+                  </td>
+                  <td style="text-align: center;"><i class=<%= mensagem.lida? ? 'iconic-comment-stroke' : 'iconic-comment' %> title="Mensagem <%= mensagem.lida? ? 'lida' : 'não lida' %>" alt="Mensagem <%= mensagem.lida? ? 'lida' : 'não lida' %>"></i> </td>
+                  <td style="width: 20%" nowrap><%= mensagem.remetente %></td>
+                  <td><%= mensagem.assunto_mensagem %> <%= link_to "", administrativo_mensagem_path(mensagem) %></td>
+                  <td style="width: 4%;" nowrap><%= mensagem.tipo_mensagem.descricao %></td>
+                  <td style="width: 5%; text-align: center;" nowrap><%= l(mensagem.created_at, :format => :sample) %></td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr>
+                <td colspan="6" style="text-align: center">
+                  <font class="text-error" >Não há mensagens cadastradas.</font>
+                </td>
               </tr>
             <% end %>
-          <% else %>
-            <tr>
-              <td colspan="5" style="text-align: center">
-                <font class="text-error" >Não há mensagens cadastradas.</font>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>      
-    </td>
-  </tr>
-</table>
+          </tbody>
+        </table>      
+      </td>
+    </tr>
+  </table>
 
-<%= will_paginate @mensagems, :class => 'pagination pagination-centered' %>
+  <%= will_paginate @mensagems, :class => 'pagination pagination-centered' %>
+  
+<% end %>

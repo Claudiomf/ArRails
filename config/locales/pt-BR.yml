@@ -210,3 +210,7 @@ pt-BR:
   activerecord:
     errors:
       <<: *errors
+  # pagination
+  pagination:
+    prev: '<< Anterior '
+    next: ' Próxima >>'

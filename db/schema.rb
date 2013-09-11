@@ -32,10 +32,10 @@ ActiveRecord::Schema.define(:version => 20130903021342) do
     t.string   "email"
     t.string   "telefone"
     t.string   "assunto_mensagem"
-    t.string   "corpo_mensagem"
-    t.boolean  "lida"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.text     "corpo_mensagem"
+    t.boolean  "lida",             :default => false, :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.index ["tipo_mensagem_id"], :name => "fk__mensagems_tipo_mensagem_id", :order => {"tipo_mensagem_id" => :asc}
     t.foreign_key ["tipo_mensagem_id"], "tipo_mensagems", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_mensagems_tipo_mensagem_id"
   end

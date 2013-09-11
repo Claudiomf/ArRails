@@ -21,6 +21,7 @@
 //= require jasny-bootstrap
 //= require_tree .
 //= require jquery_nested_form
+//= require dataTables/jquery.dataTables
 
 /*
  * Project: Twitter Bootstrap Hover Dropdown
