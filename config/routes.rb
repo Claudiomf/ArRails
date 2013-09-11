@@ -1,6 +1,5 @@
 ArRails::Application.routes.draw do
   resources :images
-  resources :caracteristica_imovels
   
   #match '/corretor/corretors' => 'corretor/corretors/users#index', :as => :user_root
 
@@ -18,6 +17,7 @@ ArRails::Application.routes.draw do
     
     match '/apagar_mensagens' => 'mensagems#apagar_mensagens'
     
+    resources :caracteristica_imovels    
     resources :mensagems
     resources :imovels, :path => "imoveis"
     #resources :painel_controle

@@ -16,7 +16,7 @@ Para isto, informe a descrição da característica.</p>
   
   <% end %>
   
-  <%= form_for(@caracteristica_imovel, :html => { :class => :form }) do |f| -%>
+<%= form_for(@caracteristica_imovel, :html => { :class => :form }) do |f| -%>
   
   <%= f.label 'Descrição', :class => "control-label" %>
   <%= f.text_field :descricao, :class => "input-xlarge", :onkeyup => "toUppercase(this);", :maxlength => "300" %>
@@ -30,7 +30,7 @@ Para isto, informe a descrição da característica.</p>
     <button class="btn btn-info" type="submit">Alterar</button>
     <% end %>
     ou 
-    <%= link_to "Cancelar", caracteristica_imovels_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
+    <%= link_to "Cancelar", administrativo_caracteristica_imovels_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
   </div>
 <% end %>
 </fiedset>
