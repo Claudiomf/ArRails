@@ -1,4 +1,5 @@
-class CaracteristicaImovelsController < ApplicationController
+# encoding: utf-8
+class Administrativo::CaracteristicaImovelsController < Administrativo::CorretorController
   def index
     #@caracteristica_imovels = CaracteristicaImovel.all
     
@@ -41,8 +42,8 @@ class CaracteristicaImovelsController < ApplicationController
     
     respond_to do |format|
       if @caracteristica_imovel.save
-        format.html { redirect_to new_caracteristica_imovel_path, notice: 'Caracteristica '+@caracteristica_imovel.descricao+' foi cadastrada com sucesso.' }
-        format.json { render json: @caracteristica_imovel, status: :created, location: new_caracteristica_imovel_path }
+        format.html { redirect_to new_administrativo_caracteristica_imovel_path, notice: 'Caracteristica '+@caracteristica_imovel.descricao+' foi cadastrada com sucesso.' }
+        format.json { render json: @caracteristica_imovel, status: :created, location: new_administrativo_caracteristica_imovel_path }
       else
         format.html { render action: "new" }
         format.json { render json: @caracteristica_imovel.errors, status: :unprocessable_entity }
