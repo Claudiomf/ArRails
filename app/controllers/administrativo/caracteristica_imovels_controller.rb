@@ -42,8 +42,11 @@ class Administrativo::CaracteristicaImovelsController < Administrativo::Corretor
     
     respond_to do |format|
       if @caracteristica_imovel.save
-        format.html { redirect_to new_administrativo_caracteristica_imovel_path, notice: 'Caracteristica '+@caracteristica_imovel.descricao+' foi cadastrada com sucesso.' }
-        format.json { render json: @caracteristica_imovel, status: :created, location: new_administrativo_caracteristica_imovel_path }
+        # Comentado o trecho que direcionava novamente para a tela de cadastro e não a listagem.
+        #format.html { redirect_to new_administrativo_caracteristica_imovel_path, notice: 'Característica '+@caracteristica_imovel.descricao+' foi cadastrada com sucesso.' }
+        #format.json { render json: @caracteristica_imovel, status: :created, location: new_administrativo_caracteristica_imovel_path }
+        format.html { redirect_to administrativo_caracteristica_imovels_path, notice: 'Característica '+@caracteristica_imovel.descricao+' foi cadastrado com sucesso.' }
+        format.json { render json: @caracteristica_imovel, status: :created, location: @caracteristica_imovel }
       else
         format.html { render action: "new" }
         format.json { render json: @caracteristica_imovel.errors, status: :unprocessable_entity }

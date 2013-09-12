@@ -16,7 +16,7 @@ Para isto, informe a descrição da característica.</p>
   
   <% end %>
   
-<%= form_for(@caracteristica_imovel, :html => { :class => :form }) do |f| -%>
+<%= form_for([:administrativo, @caracteristica_imovel], :html => { :class => :form }) do |f| -%>
   
   <%= f.label 'Descrição', :class => "control-label" %>
   <%= f.text_field :descricao, :class => "input-xlarge", :onkeyup => "toUppercase(this);", :maxlength => "300" %>
